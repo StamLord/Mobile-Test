@@ -13,8 +13,12 @@ module.exports.getUser = (req,res) => {
         if(err) {
             res.sendStatus(500);
         } else {
-            if(result)
-                res.send(result);
+            if(result){
+                let {username, pets} = result;
+                const user = {username, pets};
+
+                res.send(user);
+            }
             else
                 res.sendStatus(404);
         }
@@ -71,7 +75,7 @@ module.exports.login = (req, res) => {
     }
 
     const {username, password} = req.body;
-
+    console.log(req.body);
     User.findOne({username, password}, (err, result) =>{
         if(err) {
             res.sendStatus(500);

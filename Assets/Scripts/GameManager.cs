@@ -23,11 +23,10 @@ public class GameManager : MonoBehaviour
 
     void UpdatePets()
     {
-    //    foreach (Pet pet in activePets)
-    //    {
-    //        UpdateStats(pet);
-    //    }
-        UpdateStats(testPet);
+       foreach (ActivePet pet in activePets)
+       {
+           UpdateStats(pet);
+       }
     }
 
     void UpdateStats(ActivePet pet)
@@ -64,6 +63,6 @@ public class GameManager : MonoBehaviour
 
     void LoadPets()
     {
-        StartCoroutine(DataService.GetRequest());
+        StartCoroutine(DataService.Login("testUser1", "testPass1"));
     }
 }
