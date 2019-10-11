@@ -21,13 +21,15 @@ module.exports.getUser = (req,res) => {
     });
 }
 
-module.exports.register = (req,res) => {
-    console.log(req.body);
+module.exports.register = (req, res) => {
     const {username, password, email} = req.body;
 
-    User.estimatedDocumentCount({username}, (err, count) => {
+    User.countDocuments({username}, (err, count) => {
         
-        if(err) res.sendStatus(500);
+        if(err) {
+            res.sendStatus(500);
+            return;
+        }
 
         if(count > 0){
             // Username exists
@@ -35,7 +37,10 @@ module.exports.register = (req,res) => {
         } else {
             User.count({email}, (err, count) => {
                 
-                if(err) res.sendStatus(500);
+                if(err) {
+                    res.sendStatus(500);
+                    return;
+                }
 
                 if(count > 0){
                     // Email exists
@@ -45,14 +50,41 @@ module.exports.register = (req,res) => {
                         username,
                         password,
                         email
-                    } , (err, res) => {
-                        if(err) res.sendStatus(500);
-                        console.log(res);
-                    })
+                    } , (err, result) => {
+                        if(err) {
+                            res.sendStatus(500);
+                            return;
+                        }
+                        res.sendStatus(201);
+                    });
                 }
             });
         }
     });
+}
 
+module.exports.login = (req, res) => {
     
+    if(!req.body){ 
+        res.sendStatus(404);
+        return;
+    }
+
+    const {username, password} = req.body;
+
+    User.findOne({username, password}, (err, result) =>{
+        if(err) {
+            res.sendStatus(500);
+            return;
+        }
+
+        if(result) {
+            let user = result;
+            user.password = undefined;
+            
+            res.send(user);
+        } else {
+            res.status(404).send({msg: 'Invalid credentials'});
+        }
+    })
 }

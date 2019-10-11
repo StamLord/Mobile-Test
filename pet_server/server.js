@@ -8,12 +8,13 @@ const config = require('./config');
 mongoose.connect(config.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
+}).catch((err) => console.log(err));
 
 mongoose.connection.once('open', () => {
 
     console.log('Connected to database');
     
+    app.use(express.json());
     app.use('/api', routes);
     app.listen('5000', () => console.log('Server is running'));
 })
