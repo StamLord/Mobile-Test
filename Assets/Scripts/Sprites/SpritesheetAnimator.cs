@@ -8,25 +8,19 @@ public class SpritesheetAnimator : MonoBehaviour
     private float timer;
     private int frame = 0; // Current frame
 
-    public enum State { Idle, Happy, Eat};
+    public enum State { Idle, Happy, Eating};
     public State state = State.Idle;
     // Sprites
 
     [SerializeField]
-    Sprite[] idle = new Sprite[2];
-
-    [SerializeField]
-    Sprite[] happy = new Sprite[2];
-
-    [SerializeField]
-    Sprite[] eat = new Sprite[2];
+    public Spritesheet spritesheet;
 
     SpriteRenderer rend;
 
     private void Awake()
     {
         rend = GetComponent<SpriteRenderer>();
-        rend.sprite = idle[frame];
+        rend.sprite = spritesheet.idle[frame];
     }
 
     void Update()
@@ -34,7 +28,7 @@ public class SpritesheetAnimator : MonoBehaviour
         if(timer >= secondsPerFrame)
         {
             frame++;
-            if (frame == idle.Length)
+            if (frame == spritesheet.idle.Length)
                 frame = 0;
 
             SetSprite(frame);
@@ -50,13 +44,13 @@ public class SpritesheetAnimator : MonoBehaviour
         switch (state)
         {
             case State.Idle:
-                rend.sprite = idle[frame];
+                rend.sprite = spritesheet.idle[frame];
                 break;
             case State.Happy:
-                rend.sprite = happy[frame];
+                rend.sprite = spritesheet.happy[frame];
                 break;
-            case State.Eat:
-                rend.sprite = eat[frame];
+            case State.Eating:
+                rend.sprite = spritesheet.eating[frame];
                 break;
         }
     }

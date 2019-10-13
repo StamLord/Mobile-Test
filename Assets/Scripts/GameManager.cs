@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public EvolutionGarden evolutionGarden;
     ActivePet testPet = new ActivePet();
     ActivePet[] activePets = new ActivePet[0];
     public static User user = new User();
@@ -15,6 +16,18 @@ public class GameManager : MonoBehaviour
         testPet.snapshot.hungerStamp = Timestamp.GetTimeStamp();
         testPet.snapshot.hungerRate = 10;
         testPet.hunger = 0;
+        testPet.strength = 1;
+        testPet.stage = 0;
+        testPet.treeName = "Egg1";
+        testPet.s_atk = 1;
+        testPet.g_atk = 2;
+        testPet.t_atk = 1;
+
+        testPet.s_spd = 1;
+        testPet.g_spd = 1;
+        testPet.t_spd = 1;
+
+        Debug.Log(evolutionGarden.GetTree(testPet.treeName).GetEvolution(testPet));
 
         LoadPets();
 
@@ -31,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     void UpdateStats(ActivePet pet)
     {
+        if(pet.isDead) return;
+
         #region Hunger
 
         // Update hunger based on time since snapshot
@@ -53,7 +68,16 @@ public class GameManager : MonoBehaviour
 
         #endregion
 
+        #region Death
 
+        double stageTime = Timestamp.GetSecondsSince(pet.snapshot.stageStamp);
+        if(stageTime >= pet.snapshot.longetivity)
+        {
+            // Kill Pet :<
+            pet.isDead = true;
+        }
+        
+        #endregion
     }
 
     void SavePet(ActivePet pet)

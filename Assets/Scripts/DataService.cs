@@ -7,7 +7,7 @@ using System;
 public class  DataService 
 {
     public static bool isLoggedin;
-
+    public static bool tryingToLogin;
     public const string HOST = "http://localhost:5000/api/";
 
     public static IEnumerator Login(string username, string password)
@@ -23,21 +23,24 @@ public class  DataService
         request.SetRequestHeader("Content-Type", "application/json");
 
         Debug.Log("Trying to Login...");
+        tryingToLogin = true;
         yield return request.SendWebRequest();
         
         if (!request.isNetworkError)
         {
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
-            Debug.Log(resJson);
             User user = JsonUtility.FromJson<User>(resJson);
             GameManager.user = user;
             isLoggedin = true;
+            Debug.Log("Successfully logged in");
         }
         else
         {
             Debug.Log("Error fetching from server");
         }
+
+        tryingToLogin = false;
     }
 
     public static IEnumerator GetUser(string username)
