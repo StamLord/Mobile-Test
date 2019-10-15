@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d72be2489779e44f9b1b5302c7defc4, type: 3}
   m_Name: Egg1
   m_EditorClassIdentifier: 
+  stage_0: {fileID: 11400000, guid: d2ffb209743fa7848aaf18b215736dbb, type: 2}
   stage_1:
   - species: {fileID: 11400000, guid: b9943e1d2e34f8f46ac078d90fbcec38, type: 2}
     conditions:
-    - property1: 1
-      compare: 2
-      property2: 13
+    - property1: 3
+      compare: 0
+      property2: 4
       customValue: 1
   - species: {fileID: 11400000, guid: 57459a016e4c19d42a9a51ee477ca8c9, type: 2}
     conditions:
@@ -28,3 +29,8 @@ MonoBehaviour:
   stage_2: []
   stage_3: []
   stage_4: []
+  stagesEvolveAt:
+  - 60
+  - 600
+  - 6000
+  - 60000

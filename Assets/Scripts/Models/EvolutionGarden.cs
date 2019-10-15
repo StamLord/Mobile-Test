@@ -13,11 +13,9 @@ public class EvolutionGarden : ScriptableObject
         {
             if(tree.name == treeName)
             {    
-                Debug.Log("Found Tree:" + treeName);
                 return tree;
             }
         }
-        Debug.Log("Didn't find Tree:" + treeName);
         return null;
     }
 }

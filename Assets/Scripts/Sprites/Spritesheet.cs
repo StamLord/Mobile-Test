@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spritesheet : ScriptableObject
 {
     public Sprite[] idle;
+    public Sprite[] pet;
     public Sprite[] happy;
     public Sprite[] sad;
     public Sprite[] eating;

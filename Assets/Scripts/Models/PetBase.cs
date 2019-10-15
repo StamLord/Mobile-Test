@@ -20,22 +20,31 @@ public class PetBase
     public int weight;
 
     public double starveAt = 20;
-    public bool starving;
+    public bool isStarving;
+    
+    [SerializeField]
     private int _hunger;
     public int hunger 
     {
         get { return _hunger; } 
-        set{ _hunger = Mathf.Clamp(value, 0, 5); }
+        set { _hunger = Mathf.Clamp(value, 0, 5); }
     }
     public double hungerRate = 10;
+    
+    [SerializeField]
     private int _strength;
     public int strength
     {
-        get{ return _strength;}
-        set{ _strength = Mathf.Clamp(value, 0, 5); }
+        get { return _strength;}
+        set { _strength = Mathf.Clamp(value, 0, 5); }
     }
     public double strengthRate = 10;
-    public int attention;
+    private int _attention;
+    public int attention
+    {
+        get { return _attention; }
+        set {_attention = Mathf.Clamp(value, 0, 5); }
+    }
     public double attentionRate = 10;
 
     public int happiness;
@@ -45,6 +54,7 @@ public class PetBase
     public int disciplineRate = 10;
 
     public int energy;
+    public int energyRecoveryRate = 60;
 
     public int s_atk;
     public int s_spd;
@@ -71,5 +81,5 @@ public class PetBase
         get {return s_def + g_def + t_def;}
     }
 
-    
+
 }

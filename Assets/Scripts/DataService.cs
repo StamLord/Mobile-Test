@@ -33,6 +33,11 @@ public class  DataService
             User user = JsonUtility.FromJson<User>(resJson);
             GameManager.user = user;
             isLoggedin = true;
+            
+            // Remembers credentials
+            PlayerPrefs.SetString("username", username);
+            PlayerPrefs.SetString("password", password);
+
             Debug.Log("Successfully logged in");
         }
         else

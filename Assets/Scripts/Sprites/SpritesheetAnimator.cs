@@ -8,7 +8,7 @@ public class SpritesheetAnimator : MonoBehaviour
     private float timer;
     private int frame = 0; // Current frame
 
-    public enum State { Idle, Happy, Eating};
+    public enum State { Idle, Happy, Eating, Pet};
     public State state = State.Idle;
     // Sprites
 
@@ -51,6 +51,9 @@ public class SpritesheetAnimator : MonoBehaviour
                 break;
             case State.Eating:
                 rend.sprite = spritesheet.eating[frame];
+                break;
+            case State.Pet:
+                rend.sprite = spritesheet.pet[frame];
                 break;
         }
     }

@@ -13,4 +13,6 @@ public class PetSnapshot: PetBase
     
     public double happinessStamp;
     public double disciplineStamp;
+
+    public double energyStamp;
 }

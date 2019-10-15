@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
   m_Name: Evolution1
   m_EditorClassIdentifier: 
+  spritesheets:
+  - {fileID: 11400000, guid: f6b42e4f3c991694480f917511a93fc1, type: 2}
   speciesName: EvolutionName
-  longetivityRange:
-  - 0
-  - 0
+  longetivityMin: 0
+  longetivityMax: 0
   careMistakeCost: 0
-  hungerRateRange: 0000000000000000
-  strengthRateRange: 0000000000000000
-  attentionRateRange: 0000000000000000
-  disciplineRateRange: 0000000000000000
-  happinessRateRange: 0000000000000000
+  hungerRateMin: 60
+  hungerRateMax: 120
+  strengthRateMin: 60
+  strengthRateMax: 120
+  attentionRateMin: 60
+  attentionRateMax: 120
+  disciplineRateMin: 0
+  disciplineRateMax: 0
+  happinessRateMin: 0
+  happinessRateMax: 0
+  energyRecoveryRate: 0
+  atk: 20
+  spd: 20
+  def: 20

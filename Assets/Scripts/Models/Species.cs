@@ -8,7 +8,8 @@ public class Species : ScriptableObject
     [SerializeField]
     Spritesheet[] spritesheets = new Spritesheet[1];
     public string speciesName;
-    public double[] longetivityRange = new double[2];
+    public double longetivityMin;
+    public double longetivityMax;
     public int careMistakeCost;
 
     public int hungerRateMin;
@@ -22,6 +23,8 @@ public class Species : ScriptableObject
     public int disciplineRateMax;
     public int happinessRateMin;
     public int happinessRateMax;
+
+    public int energyRecoveryRate;
 
     public int atk;
     public int spd;

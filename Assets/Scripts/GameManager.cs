@@ -5,37 +5,33 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public EvolutionGarden evolutionGarden;
-    ActivePet testPet = new ActivePet();
-    ActivePet[] activePets = new ActivePet[0];
+    ActivePet testPet;
+    public ActivePet[] activePets = new ActivePet[1];
     public static User user = new User();
+
+    public bool light;
+
+    public static GameManager instance;
 
     private void Awake()
     {
-        testPet.snapshot = new PetSnapshot();
-        testPet.snapshot.hunger = 5;
-        testPet.snapshot.hungerStamp = Timestamp.GetTimeStamp();
-        testPet.snapshot.hungerRate = 10;
-        testPet.hunger = 0;
-        testPet.strength = 1;
-        testPet.stage = 0;
-        testPet.treeName = "Egg1";
-        testPet.s_atk = 1;
-        testPet.g_atk = 2;
-        testPet.t_atk = 1;
+        testPet = PetFactory.CreateEgg(evolutionGarden.GetTree("Egg1"));
 
-        testPet.s_spd = 1;
-        testPet.g_spd = 1;
-        testPet.t_spd = 1;
-
-        Debug.Log(evolutionGarden.GetTree(testPet.treeName).GetEvolution(testPet));
+        activePets[0] = testPet;
 
         LoadPets();
 
         TimeStep.onTimeStep += UpdatePets;
+
+        if(instance == null)
+            instance = this;
+        else
+            Debug.LogError("More than 1 instance of GameManager exists:" + instance);
     }
 
     void UpdatePets()
     {
+        
        foreach (ActivePet pet in activePets)
        {
            UpdateStats(pet);
@@ -44,40 +40,43 @@ public class GameManager : MonoBehaviour
 
     void UpdateStats(ActivePet pet)
     {
-        if(pet.isDead) return;
-
-        #region Hunger
-
-        // Update hunger based on time since snapshot
-        double timeSinceFed = Timestamp.GetSecondsSince(pet.snapshot.hungerStamp);
-        pet.hunger = pet.snapshot.hunger - Mathf.FloorToInt((float)timeSinceFed / (float)pet.snapshot.hungerRate);
-        pet.hunger = Mathf.Clamp(pet.hunger, 0, 5);
-        Debug.Log(pet.hunger);
-
         if(pet.hunger < 1) 
         {
             // Check if enough time passed for pet to starve
-            double starveTime = timeSinceFed - (pet.snapshot.hunger * pet.snapshot.hungerRate);
-            if(pet.starving == false && 
-            starveTime > pet.snapshot.starveAt)
+            double starveTime = pet.GetStarvingTime();            
+            if(pet.isStarving == false && 
+            starveTime > pet.starveAt)
             {
-                pet.starving = true;
+                pet.isStarving = true;
                 Debug.Log("Pet is starving");
+                pet.AddCareMistake();
             }
         }
 
-        #endregion
-
-        #region Death
-
-        double stageTime = Timestamp.GetSecondsSince(pet.snapshot.stageStamp);
-        if(stageTime >= pet.snapshot.longetivity)
-        {
-            // Kill Pet :<
-            pet.isDead = true;
-        }
+        EvolutionCheck(pet);
         
-        #endregion
+    }
+
+    public void EvolutionCheck(ActivePet pet)
+    {
+        EvolutionTree tree = evolutionGarden.GetTree(pet.treeName);
+
+        if(tree == null) 
+            Debug.LogError("Didn't find tree: " + pet.treeName +" of " + pet.species);
+        else
+        {
+            if(tree.IsTimeToEvolve(pet))
+            {
+                Species evolveTo = tree.GetEvolution(pet);
+                
+                if(evolveTo)
+                {
+                    // Animate
+
+                    PetFactory.Evolve(pet, evolveTo);
+                }
+            }
+        }
     }
 
     void SavePet(ActivePet pet)
@@ -87,6 +86,6 @@ public class GameManager : MonoBehaviour
 
     void LoadPets()
     {
-        StartCoroutine(DataService.Login("testUser1", "testPass1"));
+        //StartCoroutine(DataService.Login("testUser1", "testPass1"));
     }
 }

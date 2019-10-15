@@ -11,7 +11,17 @@ public class EvolutionTree : ScriptableObject
     public EvolutionPath[] stage_3;
     public EvolutionPath[] stage_4;
 
-    public Species GetEvolution(PetBase pet)
+    public double[] stagesEvolveAt = {60, 600, 6000, 60000};
+
+    public bool IsTimeToEvolve(ActivePet pet)
+    {
+        if(pet.stageTime >= stagesEvolveAt[pet.stage])
+            return true;
+
+        return false;
+    }
+
+    public Species GetEvolution(ActivePet pet)
     {
         int stage = pet.stage;
         switch(stage)
@@ -30,7 +40,7 @@ public class EvolutionTree : ScriptableObject
         return null;
     }
     
-    private Species GetEvolutionFromStage(PetBase pet, EvolutionPath[] paths)
+    private Species GetEvolutionFromStage(ActivePet pet, EvolutionPath[] paths)
     {
         // Return the species of the first path that meets all conditions
         foreach(EvolutionPath path in paths)
@@ -49,7 +59,7 @@ public class EvolutionPath
     public Species species;
     public EvolutionCondition[] conditions = new EvolutionCondition[1];
 
-    public bool CheckConditions(PetBase pet)
+    public bool CheckConditions(ActivePet pet)
     {
         bool allConditionsMet = true;
 
@@ -75,7 +85,7 @@ public class EvolutionCondition
     public Property property2;
     public int customValue;
 
-    public bool Check(PetBase pet){
+    public bool Check(ActivePet pet){
         
         int prop1 = -1;
         int prop2 = -1;
