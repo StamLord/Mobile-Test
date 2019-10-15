@@ -9,6 +9,8 @@ public class ActivePet: PetBase
     
     #region Properties
 
+    public new string _id {get {return snapshot._id; } }
+
     public new string species { get{ return snapshot.species; } }
 
     public new string treeName { get{ return snapshot.treeName; } }
@@ -64,6 +66,11 @@ public class ActivePet: PetBase
     public void SetSnapshot(PetSnapshot snapshot)
     {
         this.snapshot = snapshot;
+    }
+
+    public void SetId(string id)
+    {
+        this.snapshot._id = id;
     }
 
     public int CalculateAge()

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public EvolutionGarden evolutionGarden;
     ActivePet testPet;
     public ActivePet[] activePets = new ActivePet[1];
-    public static User user = new User();
+    public User user = new User();
 
     public bool light;
 
@@ -15,18 +15,21 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        testPet = PetFactory.CreateEgg(evolutionGarden.GetTree("Egg1"));
-
-        activePets[0] = testPet;
-
-        LoadPets();
-
         TimeStep.onTimeStep += UpdatePets;
 
         if(instance == null)
             instance = this;
         else
             Debug.LogError("More than 1 instance of GameManager exists:" + instance);
+    }
+
+    void Start()
+    {
+        LoadPets();
+
+        testPet = PetFactory.CreateEgg(evolutionGarden.GetTree("Egg1"));
+        StartCoroutine(DataService.CreatePet(testPet, "testUser1"));
+        activePets[0] = testPet;
     }
 
     void UpdatePets()

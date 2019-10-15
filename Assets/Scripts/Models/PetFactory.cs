@@ -49,7 +49,7 @@ public class PetFactory : MonoBehaviour
         ActivePet pet = new ActivePet();
         
         pet.SetSnapshot(petSnapshot);
-
+        
         return pet;
     }
 

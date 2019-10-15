@@ -4,7 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class PetBase
-{
+{   
+    public string _id;
+
     public string species;
     public string treeName;
     public int stage;

@@ -31,7 +31,7 @@ public class  DataService
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
             User user = JsonUtility.FromJson<User>(resJson);
-            GameManager.user = user;
+            GameManager.instance.user = user;
             isLoggedin = true;
             
             // Remembers credentials
@@ -60,12 +60,63 @@ public class  DataService
                 string resJson = System.Text.Encoding.Default.GetString(result);
                 Debug.Log(resJson);
                 User user = JsonUtility.FromJson<User>(resJson);
-                GameManager.user = user;
+                GameManager.instance.user = user;
             }
             else
             {
                 Debug.Log("Error fetching from server");
             }
+        }
+    }
+
+    public static IEnumerator CreatePet(ActivePet newPet, string username)
+    {
+        string json = JsonUtility.ToJson(newPet.GetSnapshotCopy());
+        Debug.Log(json);
+        byte[] data = System.Text.Encoding.Default.GetBytes(json);
+        
+        // Create a PUT request because Unity apperantly cannot
+        UnityWebRequest request = new UnityWebRequest(HOST + username + "/pet", "PUT");
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+    
+        yield return request.SendWebRequest();
+
+        if(request.isNetworkError)
+            Debug.Log("Error sending data to server");
+        else
+        {
+            byte[] result = request.downloadHandler.data;
+            string resJson = System.Text.Encoding.Default.GetString(result);
+            Debug.Log(resJson);
+            PetSnapshot newSnapshot = JsonUtility.FromJson<PetSnapshot>(resJson);
+            newPet.SetId(newSnapshot._id);
+            Debug.Log("Pet created successfully");
+        }
+    }
+
+    public static IEnumerator UpdatePet(PetSnapshot snapshot)
+    {
+        string json = JsonUtility.ToJson(snapshot);
+        Debug.Log(json);
+        byte[] data = System.Text.Encoding.Default.GetBytes(json);
+
+        // Create a POST request because Unity apperantly cannot
+        UnityWebRequest request = new UnityWebRequest(HOST+"login", "POST");
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+        
+        if (!request.isNetworkError)
+        {
+            Debug.Log("Successfully Updated pet");
+        }
+        else
+        {
+            Debug.Log("Error updating pet");
         }
     }
 

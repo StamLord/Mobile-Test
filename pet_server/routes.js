@@ -7,4 +7,8 @@ router.post('/register', controller.register);
 
 router.post('/login', controller.login);
 
+router.put('/:username/pet', controller.createPet);
+
+router.post('/pet', controller.updatePet);
+
 module.exports = router;
