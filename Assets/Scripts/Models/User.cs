@@ -6,5 +6,6 @@ using UnityEngine;
 public class User
 {
     public string username;
+    public string[] active;
     public PetSnapshot[] pets = new PetSnapshot[256];
 }

@@ -9,8 +9,8 @@ module.exports.getUser = (req,res) => {
             res.sendStatus(500);
         } else {
             if(result){
-                let {username, pets} = result;
-                const user = {username, pets};
+                let {username, active, pets} = result;
+                const user = {username, active, pets};
 
                 res.send(user);
             }
@@ -70,7 +70,7 @@ module.exports.login = (req, res) => {
     }
 
     const {username, password} = req.body;
-    console.log(req.body);
+    console.log(`${username} has logged in!` );
     User.findOne({username, password}, (err, result) =>{
         if(err) {
             res.sendStatus(500);
@@ -112,17 +112,7 @@ module.exports.createPet = (req, res) => {
 
     //#endregion
 
-    // User.findOne({ username: req.params.username}, 
-    // (err, user) => {
-    //     if(err) {
-    //         res.sendStatus(500);
-    //         return;
-    //     }
-
-    //     if(user)
-    //     {
             const _id = ObjectId();
-            console.log(req.body);
             console.log("Finding user and creating Pet...");
             User.findOneAndUpdate({username: req.params.username}, {$push: {pets: new Pet({
                     _id,
@@ -148,10 +138,6 @@ module.exports.createPet = (req, res) => {
                     }
             });
             
-    //     } else {
-    //         res.status(500).send({msg: 'Error creating resource'});
-    //     }
-    // });
 }
 
 module.exports.updatePet = (req, res) => {
@@ -173,6 +159,7 @@ module.exports.updatePet = (req, res) => {
         t_atk, t_spd, t_def} = req.body;
 
     //#endregion
+
     User.findOneAndUpdate({'pets._id' : _id}, {
         $set: {'pets.$': {
                 _id,
@@ -195,6 +182,30 @@ module.exports.updatePet = (req, res) => {
             res.sendStatus(500);
             return;
         }
-        res.status(201).send({msg: 'Success'});
+        console.log(`Pet ${_id} was updated!`);
+        res.status(201).send({msg: 'Pet updated!'});
     })
+}
+
+module.exports.updateActive = (req, res) => {
+
+    const username = req.params.username;
+    console.log(username);
+    // And array of ObjectId signifying which pets are active
+    const {active} = req.body;
+    User.findOneAndUpdate({username}, {
+        active
+    }, (err, result) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+            return;
+        }
+
+        if(result) {   
+            res.status(201).send({msg: 'Active Pets Updated!'});
+        }
+        else
+            res.sendStatus(404);
+    });
 }

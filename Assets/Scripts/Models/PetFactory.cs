@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class PetFactory : MonoBehaviour
 {
+    public static ActivePet CreateFromSnapshot(PetSnapshot snapshot)
+    {
+        ActivePet pet = new ActivePet();
+        pet.SetSnapshot(snapshot);
+        return pet;
+    }
+
     public static ActivePet CreatePet(Species species, int stage, string treeName)
     {
+        if(species == null)
+            return null;
+            
         double timestamp = Timestamp.GetTimeStamp();
 
         PetSnapshot petSnapshot = new PetSnapshot();
@@ -55,10 +65,12 @@ public class PetFactory : MonoBehaviour
 
     public static ActivePet CreateEgg(EvolutionTree tree)
     {
+        if(tree == null)
+            return null;
         return CreatePet(tree.stage_0, 0, tree.name);
     }
 
-    public static void Evolve(ActivePet from, Species to)
+    public static PetSnapshot Evolve(ActivePet from, Species to)
     {
         double timestamp = Timestamp.GetTimeStamp();
 
@@ -86,8 +98,6 @@ public class PetFactory : MonoBehaviour
         snapshot.s_spd = to.spd;
         snapshot.s_def = to.def;
 
-        ActivePet evolved = from;
-
-        evolved.SetSnapshot(snapshot);
+        return snapshot;
     }
 }

@@ -25,27 +25,27 @@ public class PetBase
     public bool isStarving;
     
     [SerializeField]
-    private int _hunger;
-    public int hunger 
+    private int hunger;
+    public int Hunger 
     {
-        get { return _hunger; } 
-        set { _hunger = Mathf.Clamp(value, 0, 5); }
+        get { return hunger; } 
+        set { hunger = Mathf.Clamp(value, 0, 5); }
     }
     public double hungerRate = 10;
     
     [SerializeField]
-    private int _strength;
-    public int strength
+    private int strength;
+    public int Strength
     {
-        get { return _strength;}
-        set { _strength = Mathf.Clamp(value, 0, 5); }
+        get { return strength;}
+        set { strength = Mathf.Clamp(value, 0, 5); }
     }
     public double strengthRate = 10;
-    private int _attention;
-    public int attention
+    private int attention;
+    public int Attention
     {
-        get { return _attention; }
-        set {_attention = Mathf.Clamp(value, 0, 5); }
+        get { return attention; }
+        set {attention = Mathf.Clamp(value, 0, 5); }
     }
     public double attentionRate = 10;
 

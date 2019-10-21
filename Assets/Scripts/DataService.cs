@@ -8,6 +8,7 @@ public class  DataService
 {
     public static bool isLoggedin;
     public static bool tryingToLogin;
+
     public const string HOST = "http://localhost:5000/api/";
 
     public static IEnumerator Login(string username, string password)
@@ -31,14 +32,13 @@ public class  DataService
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
             User user = JsonUtility.FromJson<User>(resJson);
-            GameManager.instance.user = user;
+            //GameManager.instance.user = user;
+            //GameManager.instance.SetUser();
             isLoggedin = true;
-            
-            // Remembers credentials
-            PlayerPrefs.SetString("username", username);
-            PlayerPrefs.SetString("password", password);
 
             Debug.Log("Successfully logged in");
+
+            yield return user;
         }
         else
         {
@@ -69,10 +69,45 @@ public class  DataService
         }
     }
 
+    public static IEnumerator UpdateActive(string username, string[] active)
+    {
+        string json = "{ \"active\": [";
+
+        for(int i = 0; i < active.Length; i++)
+        {
+            json += "\"" + active[i] + "\"";
+            if(i+1 < active.Length)
+                json +=",";
+        }
+
+        json += "]}";
+
+        Debug.Log(json);
+        byte[] data = System.Text.Encoding.Default.GetBytes(json);
+
+        // Create a POST request because Unity apperantly cannot
+        UnityWebRequest request = new UnityWebRequest(HOST+username+"/active", "PUT");
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+        
+        if (!request.isNetworkError)
+        {
+            Debug.Log("Successfully Updated active pets");
+            yield return true;
+        }
+        else
+        {
+            Debug.Log("Error updating active pets");
+            yield return false;
+        }
+    }
+
     public static IEnumerator CreatePet(ActivePet newPet, string username)
     {
         string json = JsonUtility.ToJson(newPet.GetSnapshotCopy());
-        Debug.Log(json);
         byte[] data = System.Text.Encoding.Default.GetBytes(json);
         
         // Create a PUT request because Unity apperantly cannot
@@ -89,21 +124,19 @@ public class  DataService
         {
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
-            Debug.Log(resJson);
             PetSnapshot newSnapshot = JsonUtility.FromJson<PetSnapshot>(resJson);
-            newPet.SetId(newSnapshot._id);
-            Debug.Log("Pet created successfully");
+            yield return newSnapshot._id;
         }
     }
 
     public static IEnumerator UpdatePet(PetSnapshot snapshot)
     {
         string json = JsonUtility.ToJson(snapshot);
-        Debug.Log(json);
+        //Debug.Log(json);
         byte[] data = System.Text.Encoding.Default.GetBytes(json);
 
         // Create a POST request because Unity apperantly cannot
-        UnityWebRequest request = new UnityWebRequest(HOST+"login", "POST");
+        UnityWebRequest request = new UnityWebRequest(HOST+"pet", "POST");
         request.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -113,10 +146,12 @@ public class  DataService
         if (!request.isNetworkError)
         {
             Debug.Log("Successfully Updated pet");
+            yield return true;
         }
         else
         {
             Debug.Log("Error updating pet");
+            yield return false;
         }
     }
 

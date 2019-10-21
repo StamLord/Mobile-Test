@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName="New Species", menuName="Species")]
 public class Species : ScriptableObject
 {
-    [SerializeField]
-    Spritesheet[] spritesheets = new Spritesheet[1];
+    public Spritesheet[] spritesheets = new Spritesheet[1];
     public string speciesName;
     public double longetivityMin;
     public double longetivityMax;

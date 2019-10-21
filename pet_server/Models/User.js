@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     username: String,
     password: String,
     email: String,
+    active: [mongoose.Types.ObjectId],
     pets: [Pet.schema]
 });
 
