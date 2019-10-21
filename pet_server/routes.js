@@ -9,6 +9,8 @@ router.post('/login', controller.login);
 
 router.put('/:username/pet', controller.createPet);
 
+router.put('/:username/active', controller.updateActive);
+
 router.post('/pet', controller.updatePet);
 
 module.exports = router;
