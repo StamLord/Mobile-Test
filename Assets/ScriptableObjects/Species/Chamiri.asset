@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
+  m_Name: Chamiri
+  m_EditorClassIdentifier: 
+  spritesheets:
+  - {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
+  speciesName: Chamiri
+  longetivityMin: 43200
+  longetivityMax: 43200
+  careMistakeCost: 1800
+  hungerRateMin: 600
+  hungerRateMax: 900
+  strengthRateMin: 600
+  strengthRateMax: 900
+  attentionRateMin: 600
+  attentionRateMax: 900
+  disciplineRateMin: 300
+  disciplineRateMax: 400
+  happinessRateMin: 300
+  happinessRateMax: 400
+  energyRecoveryRate: 300
+  atk: 17
+  spd: 20
+  def: 10

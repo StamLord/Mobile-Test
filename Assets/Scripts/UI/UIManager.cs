@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Doozy.Engine.UI;
 using TMPro;
 
@@ -10,6 +11,10 @@ public class UIManager : MonoBehaviour
     public UIPopup loginPopup;
     public TMPro.TMP_InputField username;
     public TMPro.TMP_InputField password;
+    public bool rememberMe;
+
+    public bool isLoggedin;
+    public bool tryingToLogin;
 
     void Start()
     {
@@ -24,6 +29,9 @@ public class UIManager : MonoBehaviour
     }
 
     void Update(){
+        isLoggedin = DataService.isLoggedin;
+        tryingToLogin = DataService.tryingToLogin;
+
         if(DataService.isLoggedin == false 
         && DataService.tryingToLogin == false 
         && loginPopup.IsHidden){
@@ -34,8 +42,13 @@ public class UIManager : MonoBehaviour
 
     public void Login()
     {
-        StartCoroutine(DataService.Login(username.text, password.text));
+        StartCoroutine(GameManager.instance.Login(username.text, password.text, rememberMe));
         loginPopup.Hide();
+    }
+
+    public void RememberMe()
+    {
+        rememberMe = !rememberMe;
     }
 
     public void Feed(int hungerChange)

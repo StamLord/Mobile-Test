@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d72be2489779e44f9b1b5302c7defc4, type: 3}
+  m_Name: Harvest
+  m_EditorClassIdentifier: 
+  stage_0: {fileID: 11400000, guid: b8254fb2947fd624c8293b51ad067a08, type: 2}
+  stage_1:
+  - species: {fileID: 11400000, guid: b9943e1d2e34f8f46ac078d90fbcec38, type: 2}
+    conditions: []
+  stage_2: []
+  stage_3: []
+  stage_4: []
+  stagesEvolveAt:
+  - 60
+  - 21600
+  - 43200
+  - 86400

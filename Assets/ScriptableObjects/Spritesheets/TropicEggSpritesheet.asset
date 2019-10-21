@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0710237004851f449afc0cb2f4b9a924, type: 3}
+  m_Name: TropicEggSpritesheet
+  m_EditorClassIdentifier: 
+  idle:
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  pet:
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  happy:
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  sad: []
+  eating:
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  - {fileID: 21300000, guid: 99df9ab0406bc9e45a05558b94c60953, type: 3}
+  sleeping: []

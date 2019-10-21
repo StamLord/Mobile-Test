@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
-  m_Name: Evolution2
+  m_Name: TropicEgg
   m_EditorClassIdentifier: 
   spritesheets:
-  - {fileID: 0}
-  speciesName: EvolutionName
-  longetivityMin: 0
-  longetivityMax: 0
+  - {fileID: 11400000, guid: 04e547976ff611b478913d1fa13bda39, type: 2}
+  speciesName: Tropic Egg
+  longetivityMin: 600
+  longetivityMax: 600
   careMistakeCost: 0
-  hungerRateMin: 60
-  hungerRateMax: 120
-  strengthRateMin: 60
-  strengthRateMax: 120
-  attentionRateMin: 60
-  attentionRateMax: 120
+  hungerRateMin: 0
+  hungerRateMax: 0
+  strengthRateMin: 0
+  strengthRateMax: 0
+  attentionRateMin: 0
+  attentionRateMax: 0
   disciplineRateMin: 0
   disciplineRateMax: 0
   happinessRateMin: 0

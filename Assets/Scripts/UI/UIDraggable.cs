@@ -5,11 +5,14 @@ using Doozy.Engine.Touchy;
 
 public class UIDraggable : MonoBehaviour
 {
+    public enum DragDirection {Vertical, Horizontal};
+    public DragDirection direction;
+
     private RectTransform rectTransform;
     private bool isDragging;
     private Vector3 startingPoint;
     private Vector3 dragStart;
-    public int minimumMove = 5;
+    public int minimumMove = 10;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -32,7 +35,7 @@ public class UIDraggable : MonoBehaviour
             {
                 isDragging = true;
                 startingPoint = rectTransform.localPosition;
-                dragStart = new Vector3(Input.mousePosition.x, 0, 0);
+                dragStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             }
             else if(Input.GetMouseButtonUp(0))
             {
@@ -41,12 +44,22 @@ public class UIDraggable : MonoBehaviour
 
             if(isDragging)
             {
-                Vector3 deltaDrag = new Vector3(Input.mousePosition.x, 0, 0) - dragStart;
+                Vector3 deltaDrag = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) - dragStart;
                 Vector3 moveVector= new Vector3(
                     Mathf.FloorToInt(deltaDrag.x / minimumMove) * minimumMove,
                     Mathf.FloorToInt(deltaDrag.y / minimumMove) * minimumMove,
                     Mathf.FloorToInt(deltaDrag.z / minimumMove) * minimumMove
                     );
+
+                switch(direction)
+                {
+                    case DragDirection.Horizontal:
+                        moveVector.y = 0;
+                        break;
+                    case DragDirection.Vertical:
+                        moveVector.x = 0;
+                        break;
+                }
                 rectTransform.localPosition = moveVector + startingPoint;
             }
         }

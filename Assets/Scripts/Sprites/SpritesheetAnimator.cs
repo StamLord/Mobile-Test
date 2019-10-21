@@ -20,11 +20,16 @@ public class SpritesheetAnimator : MonoBehaviour
     private void Awake()
     {
         rend = GetComponent<SpriteRenderer>();
-        rend.sprite = spritesheet.idle[frame];
     }
 
     void Update()
     {
+        if(spritesheet == null)
+        {
+            rend.sprite = null;
+            return;
+        }
+
         if(timer >= secondsPerFrame)
         {
             frame++;

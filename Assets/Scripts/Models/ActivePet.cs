@@ -3,63 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ActivePet: PetBase
+public class ActivePet
 {
     private PetSnapshot snapshot;
     
     #region Properties
 
-    public new string _id {get {return snapshot._id; } }
+    public string _id {get {return snapshot._id; } }
 
-    public new string species { get{ return snapshot.species; } }
+    public string species { get{ return snapshot.species; } }
 
-    public new string treeName { get{ return snapshot.treeName; } }
+    public string treeName { get{ return snapshot.treeName; } }
 
-    public new int stage { get{ return snapshot.stage; } }
+    public int stage { get{ return snapshot.stage; } }
     public double stageTime { get{ return CalculateStageTime(); } }
 
-    public new double birth { get{ return snapshot.birth; } }
+    public double birth { get{ return snapshot.birth; } }
     public int age { get { return CalculateAge(); } }
 
-    public new string nickname { get{ return snapshot.nickname; } }
+    public string nickname { get{ return snapshot.nickname; } }
 
-    public new bool isDead
+    public bool isDead
     {
         get {return IsDead();}
     }
 
     //public new bool isStarving;
 
-    public new int careMistakes { get{ return snapshot.careMistakes; } }
-    public new int careMistakeCost { get{ return snapshot.careMistakeCost; } }
+    public int careMistakes { get{ return snapshot.careMistakes; } }
+    public int careMistakeCost { get{ return snapshot.careMistakeCost; } }
 
-    public new int weight { get{ return snapshot.weight; } }
+    public int weight { get{ return snapshot.weight; } }
 
-    public new double starveAt { get{ return snapshot.starveAt; } }
+    public double starveAt { get{ return snapshot.starveAt; } }
+    public bool isStarving {get {return snapshot.isStarving; } set{ snapshot.isStarving = value;} }
 
-    public new int hunger 
+    public int hunger 
     {
         get { return CalculateHunger(); }
     }
 
-    public new int strength 
+    public int strength 
     {
         get { return CalculateStrength(); }
     }
 
-    public new int attention 
+    public int attention 
     {
         get { return CalculateAttention(); }
     }
 
-    public new int happiness { get{ return CalculateHappiness(); }}
-    public new int discipline { get{ return CalculateDiscipline(); }}
+    public int happiness { get{ return CalculateHappiness(); }}
+    public int discipline { get{ return CalculateDiscipline(); }}
 
-    public new int energy { get{ return CalculateEnergy(); }}
+    public int energy { get{ return CalculateEnergy(); }}
 
-    public new int atk { get{ return snapshot.atk; } }
-    public new int spd { get{ return snapshot.spd; } }
-    public new int def { get{ return snapshot.def; } }
+    public int atk { get{ return snapshot.atk; } }
+    public int spd { get{ return snapshot.spd; } }
+    public int def { get{ return snapshot.def; } }
 
     #endregion
 
@@ -93,10 +94,10 @@ public class ActivePet: PetBase
     {
         // Update hunger based on time since snapshot
         double timeSinceFed = Timestamp.GetSecondsSince(snapshot.hungerStamp);
-        int calculatedHunger = snapshot.hunger - Mathf.FloorToInt((float)timeSinceFed / (float)snapshot.hungerRate);
+        int calculatedHunger = snapshot.Hunger - Mathf.FloorToInt((float)timeSinceFed / (float)snapshot.hungerRate);
         calculatedHunger = Mathf.Clamp(calculatedHunger, 0, 5);
 
-        Debug.Log("Seconds passed: " + timeSinceFed + "calculatedHunger: " + calculatedHunger + "snapshot hunger: " +snapshot.hunger + " hunger rate:" + snapshot.hungerRate);
+        //Debug.Log("Seconds passed: " + timeSinceFed + "calculatedHunger: " + calculatedHunger + "snapshot hunger: " +snapshot.hunger + " hunger rate:" + snapshot.hungerRate);
 
         return calculatedHunger;
     }
@@ -105,7 +106,7 @@ public class ActivePet: PetBase
     {
         // Update strength based on time since snapshot
         double timeSinceStrength = Timestamp.GetSecondsSince(snapshot.strengthStamp);
-        int calculatedStrength = snapshot.strength - Mathf.FloorToInt((float)timeSinceStrength / (float)snapshot.strengthRate);
+        int calculatedStrength = snapshot.Strength - Mathf.FloorToInt((float)timeSinceStrength / (float)snapshot.strengthRate);
         calculatedStrength = Mathf.Clamp(calculatedStrength, 0, 5);
 
         return calculatedStrength;
@@ -115,7 +116,7 @@ public class ActivePet: PetBase
     {
         // Update attention based on time since snapshot
         double timeSinceAttention = Timestamp.GetSecondsSince(snapshot.attentionStamp);
-        int calculatedAttention = snapshot.attention - Mathf.FloorToInt((float)timeSinceAttention / (float)snapshot.attentionRate);
+        int calculatedAttention = snapshot.Attention - Mathf.FloorToInt((float)timeSinceAttention / (float)snapshot.attentionRate);
         calculatedAttention = Mathf.Clamp(calculatedAttention, 0, 5);
 
         return calculatedAttention;
@@ -154,7 +155,7 @@ public class ActivePet: PetBase
     public double GetStarvingTime()
     {
         double timeSinceFed = GetTimeSinceFed();
-        double starveTime = timeSinceFed - (snapshot.hunger * snapshot.hungerRate);
+        double starveTime = timeSinceFed - (snapshot.Hunger * snapshot.hungerRate);
         return starveTime;
     }
     
@@ -171,21 +172,27 @@ public class ActivePet: PetBase
 
     public void Feed(int hungerChange, int weightChange)
     {   
-        snapshot.hunger = hunger + hungerChange;
-        Debug.Log("Feeding" + snapshot.hunger);
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.Hunger = hunger + hungerChange;
         snapshot.hungerStamp = Timestamp.GetTimeStamp();
         snapshot.weight += weightChange;
         snapshot.isStarving = false;
-
+        
         // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+
     }
 
     public void AddCareMistake()
     {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.careMistakes++;
         snapshot.longetivity -= careMistakeCost;
 
         // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
     }
 
     public void SetStarving(bool starving)
@@ -196,44 +203,54 @@ public class ActivePet: PetBase
     }
 
     public void TrainStat(string stat, int change)
-    {
+    {       
+        PetSnapshot backup;
         switch(stat)
         {
             case "atk":
+                backup = GetSnapshotCopy(); 
                 snapshot.t_atk += change;
+                GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
             case "spd":
+                backup = GetSnapshotCopy(); 
                 snapshot.t_spd += change;
+                GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
             case "def":
+                backup = GetSnapshotCopy(); 
                 snapshot.t_def += change;
+                GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
         }
-        
-        // Send snapshot to server
     }
 
     public void ReduceEnergy(int amount)
     {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.energy = energy - amount;
         snapshot.energyStamp = Timestamp.GetTimeStamp();
 
         // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
     }
 
-    public bool SendSnapshot(PetSnapshot newSnapshot)
+    public void EvolveTo(PetSnapshot newSnapshot)
     {
-        return true;
-    }
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        SetSnapshot(newSnapshot);
 
-    public void SetBirth(double timestamp)
-    {
-        snapshot.birth = timestamp;
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
     }
 
     public PetSnapshot GetSnapshotCopy()
     {
         PetSnapshot copy = new PetSnapshot();
+
+        copy._id = snapshot._id;
 
         copy.species = snapshot.species;
         copy.treeName = snapshot.treeName;
@@ -251,15 +268,15 @@ public class ActivePet: PetBase
         copy.weight = snapshot.weight;
         copy.starveAt = snapshot.starveAt;
 
-        copy.hunger = snapshot.hunger;
+        copy.Hunger = snapshot.Hunger;
         copy.hungerRate = snapshot.hungerRate;
         copy.hungerStamp = snapshot.hungerStamp;
 
-        copy.strength = snapshot.strength;
+        copy.Strength = snapshot.Strength;
         copy.strengthRate = snapshot.strengthRate;
         copy.strengthStamp = snapshot.strengthStamp;
 
-        copy.attention = snapshot.attention;
+        copy.Attention = snapshot.Attention;
         copy.attentionRate = snapshot.attentionRate;
         copy.attentionStamp = snapshot.attentionStamp;
 
