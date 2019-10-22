@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -175,6 +176,16 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(DataService.UpdateActive(user.username, activeArray));
+    }
+
+    public void Train(int activePet, string stat)
+    {
+        switch(stat.ToLower())
+        {
+            case "atk":
+            SceneManager.LoadSceneAsync("ATK Training");
+                break; 
+        }
     }
 
     public IEnumerator SaveSnapshot(ActivePet pet, PetSnapshot snapshot, PetSnapshot backup)

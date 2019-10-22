@@ -55,4 +55,9 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.activePets[0].Feed(hungerChange, 10);
     }
+
+    public void Train(string stat)
+    {
+        GameManager.instance.Train(0, stat);
+    }
 }

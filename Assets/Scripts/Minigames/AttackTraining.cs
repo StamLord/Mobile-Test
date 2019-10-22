@@ -1,21 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AttackTraining : MonoBehaviour
 {
+    public TextMeshProUGUI scoreDisplay;
+    public TextMeshProUGUI comboDisplay;
+
+    public StatPopup popup;
+
     public Transform[] spots;
     public Transform player;
     public Animator playerAnimator;
     public Transform bag;
+    public Animator bagAnimator;
     
     public int position = 4;
     public int punchBag = -1;
 
     public int hits;
     public int misses;
+    public int score;
+    public int combo;
+    public int highestCombo;
+
+    public int[] scoreLevels = {5000, 10000, 30000, 50000};
 
     private bool isRunning;
+    private bool canPunch;
 
     void Awake()
     {
@@ -27,19 +40,21 @@ public class AttackTraining : MonoBehaviour
         InputListener.onButtonC += Punch;
     }
 
-    void MoveLeft()
+    void Start()
     {
-        if(isRunning == false)
+        UpdateScore(0);
+        UpdateComboDisplay();
+    }
+
+    void MoveLeft()
+    {   Debug.Log("Moving Left");
+        if(isRunning == false || canPunch == false)
             return;
         
         if(position > 0)
         {
             if(position - 1 == punchBag)
-            {
-                if(playerAnimator) 
-                    playerAnimator.Play("Crash");
-                Miss();
-            }
+                Crash();
             else
             {
                 position--;
@@ -51,18 +66,14 @@ public class AttackTraining : MonoBehaviour
     }
 
     void MoveRight()
-    {
-        if(isRunning == false)
+    {   Debug.Log("Moving Right");
+        if(isRunning == false || canPunch == false)
             return;
 
         if(position < spots.Length - 1)
         {
             if(position+1 == punchBag)
-            {
-                if(playerAnimator) 
-                    playerAnimator.Play("Crash");
-                Miss();
-            }
+                Crash();
             else
             {
                 position++;
@@ -74,8 +85,8 @@ public class AttackTraining : MonoBehaviour
     }
 
     void Punch()
-    {
-        if(isRunning == false)
+    {   Debug.Log("Punching");
+        if(isRunning == false || canPunch == false)
             return;
             
         if(position < spots.Length -1  && punchBag == position + 1)
@@ -94,27 +105,82 @@ public class AttackTraining : MonoBehaviour
         else
         {
             // Miss
-            if(playerAnimator) 
-                playerAnimator.Play("Miss");
             Miss();
         }
     }
 
     void Hit()
     {
-        Debug.Log("Hit");
+        canPunch = false;
         hits++;
+        
+        IncrementCombo();
+        int addToScore = 100;
+
+        if(combo > 16)
+            addToScore *= 8;
+        else if(combo > 8)
+            addToScore *= 4;
+        else if(combo > 4)
+            addToScore *= 2;
+
+        UpdateScore(addToScore);
+
         if(playerAnimator) 
             playerAnimator.Play("Punch");
-        GenerateBagPosition();
+        
+        StartCoroutine(HitBagAnimation());
     }
 
     void Miss()
     {
+        canPunch = false;
         misses++;
+        ResetCombo();
+        StartCoroutine(MissAnimation());
+    }
+
+     void Crash()
+    {
+        canPunch = false;
+        misses++;
+        ResetCombo();
+        StartCoroutine(CrashAnimation());
+    }
+
+    IEnumerator HitBagAnimation()
+    {
+        if(bagAnimator)
+        {   
+            bagAnimator.Play("Hit");
+            yield return new WaitForSeconds(bagAnimator.GetCurrentAnimatorStateInfo(0).length);
+        }
+
         GenerateBagPosition();
     }
 
+    IEnumerator MissAnimation()
+    {
+        if(playerAnimator)
+        {   
+            playerAnimator.Play("Miss");
+            yield return new WaitForSeconds(.5f);
+        }
+
+        GenerateBagPosition();
+    }
+
+    IEnumerator CrashAnimation()
+    {
+        if(playerAnimator)
+        {   
+            playerAnimator.Play("Crash");
+            yield return new WaitForSeconds(.5f);
+        }
+
+        GenerateBagPosition();
+    }
+    
     void GenerateBagPosition()
     {
         int oldPosition = punchBag;
@@ -123,10 +189,17 @@ public class AttackTraining : MonoBehaviour
         while(punchBag == position || punchBag == oldPosition)
             punchBag = Random.Range(0, spots.Length);
 
+        if(punchBag < position)
+            bag.localScale = new Vector3(-1,1,1);
+        else
+            bag.localScale = new Vector3(1,1,1);
+
         bag.position = new Vector3(
             spots[punchBag].position.x, 
             bag.position.y, 
             bag.position.z);
+
+        canPunch = true;
     }
 
     void UpdatePosition()
@@ -135,6 +208,31 @@ public class AttackTraining : MonoBehaviour
             spots[position].position.x, 
             player.position.y, 
             player.position.z);
+    }
+
+    void UpdateScore(int change)
+    {
+        score += change;
+        if(scoreDisplay)
+            scoreDisplay.text = "SCORE: " + score;
+    }
+
+    void IncrementCombo()
+    {
+        combo++;
+        UpdateComboDisplay();
+    }
+
+    void ResetCombo()
+    {
+        combo = 0;
+        UpdateComboDisplay();
+    }
+
+    void UpdateComboDisplay()
+    {
+        if(comboDisplay)
+            comboDisplay.text = "COMBO: " + combo;
     }
 
     void FlipPlayerLeft()
@@ -150,12 +248,27 @@ public class AttackTraining : MonoBehaviour
     void StartTraining()
     {
         isRunning = true;
+        canPunch = true;
         GenerateBagPosition();
     }
 
     void StopTraining()
     {
         isRunning = false;
+        popup.Popup(GetStatGain(score));
+    }
+
+    int GetStatGain(int score)
+    {
+        int gain = 0;
+        for(int i = 0; i < scoreLevels.Length; i++)
+        {
+            if (score >= scoreLevels[i])
+                gain = i + 1;
+            else
+                break;
+        }
+        return gain;
     }
 
 }
