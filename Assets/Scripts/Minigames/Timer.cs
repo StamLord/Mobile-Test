@@ -6,6 +6,7 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public int duration;
+    [SerializeField]
     private float timer;
 
     public TextMeshProUGUI timerDisplay;
@@ -19,7 +20,9 @@ public class Timer : MonoBehaviour
     public static event timerEndDelegate onTimerEnd;
     
     void Start()
-    {
+    {   
+        if(UIManager.instance)
+            timerDisplay = UIManager.instance.atkTimer;
         StartTimer();
     }
 
@@ -59,6 +62,11 @@ public class Timer : MonoBehaviour
 
         if(timerDisplay)
             timerDisplay.text = Mathf.FloorToInt(timer).ToString();
+    }
+
+    public float GetPrecentage()
+    {
+        return timer / duration;
     }
 
 

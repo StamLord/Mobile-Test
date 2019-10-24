@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class AttackTraining : MonoBehaviour
 {
     public TextMeshProUGUI scoreDisplay;
     public TextMeshProUGUI comboDisplay;
-
-    public StatPopup popup;
 
     public Transform[] spots;
     public Transform player;
@@ -25,7 +24,7 @@ public class AttackTraining : MonoBehaviour
     public int combo;
     public int highestCombo;
 
-    public int[] scoreLevels = {5000, 10000, 30000, 50000};
+    public int[] scoreLevels = {5000, 10000, 20000, 30000};
 
     private bool isRunning;
     private bool canPunch;
@@ -42,6 +41,9 @@ public class AttackTraining : MonoBehaviour
 
     void Start()
     {
+        scoreDisplay = UIManager.instance.atkScore;
+        comboDisplay = UIManager.instance.atkCombo;
+        
         UpdateScore(0);
         UpdateComboDisplay();
     }
@@ -72,7 +74,7 @@ public class AttackTraining : MonoBehaviour
 
         if(position < spots.Length - 1)
         {
-            if(position+1 == punchBag)
+            if(position + 1 == punchBag)
                 Crash();
             else
             {
@@ -255,7 +257,11 @@ public class AttackTraining : MonoBehaviour
     void StopTraining()
     {
         isRunning = false;
-        popup.Popup(GetStatGain(score));
+
+        int stat = GetStatGain(score);
+        GameManager.instance.Train(0,"atk", stat);
+
+        StartCoroutine(ExitTraining(3));
     }
 
     int GetStatGain(int score)
@@ -269,6 +275,12 @@ public class AttackTraining : MonoBehaviour
                 break;
         }
         return gain;
+    }
+
+    IEnumerator ExitTraining(float secondsToExit)
+    {
+        yield return new WaitForSeconds(secondsToExit);
+        SceneManager.LoadSceneAsync("Main");
     }
 
 }

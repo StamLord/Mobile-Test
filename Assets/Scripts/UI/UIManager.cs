@@ -16,6 +16,30 @@ public class UIManager : MonoBehaviour
     public bool isLoggedin;
     public bool tryingToLogin;
 
+    public TextMeshProUGUI atkScore;
+    public TextMeshProUGUI atkCombo;
+    public TextMeshProUGUI atkTimer;
+
+    #region Singleton
+
+    public static UIManager instance;
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.Log("More than 1 instance of UIManager exists. Destroying: " + this.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    #endregion
+
     void Start()
     {
         string s_username = PlayerPrefs.GetString("username");
@@ -58,6 +82,6 @@ public class UIManager : MonoBehaviour
 
     public void Train(string stat)
     {
-        GameManager.instance.Train(0, stat);
+        GameManager.instance.StartTraining(0, stat);
     }
 }

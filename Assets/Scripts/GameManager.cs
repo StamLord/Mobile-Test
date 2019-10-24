@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public User user = new User();
     public int maxActive = 2;
 
+    public StatPopup statPopup;
+
     #region Singleton
 
     public static GameManager instance;
@@ -18,10 +20,17 @@ public class GameManager : MonoBehaviour
     {
         TimeStep.onTimeStep += UpdatePets;
 
+
         if(instance == null)
+        {    
             instance = this;
+            DontDestroyOnLoad(instance.gameObject);
+        }
         else
-            Debug.LogError("More than 1 instance of GameManager exists:" + instance);
+        {
+            Debug.LogError("More than 1 instance of GameManager exists, destroying:" + instance);
+            Destroy(gameObject);
+        }
     }
 
     #endregion
@@ -178,14 +187,26 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DataService.UpdateActive(user.username, activeArray));
     }
 
-    public void Train(int activePet, string stat)
+    public void StartTraining(int activePet, string stat)
     {
         switch(stat.ToLower())
         {
             case "atk":
             SceneManager.LoadSceneAsync("ATK Training");
                 break; 
+            case "spd":
+            SceneManager.LoadSceneAsync("SPD Training");
+                break; 
+            case "def":
+            SceneManager.LoadSceneAsync("DEF Training");
+                break; 
         }
+    }
+
+    public void Train(int activePet, string stat, int gain)
+    {
+        if(statPopup) statPopup.Popup(stat, gain);
+        activePets[activePet].TrainStat(stat, gain);
     }
 
     public IEnumerator SaveSnapshot(ActivePet pet, PetSnapshot snapshot, PetSnapshot backup)

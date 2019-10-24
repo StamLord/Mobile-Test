@@ -7,24 +7,18 @@ using Doozy.Engine.UI;
 public class StatPopup : MonoBehaviour
 {   
     public int popupDuration = 3;
-    public string stat = "ATK";
     public TextMeshProUGUI statGain;
-    private UIView window;
-
-    void Start()
-    {
-        window = GetComponent<UIView>();
-    }
-
-    void Popup(int gain)
+    public UIView window;
+    
+    public void Popup(string stat, int gain)
     {
         statGain.text = stat + " +" + gain;
         window.Show();
 
-        StartCoroutine(EndMinigame());
+        //StartCoroutine(HidePopup());
     }
 
-    IEnumerator EndMinigame()
+    IEnumerator HidePopup()
     {
         yield return new WaitForSeconds(popupDuration);
         window.Hide();
