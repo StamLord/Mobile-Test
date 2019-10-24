@@ -147,8 +147,8 @@ Camera:
   m_GameObject: {fileID: 13622419}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.43137258, g: 0.6117647, b: 0.37254903, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -3151,7 +3151,7 @@ GameObject:
   - component: {fileID: 1038648532}
   - component: {fileID: 1038648531}
   m_Layer: 0
-  m_Name: UIView
+  m_Name: View - Defense Training
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3170,6 +3170,7 @@ RectTransform:
   m_Children:
   - {fileID: 2033982052}
   - {fileID: 965437479}
+  - {fileID: 1726113586}
   m_Father: {fileID: 2044698902}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3671,7 +3672,7 @@ MonoBehaviour:
   UpdateShowProgressorOnHide: 0
   UseCustomStartAnchoredPosition: 1
   ViewCategory: General
-  ViewName: Unnamed
+  ViewName: Defense Training
 --- !u!225 &1038648534
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6654,14 +6655,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726113585}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1585459221}
   - {fileID: 1993612390}
-  m_Father: {fileID: 2044698902}
-  m_RootOrder: 1
+  m_Father: {fileID: 1038648530}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6926,7 +6927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2044698898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7019,7 +7020,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1038648530}
-  - {fileID: 1726113586}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7060,13 +7060,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTimer: {fileID: 2113322382}
+  defendeMeterDisplay: {fileID: 1585459222}
+  blockedDisplay: {fileID: 1677576172}
   player: {fileID: 669781072}
   playerAnimator: {fileID: 1533451319}
   defenseVisual: {fileID: 1331435438}
-  defendeMeterDisplay: {fileID: 1585459222}
-  blockedDisplay: {fileID: 1677576172}
-  blocked: 0
-  scoreBoard: 0a000000140000001e0000002800000032000000
+  blocks: 0
+  scoreLevels: 0a0000000f000000140000001900000023000000
   isRunning: 0
   isDefendingLeft: 0
   isDefendingRight: 0

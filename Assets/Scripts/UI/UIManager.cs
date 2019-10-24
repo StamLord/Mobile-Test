@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Doozy.Engine.UI;
 using TMPro;
@@ -19,6 +17,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI atkScore;
     public TextMeshProUGUI atkCombo;
     public TextMeshProUGUI atkTimer;
+
+    public TextMeshProUGUI defBlocks;
+    public TextMeshProUGUI defTimer;
+    public UIImage defMeter;
 
     #region Singleton
 

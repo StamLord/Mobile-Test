@@ -8,12 +8,12 @@ using TMPro;
 public class DefenseTraining : MonoBehaviour
 {   
     public Timer mainTimer;
+    public UIImage defendeMeterDisplay;
+    public TextMeshProUGUI blockedDisplay;
+
     public Transform player;
     public Animator playerAnimator;
     public GameObject defenseVisual;
-    
-    public UIImage defendeMeterDisplay;
-    public TextMeshProUGUI blockedDisplay;
 
     public int blocks;
     public int[] scoreLevels = {10, 15, 20, 25, 35};
@@ -45,6 +45,14 @@ public class DefenseTraining : MonoBehaviour
         InputListener.onButtonB += DefendRightStart;
         InputListener.onButtonAUp += DefendLeftEnd;
         InputListener.onButtonBUp += DefendRightEnd;
+    }
+    
+    void Start()
+    {
+        defendeMeterDisplay = UIManager.instance.defMeter;
+        blockedDisplay = UIManager.instance.defBlocks;
+
+        UpdateBlocksDisplay();
     }
 
     void Update()
@@ -168,6 +176,11 @@ public class DefenseTraining : MonoBehaviour
     void Success()
     {
         blocks++;
+        UpdateBlocksDisplay();
+    }
+
+    void UpdateBlocksDisplay()
+    {
         blockedDisplay.text = string.Format("BLOCKS: {0}", blocks);
     }
 
