@@ -6,7 +6,7 @@ using UnityEngine;
 public class Food : ScriptableObject
 {
     public string foodName;
-    public Sprite sprite;
+    public Sprite[] sprite;
 
     [Range(0,5)]
     public int hunger;

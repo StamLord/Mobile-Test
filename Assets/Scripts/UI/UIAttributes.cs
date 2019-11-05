@@ -17,14 +17,32 @@ public class UIAttributes : MonoBehaviour
     public TextMeshProUGUI spdVal;
     public TextMeshProUGUI defVal;
 
-    public int activePet;
+    public UIImage weightIcon;
+    public TextMeshProUGUI weightVal;
+
+    public int viewingPet;
+
+    void Start()
+    {
+        GameManager.onSelectedPetUpdate += UpdateViewingPet;
+    }
+
+    public void UpdateViewingPet(int index)
+    {
+        if(index < 0)
+            index = 0;
+        viewingPet = index;
+    }
 
     void Update()
     {
-        ActivePet pet = GameManager.instance.activePets[activePet];
+        if(GameManager.instance.activePets[viewingPet] == null)
+            return;
+            
+        ActivePet pet = GameManager.instance.activePets[viewingPet];
 
-        species.text = "SP: " + pet.species;
-        nickname.text = "NICK: " + pet.nickname;
+        species.text = "SP: " + pet.species.ToUpper();
+        nickname.text = "NICK: " + pet.nickname.ToUpper();
 
         atk.fillAmount = pet.atk / 255f;
         spd.fillAmount = pet.spd / 255f;
@@ -34,5 +52,6 @@ public class UIAttributes : MonoBehaviour
         spdVal.text = pet.spd.ToString();
         defVal.text = pet.def.ToString();
 
+        weightVal.text = "WT: " + pet.weight;
     }
 }

@@ -1185,8 +1185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerFrame: 0.8
-  state: 0
   spritesheet: {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
+  deadSprite: {fileID: 0}
 --- !u!212 &491834798
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10301,6 +10301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 60
+  timer: 0
   timerDisplay: {fileID: 1970907970}
 --- !u!4 &1899702657
 Transform:
@@ -10340,6 +10341,7 @@ MonoBehaviour:
   - {fileID: 1953490363}
   player: {fileID: 2028534515}
   playerAnimator: {fileID: 491834800}
+  spritesheet: {fileID: 491834797}
   bag: {fileID: 1409407541}
   bagAnimator: {fileID: 1409407543}
   position: 3
@@ -11216,7 +11218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028534514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 491834799}

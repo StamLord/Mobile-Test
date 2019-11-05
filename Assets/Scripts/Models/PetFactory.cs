@@ -20,6 +20,7 @@ public class PetFactory : MonoBehaviour
 
         PetSnapshot petSnapshot = new PetSnapshot();
 
+        petSnapshot.nickname = "";
         petSnapshot.species = species.speciesName;
         petSnapshot.birth = timestamp;
         petSnapshot.longetivity = Random.Range((int)species.longetivityMin, (int)species.longetivityMax + 1);
@@ -38,10 +39,12 @@ public class PetFactory : MonoBehaviour
         petSnapshot.strengthStamp = timestamp;
         petSnapshot.attentionStamp = timestamp;
 
+        petSnapshot.happiness = 50;
         petSnapshot.happinessRate = Random.Range(species.happinessRateMin, species.happinessRateMax + 1);
-        petSnapshot.disciplineRate = Random.Range(species.disciplineRateMin, species.disciplineRateMax + 1);
-
         petSnapshot.happinessStamp = timestamp;
+        
+        petSnapshot.discipline = 50;
+        petSnapshot.disciplineRate = Random.Range(species.disciplineRateMin, species.disciplineRateMax + 1);
         petSnapshot.disciplineStamp = timestamp;
 
         petSnapshot.energy = 20;

@@ -23,6 +23,11 @@ public class ActivePet
 
     public string nickname { get{ return snapshot.nickname; } }
 
+    public bool isInjured
+    {
+        get {return IsInjured();}
+    }
+
     public bool isDead
     {
         get {return IsDead();}
@@ -56,6 +61,10 @@ public class ActivePet
     public int happiness { get{ return CalculateHappiness(); }}
     public int discipline { get{ return CalculateDiscipline(); }}
 
+    public bool canDiscipline 
+    {
+        get{ return CanDiscipline();}
+    }
     public int energy { get{ return CalculateEnergy(); }}
 
     public int atk { get{ return snapshot.atk; } }
@@ -74,18 +83,25 @@ public class ActivePet
         this.snapshot._id = id;
     }
 
-    public int CalculateAge()
+    private int CalculateAge()
     {
         double timeSinceBirth = Timestamp.GetSecondsSince(birth);
-        return Mathf.FloorToInt((float)timeSinceBirth / 60 / 24);
+        int age = Mathf.FloorToInt((float)timeSinceBirth / 60 /60 / 24);
+        if(isDead)
+        {
+            double secondsSinceDeath = Timestamp.GetSecondsSince(snapshot.stageStamp + snapshot.longetivity);
+            age -= Mathf.FloorToInt((float)secondsSinceDeath / 60 / 60 / 24);
+        }
+        
+        return age;
     }
 
-    public double CalculateStageTime()
+    private double CalculateStageTime()
     {
         return Timestamp.GetSecondsSince(snapshot.stageStamp);
     }
 
-    public double GetTimeSinceFed()
+    private double GetTimeSinceFed()
     {
         return Timestamp.GetSecondsSince(snapshot.hungerStamp);
     }
@@ -137,7 +153,7 @@ public class ActivePet
         // Update discipline based on time since snapshot
         double timeSinceDiscipline = Timestamp.GetSecondsSince(snapshot.disciplineStamp);
         int calculatedDiscipline = snapshot.discipline - Mathf.FloorToInt((float)timeSinceDiscipline / (float)snapshot.disciplineRate);
-        calculatedDiscipline = Mathf.Clamp(calculatedDiscipline, 0, 5);
+        calculatedDiscipline = Mathf.Clamp(calculatedDiscipline, 0, 100);
 
         return calculatedDiscipline;
     }
@@ -158,9 +174,34 @@ public class ActivePet
         double starveTime = timeSinceFed - (snapshot.Hunger * snapshot.hungerRate);
         return starveTime;
     }
+
+    public void Injure(int amount)
+    {
+        if(IsInjured())
+            return;
+
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.injury = amount;
+        snapshot.injuryStamp = Timestamp.GetTimeStamp();
+        
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
     
+    private bool IsInjured()
+    {
+        double timeSinceInjured = Timestamp.GetSecondsSince(snapshot.injuryStamp);
+        int currentInjury = snapshot.injury - (Mathf.FloorToInt((float)timeSinceInjured / snapshot.injuryRecoveryRate));
+
+        return (currentInjury > 0);
+    }
+
     public bool IsDead()
     {
+        if(stage == 0) // Eggs can't die
+            return false;
+
         double stageTime = Timestamp.GetSecondsSince(snapshot.stageStamp);
         if(stageTime >= snapshot.longetivity)
         {
@@ -170,13 +211,18 @@ public class ActivePet
         return false;
     }
 
-    public void Feed(int hungerChange, int weightChange)
+    public void Feed(int hungerChange, int weightChange, int happinessChange, int disciplineChange, int energyChange)
     {   
+        double stamp = Timestamp.GetTimeStamp();
         // Create backup in case server doesn't respond
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.Hunger = hunger + hungerChange;
-        snapshot.hungerStamp = Timestamp.GetTimeStamp();
+        snapshot.hungerStamp = stamp;
         snapshot.weight += weightChange;
+        snapshot.happiness += happinessChange;
+        snapshot.discipline += disciplineChange;
+        snapshot.disciplineStamp = stamp;
+        snapshot.energy += energyChange;
         snapshot.isStarving = false;
         
         // Send snapshot to server
@@ -190,6 +236,47 @@ public class ActivePet
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.careMistakes++;
         snapshot.longetivity -= careMistakeCost;
+
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
+
+    public void Misbehave()
+    {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.misbehaveStamp = Timestamp.GetTimeStamp();
+
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
+
+    private bool CanDiscipline()
+    {
+        double timeSinceMisbehaved = Timestamp.GetSecondsSince(snapshot.misbehaveStamp);
+        return (timeSinceMisbehaved <= 600);
+    }
+
+    public void Praise()
+    {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.happiness += 10;
+
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
+
+    public void Scold()
+    {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        if(CanDiscipline())
+        {
+            snapshot.discipline = discipline + 10;
+            snapshot.disciplineStamp = Timestamp.GetTimeStamp();
+        }
+        snapshot.happiness -= 10;
 
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
@@ -223,6 +310,8 @@ public class ActivePet
                 GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
         }
+
+        Debug.Log(snapshot.energy);
     }
 
     public void ReduceEnergy(int amount)

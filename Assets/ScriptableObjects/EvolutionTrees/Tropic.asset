@@ -16,7 +16,17 @@ MonoBehaviour:
   stage_1:
   - species: {fileID: 11400000, guid: b9943e1d2e34f8f46ac078d90fbcec38, type: 2}
     conditions: []
-  stage_2: []
+  stage_2:
+  - species: {fileID: 11400000, guid: c5c0874431561ab47b5d74b8f7c10807, type: 2}
+    conditions:
+    - property1: 3
+      compare: 0
+      property2: 4
+      customValue: 0
+    - property1: 3
+      compare: 0
+      property2: 5
+      customValue: 0
   stage_3: []
   stage_4: []
   stagesEvolveAt:

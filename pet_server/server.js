@@ -16,5 +16,5 @@ mongoose.connection.once('open', () => {
     
     app.use(express.json());
     app.use('/api', routes);
-    app.listen('5000', () => console.log('Server is running'));
+    app.listen(config.PORT, () => console.log(`Server is running on ${config.PORT}`));
 })

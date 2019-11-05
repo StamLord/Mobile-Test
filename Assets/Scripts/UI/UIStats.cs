@@ -8,17 +8,32 @@ public class UIStats : MonoBehaviour
     public UIImage[] strength;
     public UIImage[] attention;
 
-    public int activePet;
+    public int viewingPet = 0;
+
+    void Start()
+    {
+        GameManager.onSelectedPetUpdate += UpdateViewingPet;
+    }
 
     void Update()
     {
         UpdateHungerBars();
     }
 
+    public void UpdateViewingPet(int index)
+    {
+        if(index < 0)
+            index = 0;
+        viewingPet = index;
+    }
+
     void UpdateHungerBars()
     {   
-        ActivePet pet = GameManager.instance.activePets[activePet];
-        
+        if(GameManager.instance.activePets[viewingPet] == null)
+            return;
+
+        ActivePet pet = GameManager.instance.activePets[viewingPet];
+
         for(int i = 0; i < hunger.Length; i++)
         {
             if(i > pet.hunger - 1)

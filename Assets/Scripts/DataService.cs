@@ -9,7 +9,7 @@ public class  DataService
     public static bool isLoggedin;
     public static bool tryingToLogin;
 
-    public const string HOST = "http://localhost:5000/api/";
+    public const string HOST = "https://hidden-gorge-63443.herokuapp.com/api/";
 
     public static IEnumerator Login(string username, string password)
     {
@@ -101,6 +101,42 @@ public class  DataService
         else
         {
             Debug.Log("Error updating active pets");
+            yield return false;
+        }
+    }
+
+    public static IEnumerator UpdateGraveyard(string username, List<string> graveyard)
+    {
+        string json = "{ \"graveyard\": [";
+
+        for(int i = 0; i < graveyard.Count; i++)
+        {
+            json += "\"" + graveyard[i] + "\"";
+            if(i + 1 < graveyard.Count)
+                json +=",";
+        }
+
+        json += "]}";
+
+        Debug.Log(json);
+        byte[] data = System.Text.Encoding.Default.GetBytes(json);
+
+        // Create a POST request because Unity apperantly cannot
+        UnityWebRequest request = new UnityWebRequest(HOST+username+"/graveyard", "PUT");
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+        
+        if (!request.isNetworkError)
+        {
+            Debug.Log("Successfully Updated Graveyard");
+            yield return true;
+        }
+        else
+        {
+            Debug.Log("Error updating Graveyard");
             yield return false;
         }
     }

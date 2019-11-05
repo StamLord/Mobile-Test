@@ -190,7 +190,6 @@ module.exports.updatePet = (req, res) => {
 module.exports.updateActive = (req, res) => {
 
     const username = req.params.username;
-    console.log(username);
     // And array of ObjectId signifying which pets are active
     const {active} = req.body;
     User.findOneAndUpdate({username}, {
@@ -204,6 +203,28 @@ module.exports.updateActive = (req, res) => {
 
         if(result) {   
             res.status(201).send({msg: 'Active Pets Updated!'});
+        }
+        else
+            res.sendStatus(404);
+    });
+}
+
+module.exports.updateGraveyard = (req, res) => {
+
+    const username = req.params.username;
+    // And array of ObjectId signifying which pets are in graveyard
+    const {graveyard} = req.body;
+    User.findOneAndUpdate({username}, {
+        graveyard
+    }, (err, result) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+            return;
+        }
+
+        if(result) {   
+            res.status(201).send({msg: 'Graveyard Updated!'});
         }
         else
             res.sendStatus(404);

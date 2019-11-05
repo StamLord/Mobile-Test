@@ -5,7 +5,12 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {   
-    
+    [SerializeField] private GameObject loadingObject;
+    [SerializeField] private TextMeshProUGUI loadingMessage;
+    [SerializeField] private GameObject loadingAnim;
+
+    public GameObject sleepMode;
+
     public UIPopup loginPopup;
     public TMPro.TMP_InputField username;
     public TMPro.TMP_InputField password;
@@ -21,6 +26,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI defBlocks;
     public TextMeshProUGUI defTimer;
     public UIImage defMeter;
+
+    public TextMeshProUGUI spdBounces;
+    public TextMeshProUGUI spdScore;
+    public TextMeshProUGUI spdTimer;
+    public UIImage[] spdIndicators;
 
     #region Singleton
 
@@ -66,6 +76,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetLoading(bool active, string message, bool animation)
+    {
+        loadingObject.SetActive(active);
+        loadingMessage.text = message;
+        loadingAnim.SetActive(animation);
+    }
+
     public void Login()
     {
         StartCoroutine(GameManager.instance.Login(username.text, password.text, rememberMe));
@@ -77,13 +94,28 @@ public class UIManager : MonoBehaviour
         rememberMe = !rememberMe;
     }
 
-    public void Feed(int hungerChange)
-    {
-        GameManager.instance.activePets[0].Feed(hungerChange, 10);
-    }
+    // public void Feed(int hungerChange)
+    // {
+    //     GameManager.instance.activePets[0].Feed(hungerChange, 10);
+    // }
 
     public void Train(string stat)
     {
         GameManager.instance.StartTraining(0, stat);
+    }
+
+    public void Praise()
+    {
+        GameManager.instance.Praise();
+    }
+
+    public void Scold()
+    {
+        GameManager.instance.Scold();
+    }
+
+    public void TurnLight(bool on)
+    {
+        sleepMode.SetActive(!on);
     }
 }

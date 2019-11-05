@@ -13,6 +13,7 @@ public class DefenseTraining : MonoBehaviour
 
     public Transform player;
     public Animator playerAnimator;
+    public SpritesheetAnimator spritesheet;
     public GameObject defenseVisual;
 
     public int blocks;
@@ -51,6 +52,8 @@ public class DefenseTraining : MonoBehaviour
     {
         defendeMeterDisplay = UIManager.instance.defMeter;
         blockedDisplay = UIManager.instance.defBlocks;
+
+        spritesheet.spritesheet = GameManager.instance.FindSheet(GameManager.instance.SelectedPet.species);
 
         UpdateBlocksDisplay();
     }
@@ -223,5 +226,16 @@ public class DefenseTraining : MonoBehaviour
     {
         yield return new WaitForSeconds(secondsToExit);
         SceneManager.LoadSceneAsync("Main");
+    }
+
+    void OnDestroy()
+    {
+        Timer.onTimerStart -= StartTraining;
+        Timer.onTimerEnd -= EndTraining;
+
+        InputListener.onButtonA -= DefendLeftStart;
+        InputListener.onButtonB -= DefendRightStart;
+        InputListener.onButtonAUp -= DefendLeftEnd;
+        InputListener.onButtonBUp -= DefendRightEnd;
     }
 }

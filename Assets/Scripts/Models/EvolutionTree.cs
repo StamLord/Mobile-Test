@@ -42,7 +42,7 @@ public class EvolutionTree : ScriptableObject
     
     private Species GetEvolutionFromStage(ActivePet pet, EvolutionPath[] paths)
     {
-        // Return the species of the first path that meets all conditions
+        // Return the species of the first path that meets all conditions or no conditions exist
         foreach(EvolutionPath path in paths)
         {
             if(path.CheckConditions(pet))

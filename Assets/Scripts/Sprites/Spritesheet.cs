@@ -11,4 +11,6 @@ public class Spritesheet : ScriptableObject
     public Sprite[] sad;
     public Sprite[] eating;
     public Sprite[] sleeping;
+    public Sprite[] punch;
+    public Sprite[] hit;
 }

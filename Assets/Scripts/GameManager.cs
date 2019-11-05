@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Doozy.Engine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public EvolutionGarden evolutionGarden;
+    public Species[] species = new Species[0];
+
     public List<ActivePet> activePets = new List<ActivePet>();
+    
     public User user = new User();
     public int maxActive = 2;
+    public float feedingTime = 3f;
 
+    private int selection = -1;
+    public ActivePet SelectedPet { get {return activePets[selection]; } }
+    public Food selectedFood;
+    
     public StatPopup statPopup;
+    public DeadPopup deadPopup;
+
+    private bool updatedVisual;
 
     #region Singleton
 
@@ -18,8 +30,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        TimeStep.onTimeStep += UpdatePets;
-
+        TimeStep.onTimeStep += UpdateActivePets;
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         if(instance == null)
         {    
@@ -35,8 +47,24 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public delegate void activePetsChangeDelegate();
+    #region Events
+
+    public delegate void activePetsChangeDelegate(List<ActivePet> activePets);
     public static event activePetsChangeDelegate onActivePetsChange;
+
+    public delegate void selectedPetUpdateDelegate(int index);
+    public static event selectedPetUpdateDelegate onSelectedPetUpdate;
+
+    public delegate void midFeedingDelegate(float ratio);
+    public static event midFeedingDelegate onMidFeeding;
+
+    public delegate void finishedFeedingDelegate();
+    public static event finishedFeedingDelegate onFinishedFeeding;
+
+    public delegate void misbehavePetDelegate(int index);
+    public static event misbehavePetDelegate onMisbehavePet;
+
+    #endregion
 
     public void SetUser(User user)
     {
@@ -52,26 +80,57 @@ public class GameManager : MonoBehaviour
             {
                 if(snapshot._id == user.active[i])
                 {
-                    activePets.Add(PetFactory.CreateFromSnapshot(snapshot));
+                    bool inGraveyard = false;
+                    
+                    foreach(string grave in user.graveyard)
+                    {
+                        if(snapshot._id == grave)
+                            inGraveyard = true;
+                    }
+
+                    if(inGraveyard == false)
+                        activePets.Add(PetFactory.CreateFromSnapshot(snapshot));
                 }
             }
         }
 
         if(onActivePetsChange != null)
-            onActivePetsChange();
+            onActivePetsChange(activePets);
     }
 
-    void UpdatePets()
+    #region Scene Prepare
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded:" + scene.name + "Scene Mode: " +mode.ToString());
+        updatedVisual = false;
+    }
+
+    void Update()
+    {
+        if(updatedVisual == false)
+        {
+            if(onActivePetsChange != null)
+            {         
+                onActivePetsChange(activePets);
+            }
+            updatedVisual = true;
+        }
+    }
+
+    #endregion
+    
+    void UpdateActivePets()
     {
        foreach (ActivePet pet in activePets)
        {
-           UpdateStats(pet);
+           UpdatePet(pet);
        }
     }
 
-    void UpdateStats(ActivePet pet)
+    void UpdatePet(ActivePet pet)
     {   
-        if(pet == null)
+        if(pet == null || pet.isDead)
             return;
 
         if(pet.hunger < 1) 
@@ -101,12 +160,14 @@ public class GameManager : MonoBehaviour
             if(tree.IsTimeToEvolve(pet))
             {
                 Species evolveTo = tree.GetEvolution(pet);
-                
+                Debug.Log(evolveTo);
                 if(evolveTo)
                 {
                     // Animate
-                    PetFactory.Evolve(pet, evolveTo);
-                    onActivePetsChange();
+                    pet.EvolveTo(PetFactory.Evolve(pet, evolveTo));
+                    
+                    if(onActivePetsChange != null)
+                        onActivePetsChange(this.activePets);
                 }
             }
         }
@@ -114,8 +175,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Login(string username, string password, bool remember)
     {
+        UIManager.instance.SetLoading(true, "Syncing", true);
+
         Coroutine<User> routine = this.StartCoroutine<User>(DataService.Login(username, password));
         yield return routine.coroutine;
+
+        UIManager.instance.SetLoading(false, "", true);
 
         if(routine.returnVal != null)
         {
@@ -162,21 +227,188 @@ public class GameManager : MonoBehaviour
     {
         activePets.Add(pet);
             
-        UpdateActive();
+        StartCoroutine(UpdateActive());
 
-        onActivePetsChange();
+        if(onActivePetsChange != null)
+            onActivePetsChange(this.activePets);
     }
 
     public void RemoveActive(ActivePet pet)
     {
         activePets.Remove(pet);
             
-        UpdateActive();
+        StartCoroutine(UpdateActive());
 
-        onActivePetsChange();
+        if(onActivePetsChange != null)
+            onActivePetsChange(this.activePets);
     }
 
-    public void UpdateActive()
+
+    public void MoveSelectedToGraveyard()
+    {   
+        deadPopup.Hide();
+
+        Debug.Log("Moving selection " + selection + " to graveyard");
+
+        if(selection < 0)
+            return;
+        
+        user.graveyard.Add(activePets[selection]._id);
+
+        StartCoroutine(UpdateGraveyard());
+        RemoveActive(activePets[selection]);
+    }
+
+    public void SetSelection(int index)
+    {
+        if(deadPopup.IsVisible())
+            return;
+
+        selection = index;
+        Debug.Log("Selected: " + selection);
+
+        if(onSelectedPetUpdate != null)
+            onSelectedPetUpdate(index);
+        
+        if(selection >= 0)   
+        {
+            if(activePets[selection].isDead)
+                deadPopup.Popup(activePets[selection]);
+        }
+    }
+
+    public void StartTraining(int petIndex, string stat)
+    {
+        if(activePets[petIndex].isDead)
+            return;
+
+        if(activePets[petIndex].energy < 1)
+            return;
+
+        if(DiscplineCheck(activePets[petIndex].discipline) == false)
+        {
+            if(onMisbehavePet != null)
+                onMisbehavePet(petIndex);
+
+            activePets[petIndex].Misbehave();
+            return;
+        }
+        
+        switch(stat.ToLower())
+        {
+            case "atk":
+                GameObject.Find("Graph Controller").
+                GetComponent<Doozy.Engine.Nody.GraphController>().
+                GoToNodeByName("Load ATK Training");
+            //SceneManager.LoadSceneAsync("ATK Training");
+                break; 
+            case "spd":
+                GameObject.Find("Graph Controller").
+                GetComponent<Doozy.Engine.Nody.GraphController>().
+                GoToNodeByName("Load SPD Training");
+            // SceneManager.LoadSceneAsync("SPD Training");
+                break; 
+            case "def":
+                GameObject.Find("Graph Controller").
+                GetComponent<Doozy.Engine.Nody.GraphController>().
+                GoToNodeByName("Load DEF Training");
+            // SceneManager.LoadSceneAsync("DEF Training");
+                break; 
+        }
+    }
+
+    public bool DiscplineCheck(int discipline)
+    {
+        int check = Random.Range(0, 101);
+        return (discipline >= check);
+    }
+
+    public void Praise()
+    {
+        if(activePets.Count == 1)
+            SetSelection(0);
+        
+        if(selection > -1)
+            activePets[selection].Praise();
+    }
+
+    public void Scold()
+    {
+        if(activePets.Count == 1)
+            SetSelection(0);
+
+        if(selection > -1)
+            activePets[selection].Scold();
+    }
+
+    public void Train(int activePet, string stat, int gain)
+    {
+        if(statPopup) 
+            statPopup.Popup(stat, gain);
+
+        activePets[activePet].TrainStat(stat, gain);
+        activePets[activePet].ReduceEnergy(1);
+        
+        int injury = InjuryCheck(activePets[activePet].energy, activePets[activePet].happiness);
+        if(injury > 0)
+            activePets[activePet].Injure(injury);
+    }
+
+    private int InjuryCheck(int energy, int happiness)
+    {
+        int injury = 0;
+
+        float remap = (energy - 5) / (15 - 5); // Remaps the energy to a scale between 5 and 15
+        if (remap < 0) remap = 0;
+        float chance = 0.5f * (1 - remap);
+
+        float rand = Random.Range(0f, 1f);
+
+        if(rand < chance)
+            injury = Random.Range(0, 6);
+
+        return injury;
+    }
+
+    public bool Feed(int petIndex, float timeHovered)
+    {
+        if(timeHovered >= feedingTime && petIndex >= 0)
+        {
+            activePets[petIndex].Feed(
+                selectedFood.hunger, 
+                selectedFood.weight,
+                selectedFood.happiness,
+                selectedFood.discipline,
+                selectedFood.energy);
+            if(onFinishedFeeding != null)
+                onFinishedFeeding();
+            return true;
+        }
+        else
+        {
+            if(onMidFeeding != null)
+                onMidFeeding(timeHovered / feedingTime);
+            return false;
+        }
+    }
+
+    public IEnumerator SaveSnapshot(ActivePet pet, PetSnapshot snapshot, PetSnapshot backup)
+    {
+        UIManager.instance.SetLoading(true, "Syncing", true);
+
+        Coroutine<bool> routine = this.StartCoroutine<bool>(DataService.UpdatePet(snapshot));
+        yield return routine.coroutine;
+
+        UIManager.instance.SetLoading(false, "", true);
+
+        if(routine.returnVal == false)
+        {   
+            Debug.Log("No response from server: Aborting save and restoring backup.");
+            pet.SetSnapshot(backup);
+        }
+    }
+
+    public IEnumerator UpdateActive()
     {
         string[] activeArray = new string[activePets.Count];
         for(int i = 0; i < activePets.Count; i++)
@@ -184,40 +416,41 @@ public class GameManager : MonoBehaviour
             activeArray[i] = activePets[i]._id;
         }
 
-        StartCoroutine(DataService.UpdateActive(user.username, activeArray));
-    }
+        UIManager.instance.SetLoading(true, "Syncing", true);
 
-    public void StartTraining(int activePet, string stat)
-    {
-        switch(stat.ToLower())
-        {
-            case "atk":
-            SceneManager.LoadSceneAsync("ATK Training");
-                break; 
-            case "spd":
-            SceneManager.LoadSceneAsync("SPD Training");
-                break; 
-            case "def":
-            SceneManager.LoadSceneAsync("DEF Training");
-                break; 
-        }
-    }
-
-    public void Train(int activePet, string stat, int gain)
-    {
-        if(statPopup) statPopup.Popup(stat, gain);
-        activePets[activePet].TrainStat(stat, gain);
-    }
-
-    public IEnumerator SaveSnapshot(ActivePet pet, PetSnapshot snapshot, PetSnapshot backup)
-    {
-        Coroutine<bool> routine = this.StartCoroutine<bool>(DataService.UpdatePet(snapshot));
+        Coroutine<bool> routine = this.StartCoroutine<bool>(DataService.UpdateActive(user.username, activeArray));
         yield return routine.coroutine;
 
+        UIManager.instance.SetLoading(false, "", true);
+
         if(routine.returnVal == false)
-        {   
-            Debug.Log("No response from server: Aborting save and restoring backup.");
-            pet.SetSnapshot(backup);
+        {
+            Debug.Log("No response from server:");
         }
+    }
+
+    public IEnumerator UpdateGraveyard()
+    {
+        UIManager.instance.SetLoading(true, "Syncing", true);
+
+        Coroutine<bool> routine = this.StartCoroutine<bool>(DataService.UpdateGraveyard(user.username, user.graveyard));
+        yield return routine.coroutine;
+
+        UIManager.instance.SetLoading(false, "", true);
+
+        if(routine.returnVal == false)
+        {
+            Debug.Log("No response from server:");
+        }
+    }
+
+    public Spritesheet FindSheet(string name)
+    {
+        foreach(Species s in species)
+        {
+            if(s.speciesName == name)
+                return s.spritesheets[0];
+        }
+        return null;
     }
 }

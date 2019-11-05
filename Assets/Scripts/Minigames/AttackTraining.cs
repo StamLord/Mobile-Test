@@ -11,6 +11,7 @@ public class AttackTraining : MonoBehaviour
     public Transform[] spots;
     public Transform player;
     public Animator playerAnimator;
+    public SpritesheetAnimator spritesheet;
     public Transform bag;
     public Animator bagAnimator;
     
@@ -43,6 +44,8 @@ public class AttackTraining : MonoBehaviour
         scoreDisplay = UIManager.instance.atkScore;
         comboDisplay = UIManager.instance.atkCombo;
         
+        spritesheet.spritesheet = GameManager.instance.FindSheet(GameManager.instance.SelectedPet.species);
+
         UpdateScore(0);
         UpdateComboDisplay();
     }
@@ -280,6 +283,16 @@ public class AttackTraining : MonoBehaviour
     {
         yield return new WaitForSeconds(secondsToExit);
         SceneManager.LoadSceneAsync("Main");
+    }
+
+    void OnDestroy()
+    {
+        Timer.onTimerStart -= StartTraining;
+        Timer.onTimerEnd -= StopTraining;
+
+        InputListener.onButtonA -= MoveLeft;
+        InputListener.onButtonB -= MoveRight;
+        InputListener.onButtonC -= Punch;
     }
 
 }

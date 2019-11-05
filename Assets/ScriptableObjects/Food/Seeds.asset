@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Seeds
   m_EditorClassIdentifier: 
   foodName: Seeds
-  sprite: {fileID: 21300000, guid: aa8af6a9b70f0ad4b8301f7a57487a5c, type: 3}
+  sprite:
+  - {fileID: 21300000, guid: 46189c33f1f8deb4fa88bcefb8e4878c, type: 3}
+  - {fileID: 21300000, guid: 37be2696c3983114eacb68fa9b6662e7, type: 3}
+  - {fileID: 21300000, guid: d41a67cdf5ceabb44a209319083a0ed5, type: 3}
   hunger: 1
   weight: 2
   happiness: -10

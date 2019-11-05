@@ -7,18 +7,21 @@ public class SpritesheetAnimator : MonoBehaviour
     public float secondsPerFrame = 1;
     private float timer;
     private int frame = 0; // Current frame
+    
+    public string fallBackAnimation = "Idle";
+    public string currentAnimation = "Idle";
+    public bool looping = true;
 
-    public enum State { Idle, Happy, Eating, Pet};
-    public State state = State.Idle;
     // Sprites
-
-    [SerializeField]
     public Spritesheet spritesheet;
+    private SpriteRenderer rend;
+    
+    public GameObject teachIcon;
 
-    SpriteRenderer rend;
+    public Sprite deadSprite;
 
     private void Awake()
-    {
+    {   
         rend = GetComponent<SpriteRenderer>();
     }
 
@@ -29,16 +32,20 @@ public class SpritesheetAnimator : MonoBehaviour
             rend.sprite = null;
             return;
         }
-
+        
         if(timer >= secondsPerFrame)
         {
             frame++;
             if (frame == spritesheet.idle.Length)
+            {    
                 frame = 0;
+                if(looping == false)
+                    PlayAnimation(fallBackAnimation, true);
+            }
 
             SetSprite(frame);
 
-            timer = 0;
+            timer -= secondsPerFrame;
         }
 
         timer += Time.deltaTime;
@@ -46,20 +53,40 @@ public class SpritesheetAnimator : MonoBehaviour
 
     void SetSprite(int frame)
     {
-        switch (state)
+        switch (currentAnimation)
         {
-            case State.Idle:
+            case "Idle":
                 rend.sprite = spritesheet.idle[frame];
                 break;
-            case State.Happy:
+            case "Happy":
                 rend.sprite = spritesheet.happy[frame];
                 break;
-            case State.Eating:
+            case "Sad":
+                rend.sprite = spritesheet.sad[frame];
+                break;
+            case "Eating":
                 rend.sprite = spritesheet.eating[frame];
                 break;
-            case State.Pet:
+            case "Petting":
                 rend.sprite = spritesheet.pet[frame];
                 break;
+            case "Sleeping":
+                rend.sprite = spritesheet.sleeping[frame];
+                break;
+            case "Dead":
+                rend.sprite = deadSprite;
+                break;
         }
+    }
+
+    public void PlayAnimation(string animation, bool loop)
+    {
+        currentAnimation = animation;
+        looping = loop;
+    }
+
+    public void SetTeachIcon(bool visible)
+    {
+        teachIcon.SetActive(visible);
     }
 }

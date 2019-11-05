@@ -58,6 +58,9 @@ public class PetBase
     public int energy;
     public int energyRecoveryRate = 60;
 
+    public int injury;
+    public int injuryRecoveryRate = 3600;
+
     public int s_atk;
     public int s_spd;
     public int s_def;

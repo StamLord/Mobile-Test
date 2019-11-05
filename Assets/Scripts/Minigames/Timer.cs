@@ -22,17 +22,22 @@ public class Timer : MonoBehaviour
     
     void Start()
     {   
-        string sceneName = SceneManager.GetActiveScene().name;
-        switch(sceneName)
+        if(UIManager.instance != null)
         {
-            case "ATK Training":
-                timerDisplay = UIManager.instance.atkTimer;
-                break;
-            case "DEF Training":
-                timerDisplay = UIManager.instance.defTimer;
-                break;
+            string sceneName = SceneManager.GetActiveScene().name;
+            switch(sceneName)
+            {
+                case "ATK Training":
+                    timerDisplay = UIManager.instance.atkTimer;
+                    break;
+                case "SPD Training":
+                    timerDisplay = UIManager.instance.spdTimer;
+                    break;
+                case "DEF Training":
+                    timerDisplay = UIManager.instance.defTimer;
+                    break;
+            }
         }
-        
         StartTimer();
     }
 

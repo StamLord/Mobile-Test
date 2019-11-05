@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     password: String,
     email: String,
     active: [mongoose.Types.ObjectId],
+    graveyard: [mongoose.Types.ObjectId],
     pets: [Pet.schema]
 });
 

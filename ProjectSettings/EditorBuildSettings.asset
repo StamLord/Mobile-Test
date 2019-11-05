@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ATK Training.unity
     guid: 816a2aae56a9e434e8d2e8aefb0f4bd9
   - enabled: 1
+    path: Assets/Scenes/SPD Training.unity
+    guid: b98b068d36e6556489bc2d4e86d82b0d
+  - enabled: 1
     path: Assets/Scenes/DEF Training.unity
     guid: fdb5938608be0c044a10c8ccb78c156a
+  - enabled: 1
+    path: Assets/Scenes/Storage.unity
+    guid: 71f522e3f9ecfd540878f8769ab797ef
   m_configObjects: {}

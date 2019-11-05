@@ -11,6 +11,8 @@ router.put('/:username/pet', controller.createPet);
 
 router.put('/:username/active', controller.updateActive);
 
+router.put('/:username/graveyard', controller.updateGraveyard);
+
 router.post('/pet', controller.updatePet);
 
 module.exports = router;

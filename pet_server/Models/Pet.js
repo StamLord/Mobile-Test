@@ -38,9 +38,15 @@ const PetSchema = new mongoose.Schema({
     disciplineRate: Number,
     disciplineStamp: Number,
 
+    misbehaveStamp: Number,
+
     energy: Number,
     energyRecoveryRate: Number,
     energyStamp: Number,
+
+    injury: Number,
+    injuryRecoveryRate: Number,
+    injuryStamp: Number,
 
     s_atk: Number,
     s_spd: Number,
