@@ -11,6 +11,10 @@ public class Species : ScriptableObject
     public double longetivityMax;
     public int careMistakeCost;
 
+    public int baseWeight;
+    public int minWeight;
+    public int maxWeight;
+
     public int hungerRateMin;
     public int hungerRateMax;
     public int strengthRateMin;

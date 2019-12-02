@@ -38,7 +38,9 @@ public class ActivePet
     public int careMistakes { get{ return snapshot.careMistakes; } }
     public int careMistakeCost { get{ return snapshot.careMistakeCost; } }
 
-    public int weight { get{ return snapshot.weight; } }
+    public int weight { get{ return snapshot.Weight; } }
+    public int minWeight {get{ return snapshot.minWeight; } }
+    public int maxWeight {get{ return snapshot.maxWeight; } }
 
     public double starveAt { get{ return snapshot.starveAt; } }
     public bool isStarving {get {return snapshot.isStarving; } set{ snapshot.isStarving = value;} }
@@ -218,7 +220,7 @@ public class ActivePet
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.Hunger = hunger + hungerChange;
         snapshot.hungerStamp = stamp;
-        snapshot.weight += weightChange;
+        snapshot.Weight += weightChange;
         snapshot.happiness += happinessChange;
         snapshot.discipline += disciplineChange;
         snapshot.disciplineStamp = stamp;
@@ -262,6 +264,7 @@ public class ActivePet
         // Create backup in case server doesn't respond
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.happiness += 10;
+        snapshot.happinessStamp = Timestamp.GetTimeStamp();
 
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
@@ -277,6 +280,18 @@ public class ActivePet
             snapshot.disciplineStamp = Timestamp.GetTimeStamp();
         }
         snapshot.happiness -= 10;
+        snapshot.happinessStamp = Timestamp.GetTimeStamp();
+
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
+
+    public void UpdateHapiness(int amount)
+    {
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.happiness += amount;
+        snapshot.happinessStamp = Timestamp.GetTimeStamp();
 
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
@@ -289,29 +304,45 @@ public class ActivePet
         // Send snapshot to server
     }
 
-    public void TrainStat(string stat, int change)
+    public int GetWeightStatus()
+    {   
+        float precentage = (float)(weight - minWeight) / (maxWeight - minWeight);
+        Debug.Log(precentage);
+        if(precentage < 0.3)
+            return -1; // Underweight
+        else if (precentage > 0.7)
+            return 1; // Overweight
+        else
+            return 0; // Normal
+    }
+
+    public void TrainStat(string stat, int statChange, int strengthChange)
     {       
         PetSnapshot backup;
         switch(stat)
         {
             case "atk":
                 backup = GetSnapshotCopy(); 
-                snapshot.t_atk += change;
+                snapshot.t_atk += statChange;
+                snapshot.Strength += strengthChange;
+                snapshot.strengthStamp = Timestamp.GetTimeStamp();
                 GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
             case "spd":
                 backup = GetSnapshotCopy(); 
-                snapshot.t_spd += change;
+                snapshot.t_spd += statChange;
+                snapshot.Strength += strengthChange;
+                snapshot.strengthStamp = Timestamp.GetTimeStamp();
                 GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
             case "def":
                 backup = GetSnapshotCopy(); 
-                snapshot.t_def += change;
+                snapshot.t_def += statChange;
+                snapshot.Strength += strengthChange;
+                snapshot.strengthStamp = Timestamp.GetTimeStamp();
                 GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
                 break;
         }
-
-        Debug.Log(snapshot.energy);
     }
 
     public void ReduceEnergy(int amount)
@@ -354,7 +385,10 @@ public class ActivePet
         copy.careMistakes = snapshot.careMistakes;
         copy.careMistakeCost = snapshot.careMistakeCost;
 
-        copy.weight = snapshot.weight;
+        copy.Weight = snapshot.Weight;
+        copy.minWeight = snapshot.minWeight;
+        copy.maxWeight = snapshot.maxWeight;
+
         copy.starveAt = snapshot.starveAt;
 
         copy.Hunger = snapshot.Hunger;

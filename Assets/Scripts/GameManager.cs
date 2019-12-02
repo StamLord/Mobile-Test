@@ -15,7 +15,11 @@ public class GameManager : MonoBehaviour
     public int maxActive = 2;
     public float feedingTime = 3f;
 
+    public float pettingTime = 3f;
+    public int pettingHappiness = 10;
+
     private int selection = -1;
+    public int SelectedPetIndex { get{ return selection; } }
     public ActivePet SelectedPet { get {return activePets[selection]; } }
     public Food selectedFood;
     
@@ -63,6 +67,9 @@ public class GameManager : MonoBehaviour
 
     public delegate void misbehavePetDelegate(int index);
     public static event misbehavePetDelegate onMisbehavePet;
+
+    public delegate void evolutionDelegate(Sprite oldSprite, Sprite newSprite);
+    public static event evolutionDelegate onEvolutionEvent;
 
     #endregion
 
@@ -130,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     void UpdatePet(ActivePet pet)
     {   
-        if(pet == null || pet.isDead)
+        if(pet == null || pet.isDead || SceneManager.GetActiveScene().name != "Main")
             return;
 
         if(pet.hunger < 1) 
@@ -160,10 +167,13 @@ public class GameManager : MonoBehaviour
             if(tree.IsTimeToEvolve(pet))
             {
                 Species evolveTo = tree.GetEvolution(pet);
-                Debug.Log(evolveTo);
+
                 if(evolveTo)
                 {
                     // Animate
+                    if(onEvolutionEvent != null)
+                        onEvolutionEvent(FindSheet(pet.species).idle[0], FindSheet(evolveTo.speciesName).idle[0]);
+
                     pet.EvolveTo(PetFactory.Evolve(pet, evolveTo));
                     
                     if(onActivePetsChange != null)
@@ -277,8 +287,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartTraining(int petIndex, string stat)
+    public void StartTraining(string stat)
     {
+        int petIndex = selection;
+
         if(activePets[petIndex].isDead)
             return;
 
@@ -346,7 +358,7 @@ public class GameManager : MonoBehaviour
         if(statPopup) 
             statPopup.Popup(stat, gain);
 
-        activePets[activePet].TrainStat(stat, gain);
+        activePets[activePet].TrainStat(stat, gain, 1);
         activePets[activePet].ReduceEnergy(1);
         
         int injury = InjuryCheck(activePets[activePet].energy, activePets[activePet].happiness);
@@ -390,6 +402,17 @@ public class GameManager : MonoBehaviour
                 onMidFeeding(timeHovered / feedingTime);
             return false;
         }
+    }
+
+    public bool Pet(int petIndex, float timeHovered)
+    {
+        if(timeHovered >= pettingTime && petIndex >= 0)
+        {
+            activePets[petIndex].UpdateHapiness(pettingHappiness);
+            return true;
+        }
+
+        return false;
     }
 
     public IEnumerator SaveSnapshot(ActivePet pet, PetSnapshot snapshot, PetSnapshot backup)

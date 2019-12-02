@@ -18,11 +18,16 @@ public class VisualManager : MonoBehaviour
 
     public List<AIBrain> visualPets = new List<AIBrain>();
 
+    public GameObject evolutionParent;
+    public SpriteRenderer oldEvo;
+    public SpriteRenderer newEvo;
+
     void Awake()
     {
         GameManager.onActivePetsChange += UpdateSpriteSheets;
         GameManager.onSelectedPetUpdate += UpdateSelection;
         GameManager.onMisbehavePet += PetMisbehave;
+        GameManager.onEvolutionEvent += StartEvoAnimation;
 
         background.onMouseDown += CancelSelection;
     }
@@ -118,5 +123,19 @@ public class VisualManager : MonoBehaviour
         GameManager.onActivePetsChange -= UpdateSpriteSheets;
         GameManager.onSelectedPetUpdate -= UpdateSelection;
         GameManager.onMisbehavePet -= PetMisbehave;
+        GameManager.onEvolutionEvent -= StartEvoAnimation;
+    }
+
+    public void StartEvoAnimation(Sprite oldSprite, Sprite newSprite)
+    {
+        Debug.Log("StartEvoAnimation");
+        oldEvo.sprite = oldSprite;
+        newEvo.sprite = newSprite;
+        evolutionParent.SetActive(true);
+    }
+
+    public void EndEvoAnimation()
+    {
+        evolutionParent.SetActive(false);
     }
 }

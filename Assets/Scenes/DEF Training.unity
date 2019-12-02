@@ -6311,8 +6311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2289b41c3335e024da5395b6c9209dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsPerFrame: 1
+  secondsPerFrame: 0.5
+  fallBackAnimation: Idle
+  currentAnimation: Idle
+  looping: 1
   spritesheet: {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
+  teachIcon: {fileID: 0}
   deadSprite: {fileID: 0}
 --- !u!212 &1533451318
 SpriteRenderer:

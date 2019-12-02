@@ -9,6 +9,7 @@ public class SpeedTraining : MonoBehaviour
 {
     public bool isRunning;
     public GameObject player;
+    public SpritesheetAnimator spritesheet;
     public GameObject hoop;
     public float speed = .1f;
 
@@ -62,6 +63,8 @@ public class SpeedTraining : MonoBehaviour
         bounceDisplay = UIManager.instance.spdBounces;
         scoreDisplay = UIManager.instance.spdScore;
         indicator = UIManager.instance.spdIndicators;
+
+        spritesheet.spritesheet = GameManager.instance.FindSheet(GameManager.instance.SelectedPet.species);
     }
 
     void Update()
@@ -261,7 +264,7 @@ public class SpeedTraining : MonoBehaviour
         isRunning = false;
 
         int stat = GetStatGain(score);
-        GameManager.instance.Train(0, "spd", stat);
+        GameManager.instance.Train(GameManager.instance.SelectedPetIndex, "spd", stat);
 
         StartCoroutine(ExitTraining(3));
     }

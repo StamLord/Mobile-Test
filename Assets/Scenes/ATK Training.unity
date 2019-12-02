@@ -1184,8 +1184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2289b41c3335e024da5395b6c9209dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsPerFrame: 0.8
+  secondsPerFrame: 0.5
+  fallBackAnimation: Idle
+  currentAnimation: Idle
+  looping: 1
   spritesheet: {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
+  teachIcon: {fileID: 0}
   deadSprite: {fileID: 0}
 --- !u!212 &491834798
 SpriteRenderer:
@@ -10351,7 +10355,7 @@ MonoBehaviour:
   score: 0
   combo: 0
   highestCombo: 0
-  scoreLevels: 88130000102700003075000050c30000
+  scoreLevels: 8813000010270000204e000030750000
 --- !u!1 &1927467946
 GameObject:
   m_ObjectHideFlags: 0
@@ -10407,7 +10411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11655440e7b828b48b7fe88eb085e7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupDuration: 3
   statGain: {fileID: 308034202}
   window: {fileID: 1927467951}
 --- !u!114 &1927467949

@@ -99,7 +99,7 @@ module.exports.createPet = (req, res) => {
     const{species, treeName, stage, stageStamp,
         birth, nickname, longetivity,
         careMistakes, careMistakeCost,
-        weight, starveAt, 
+        weight, minWeight, maxWeight, starveAt, 
         hunger, hungerStamp, hungerRate,
         strength, strengthStamp, strengthRate,
         attention, attentionStamp, attentionRate,
@@ -119,7 +119,7 @@ module.exports.createPet = (req, res) => {
                     species, treeName, stage, stageStamp,
                     birth, nickname, longetivity,
                     careMistakes, careMistakeCost,
-                    weight, starveAt, 
+                    weight, minWeight, maxWeight, starveAt, 
                     hunger, hungerStamp, hungerRate,
                     strength, strengthStamp, strengthRate,
                     attention, attentionStamp, attentionRate,
@@ -143,11 +143,11 @@ module.exports.createPet = (req, res) => {
 module.exports.updatePet = (req, res) => {
     
     //#region Deconstruct
-
+    
     const{_id, species, treeName, stage, stageStamp,
         birth, nickname, longetivity,
         careMistakes, careMistakeCost,
-        weight, starveAt, 
+        weight, minWeight, maxWeight, starveAt, 
         hunger, hungerStamp, hungerRate,
         strength, strengthStamp, strengthRate,
         attention, attentionStamp, attentionRate,
@@ -157,7 +157,7 @@ module.exports.updatePet = (req, res) => {
         s_atk, s_spd, s_def,
         g_atk, g_spd, g_def,
         t_atk, t_spd, t_def} = req.body;
-
+        
     //#endregion
 
     User.findOneAndUpdate({'pets._id' : _id}, {
@@ -166,7 +166,7 @@ module.exports.updatePet = (req, res) => {
                 species, treeName, stage, stageStamp,
                 birth, nickname, longetivity,
                 careMistakes, careMistakeCost,
-                weight, starveAt, 
+                weight, minWeight, maxWeight, starveAt, 
                 hunger, hungerStamp, hungerRate,
                 strength, strengthStamp, strengthRate,
                 attention, attentionStamp, attentionRate,
@@ -190,7 +190,7 @@ module.exports.updatePet = (req, res) => {
 module.exports.updateActive = (req, res) => {
 
     const username = req.params.username;
-    // And array of ObjectId signifying which pets are active
+    // An array of ObjectId signifying which pets are active
     const {active} = req.body;
     User.findOneAndUpdate({username}, {
         active
@@ -212,7 +212,7 @@ module.exports.updateActive = (req, res) => {
 module.exports.updateGraveyard = (req, res) => {
 
     const username = req.params.username;
-    // And array of ObjectId signifying which pets are in graveyard
+    // An array of ObjectId signifying which pets are in graveyard
     const {graveyard} = req.body;
     User.findOneAndUpdate({username}, {
         graveyard

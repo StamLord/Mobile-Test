@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffddeabda16293a499d38dcc400f4919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _state: 0
   roaming: {fileID: 1674760076}
   petIndex: -1
   hoverFoodTimer: 0
@@ -112,3 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenPosition: {x: 0, y: 0, z: 0}
   screenColliderRange: {x: 75, y: 75}
+  colliderOffset: {x: 0, y: 75}
+  collider: {fileID: 8867099462436062278}
+  lLeft: {x: 0, y: 0}
+  lRight: {x: 0, y: 0}
+  uLeft: {x: 0, y: 0}
+  uRight: {x: 0, y: 0}

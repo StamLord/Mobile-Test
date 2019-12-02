@@ -21,7 +21,7 @@ MonoBehaviour:
   - Training
   - Unnamed
   - Stats
-  - Attributes
+  - Info
   - Feed
   - Indicators
   - Attack Training
@@ -33,3 +33,4 @@ MonoBehaviour:
   - Energy
   - Teach
   - Light
+  - Sensors

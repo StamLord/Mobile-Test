@@ -20,9 +20,13 @@ public class ClickListener : MonoBehaviour
     public event mouseDragDelegate onMouseDrag;
 
     private Camera cam;
-    [SerializeField] private Vector3 screenPosition;
-    [SerializeField] private Vector2 screenColliderRange = new Vector2(100, 100);
+    // [SerializeField] private Vector3 screenPosition;
+    // [SerializeField] private Vector2 screenColliderRange = new Vector2(100, 100);
+    // [SerializeField] private Vector2 colliderOffset = new Vector2(50, 50);
     
+    public new BoxCollider2D collider;
+    public Vector2 lLeft, lRight, uLeft, uRight;
+
     private bool clickDown;
     private bool hovering;
     private float hoverFoodTimer;
@@ -60,17 +64,25 @@ public class ClickListener : MonoBehaviour
 
     void LateUpdate()
     {
-        screenPosition = cam.WorldToScreenPoint(transform.position);
+        // screenPosition = cam.WorldToScreenPoint(transform.position);
+        lLeft = cam.WorldToScreenPoint(new Vector2(collider.bounds.min.x, collider.bounds.min.y));
+        lRight = cam.WorldToScreenPoint(new Vector2(collider.bounds.max.x, collider.bounds.min.y));
+        uLeft = cam.WorldToScreenPoint(new Vector2(collider.bounds.min.x, collider.bounds.max.y));
+        uRight = cam.WorldToScreenPoint(new Vector2(collider.bounds.max.x, collider.bounds.max.y));
     }
 
     bool IsOnPet(Vector3 position)
     {
-        
-            
-       return (position.x > -screenColliderRange.x + screenPosition.x &&
-               position.x < screenColliderRange.x + screenPosition.x  &&
-               position.y > -screenColliderRange.y + screenPosition.y  &&
-               position.y < screenColliderRange.y + screenPosition.y );
+        /*
+       return (position.x > -screenColliderRange.x + screenPosition.x + colliderOffset.x &&
+               position.x < screenColliderRange.x + screenPosition.x + colliderOffset.x &&
+               position.y > -screenColliderRange.y + screenPosition.y + colliderOffset.y &&
+               position.y < screenColliderRange.y + screenPosition.y + colliderOffset.y);*/
+
+        return (position.x > lLeft.x &&
+                position.x < lRight.x &&
+                position.y > lLeft.y &&
+                position.y < uLeft.y);
     }
     
     void MouseDown()
@@ -106,4 +118,5 @@ public class ClickListener : MonoBehaviour
         if(onMouseDrag != null)
             onMouseDrag();
     }
+
 }

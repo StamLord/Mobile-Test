@@ -11,6 +11,7 @@ public class SpritesheetAnimator : MonoBehaviour
     public string fallBackAnimation = "Idle";
     public string currentAnimation = "Idle";
     public bool looping = true;
+    public int cycles;
 
     // Sprites
     public Spritesheet spritesheet;
@@ -36,11 +37,16 @@ public class SpritesheetAnimator : MonoBehaviour
         if(timer >= secondsPerFrame)
         {
             frame++;
-            if (frame == spritesheet.idle.Length)
+            if (frame == spritesheet.idle.Length) // Reached end of cycle
             {    
                 frame = 0;
                 if(looping == false)
-                    PlayAnimation(fallBackAnimation, true);
+                {
+                    if(cycles == 1)
+                        PlayAnimation(fallBackAnimation, true);
+                    else
+                        cycles--;
+                }
             }
 
             SetSprite(frame);
@@ -73,6 +79,15 @@ public class SpritesheetAnimator : MonoBehaviour
             case "Sleeping":
                 rend.sprite = spritesheet.sleeping[frame];
                 break;
+            case "Punch":
+                rend.sprite = spritesheet.punch[frame];
+                break;
+            case "Defend":
+                rend.sprite = spritesheet.defend[frame];
+                break;
+            case "Hit":
+                rend.sprite = spritesheet.hit[frame];
+                break;
             case "Dead":
                 rend.sprite = deadSprite;
                 break;
@@ -81,8 +96,17 @@ public class SpritesheetAnimator : MonoBehaviour
 
     public void PlayAnimation(string animation, bool loop)
     {
+        PlayAnimation(animation, loop, 0, 1);
+    }
+
+    public void PlayAnimation(string animation, bool loop, int startFrame, int times)
+    {
         currentAnimation = animation;
         looping = loop;
+        frame = startFrame;
+        cycles = times;
+        timer = 0;
+        SetSprite(frame);
     }
 
     public void SetTeachIcon(bool visible)

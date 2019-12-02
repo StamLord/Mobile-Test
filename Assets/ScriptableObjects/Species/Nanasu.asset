@@ -18,6 +18,9 @@ MonoBehaviour:
   longetivityMin: 86400
   longetivityMax: 86400
   careMistakeCost: 1800
+  baseWeight: 70
+  minWeight: 55
+  maxWeight: 100
   hungerRateMin: 1200
   hungerRateMax: 1800
   strengthRateMin: 1200

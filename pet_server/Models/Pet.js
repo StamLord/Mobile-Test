@@ -16,6 +16,8 @@ const PetSchema = new mongoose.Schema({
     careMistakeCost: Number,
 
     weight: Number,
+    minWeight: Number,
+    maxWeight: Number,
     starveAt: Number,
 
     hunger: Number,

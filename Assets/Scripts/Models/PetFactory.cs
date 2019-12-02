@@ -29,6 +29,10 @@ public class PetFactory : MonoBehaviour
         petSnapshot.stage = stage;
         petSnapshot.stageStamp = timestamp;
 
+        petSnapshot.minWeight = species.minWeight;
+        petSnapshot.maxWeight = species.maxWeight;
+        petSnapshot.Weight = species.baseWeight;
+
         petSnapshot.careMistakeCost = species.careMistakeCost;
 
         petSnapshot.hungerRate = Random.Range(species.hungerRateMin, species.hungerRateMax + 1);
@@ -83,6 +87,13 @@ public class PetFactory : MonoBehaviour
         snapshot.longetivity = Random.Range((int)to.longetivityMin, (int)to.longetivityMax + 1);
         snapshot.stage = from.stage + 1;
         snapshot.stageStamp = timestamp;
+
+        snapshot.minWeight = to.minWeight;
+        snapshot.maxWeight = to.maxWeight;
+        if(from.maxWeight - from.minWeight == 0) 
+            snapshot.Weight = to.baseWeight;
+        else 
+            snapshot.Weight = Mathf.FloorToInt(((from.weight - from.minWeight ) / (from.maxWeight - from.minWeight)) * (to.maxWeight - to.minWeight) + to.minWeight);
 
         snapshot.careMistakeCost = to.careMistakeCost;
 

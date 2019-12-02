@@ -80,10 +80,15 @@ public class RoamBehaviour : MonoBehaviour
 
         if(Vector3.Distance(transform.position, position) < 0.1f)
         {
-            startWait = Time.time;
-            currentWait = GenerateVariation(wait, waitVariation);
-            isWalking = false;
+            StopWalking();
         }
+    }
+
+    public void StopWalking()
+    {
+        startWait = Time.time;
+        currentWait = GenerateVariation(wait, waitVariation);
+        isWalking = false;
     }
 
 

@@ -19,6 +19,13 @@ public class UIManager : MonoBehaviour
     public bool isLoggedin;
     public bool tryingToLogin;
 
+    public TextMeshProUGUI lightLevel;
+    
+    public UIView statCard1;
+    public UIStatCard sc1;
+    public UIView statCard2;
+    public UIStatCard sc2;
+
     public TextMeshProUGUI atkScore;
     public TextMeshProUGUI atkCombo;
     public TextMeshProUGUI atkTimer;
@@ -62,6 +69,8 @@ public class UIManager : MonoBehaviour
 
         if(string.IsNullOrEmpty(s_password) == false)
             password.text = s_password;
+
+        SensorsManager.onLuxChange += UpdateLightLevel;
     }
 
     void Update(){
@@ -94,14 +103,9 @@ public class UIManager : MonoBehaviour
         rememberMe = !rememberMe;
     }
 
-    // public void Feed(int hungerChange)
-    // {
-    //     GameManager.instance.activePets[0].Feed(hungerChange, 10);
-    // }
-
     public void Train(string stat)
     {
-        GameManager.instance.StartTraining(0, stat);
+        GameManager.instance.StartTraining(stat);
     }
 
     public void Praise()
@@ -117,5 +121,35 @@ public class UIManager : MonoBehaviour
     public void TurnLight(bool on)
     {
         sleepMode.SetActive(!on);
+    }
+
+    private void UpdateLightLevel(float lux)
+    {
+        lightLevel.text = "Light: " + lux;
+    }
+
+    public void ShowStatCards()
+    {
+        GameManager gm = GameManager.instance;
+
+        if(gm.activePets.Count > 0 && gm.activePets[0] != null)
+        {
+            sc1.UpdateCard(0);
+            statCard1.enabled = true;
+            statCard1.Show();
+        }
+
+        if(gm.activePets.Count > 1 && gm.activePets[1] != null)
+        {
+            sc2.UpdateCard(1);
+            statCard1.enabled = true;
+            statCard2.Show();
+        }
+    }
+
+    public void HideStatCards()
+    {
+        statCard1.Hide();
+        statCard2.Hide();
     }
 }

@@ -151,7 +151,12 @@ public class DefenseTraining : MonoBehaviour
 
     void UpdateVisualDefense()
     {
-        defenseVisual.SetActive(isDefendingRight || isDefendingLeft);
+        //defenseVisual.SetActive(isDefendingRight || isDefendingLeft);
+        if(isDefendingLeft || isDefendingRight)
+            spritesheet.PlayAnimation("Defend", true);
+        else
+            spritesheet.PlayAnimation("Idle", true);
+        
     }
     
     public void Collision(string direction)
@@ -204,7 +209,7 @@ public class DefenseTraining : MonoBehaviour
         isRunning = false;
 
         int stat = GetStatGain(blocks);
-        GameManager.instance.Train(0,"def", stat);
+        GameManager.instance.Train(GameManager.instance.SelectedPetIndex, "def", stat);
 
         StartCoroutine(ExitTraining(3));
     }

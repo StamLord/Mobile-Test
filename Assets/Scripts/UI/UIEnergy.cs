@@ -27,17 +27,21 @@ public class UIEnergy : MonoBehaviour
 
     void UpdateEnergyBars()
     {   
-        if(GameManager.instance.activePets[viewingPet] == null)
+        if(viewingPet > GameManager.instance.activePets.Count - 1 || GameManager.instance.activePets[viewingPet] == null)
+        {
+            for(int i = 0; i < energy.Length; i++)
+            {
+                energy[i].enabled = false;
+            }
+            
             return;
+        }
 
         ActivePet pet = GameManager.instance.activePets[viewingPet];
 
         for(int i = 0; i < energy.Length; i++)
         {
-            if(i > pet.energy - 1)
-                energy[i].enabled = false;
-            else
-                energy[i].enabled = true;
+            energy[i].enabled = i <= pet.energy - 1;
         }
     }
 

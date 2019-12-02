@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class AIBrain : MonoBehaviour
 {
     public enum AIState {ROAMING, EATING, PETTING, SLEEPING, DEAD}
+    [SerializeField] 
     private AIState _state;
     public AIState state { 
         get{return this._state;}
@@ -21,8 +22,12 @@ public class AIBrain : MonoBehaviour
     private int petIndex = -1;
     [SerializeField]
     private float hoverFoodTimer = 0;
+
     [SerializeField]
     private float hoverPettingTimer = 0;
+    [SerializeField]
+    private float timeBetweenpetting = 2;
+    private float lastPet;
 
     void Awake()
     {
@@ -42,7 +47,8 @@ public class AIBrain : MonoBehaviour
         switch(_state)
         {
             case AIState.ROAMING:
-                roaming.Behaviour();
+                if(GameManager.instance.activePets[petIndex].stage != 0)
+                    roaming.Behaviour();
                 break;
             case AIState.DEAD:
                 break;
@@ -107,12 +113,21 @@ public class AIBrain : MonoBehaviour
                 animator.PlayAnimation("Happy", false);
             }
         }
-        else if (EventSystem.current.IsPointerOverGameObject() == false)
+        else if (EventSystem.current.IsPointerOverGameObject() == false && // Check if no UI is between mouse and pet
+        Time.time >= lastPet + timeBetweenpetting ) // Check if needed time passed between petting
         {
             if(state != AIState.PETTING)
                 StartPetting();
                 
             hoverPettingTimer += Time.deltaTime;
+
+            if(GameManager.instance.Pet(petIndex, hoverPettingTimer))
+            {
+                StopPetting();
+                lastPet = Time.time;
+                animator.PlayAnimation("Happy", false, 0, 2);
+                roaming.StopWalking();
+            }
         }
     }
 
@@ -126,6 +141,7 @@ public class AIBrain : MonoBehaviour
     {
         if(GameManager.instance.selectedFood == null)
             hoverFoodTimer = 0f;
+
         if(state != AIState.ROAMING)
         {
             state = AIState.ROAMING;
@@ -137,6 +153,7 @@ public class AIBrain : MonoBehaviour
     {
         state = AIState.PETTING;
         animator.PlayAnimation("Petting", true);
+        roaming.StopWalking();
     }
 
     void StopPetting()
@@ -151,6 +168,9 @@ public class AIBrain : MonoBehaviour
 
     public void OnUnHover()
     {
+        if(state == AIState.DEAD)
+            return;
+
         StopFeeding();
         StopPetting();
     }

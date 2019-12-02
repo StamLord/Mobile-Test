@@ -24,7 +24,7 @@ public class AttackTraining : MonoBehaviour
     public int combo;
     public int highestCombo;
 
-    public int[] scoreLevels = {5000, 10000, 20000, 30000};
+    public int[] scoreLevels = {5000, 10000, 15000, 20000};
 
     private bool isRunning;
     private bool canPunch;
@@ -51,7 +51,7 @@ public class AttackTraining : MonoBehaviour
     }
 
     void MoveLeft()
-    {   Debug.Log("Moving Left");
+    {   
         if(isRunning == false || canPunch == false)
             return;
         
@@ -67,10 +67,12 @@ public class AttackTraining : MonoBehaviour
 
             FlipPlayerLeft();
         }
+
+        spritesheet.PlayAnimation("Idle", true);
     }
 
     void MoveRight()
-    {   Debug.Log("Moving Right");
+    {  
         if(isRunning == false || canPunch == false)
             return;
 
@@ -86,6 +88,8 @@ public class AttackTraining : MonoBehaviour
 
             FlipPlayerRight();
         }
+
+        spritesheet.PlayAnimation("Idle", true);
     }
 
     void Punch()
@@ -130,9 +134,11 @@ public class AttackTraining : MonoBehaviour
 
         UpdateScore(addToScore);
 
-        if(playerAnimator) 
-            playerAnimator.Play("Punch");
+        // if(playerAnimator) 
+        //     playerAnimator.Play("Punch");
         
+        spritesheet.PlayAnimation("Punch", false, 1, 1);
+
         StartCoroutine(HitBagAnimation());
     }
 
@@ -261,7 +267,7 @@ public class AttackTraining : MonoBehaviour
         isRunning = false;
 
         int stat = GetStatGain(score);
-        GameManager.instance.Train(0,"atk", stat);
+        GameManager.instance.Train(GameManager.instance.SelectedPetIndex, "atk", stat);
 
         StartCoroutine(ExitTraining(3));
     }

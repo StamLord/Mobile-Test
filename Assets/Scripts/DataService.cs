@@ -9,7 +9,7 @@ public class  DataService
     public static bool isLoggedin;
     public static bool tryingToLogin;
 
-    public const string HOST = "https://hidden-gorge-63443.herokuapp.com/api/";
+    public const string HOST = "https://hidden-gorge-63443.herokuapp.com/api/"; //"http://localhost:5000/api/"; 
 
     public static IEnumerator Login(string username, string password)
     {

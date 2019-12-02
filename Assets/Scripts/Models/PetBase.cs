@@ -19,7 +19,16 @@ public class PetBase
     public int careMistakes;
     public int careMistakeCost;
 
-    public int weight;
+    [SerializeField]
+    private int weight;
+    public int Weight 
+    { 
+        get { return weight; }
+        set { weight = Mathf.Clamp(value, minWeight, maxWeight); }
+    }
+
+    public int minWeight;
+    public int maxWeight;
 
     public double starveAt = 20;
     public bool isStarving;
