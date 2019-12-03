@@ -13,27 +13,29 @@ MonoBehaviour:
   m_Name: ChamiriSpritesheet
   m_EditorClassIdentifier: 
   idle:
-  - {fileID: 21300000, guid: 1c3d9b104937f2e4db6bd868d0318748, type: 3}
-  - {fileID: 21300000, guid: 94c6e5aaed46c4542a89de7459ebfeb1, type: 3}
+  - {fileID: 21300000, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300002, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   pet:
-  - {fileID: 21300000, guid: 435149cf6f64e1f41b512e5fa2597613, type: 3}
-  - {fileID: 21300000, guid: 55b1078fabaa4784eb91adb86887fdc5, type: 3}
+  - {fileID: 21300008, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300010, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   happy:
-  - {fileID: 21300000, guid: 5991498f547442147ae1ec080be1a98a, type: 3}
-  - {fileID: 21300000, guid: 78e883dfedabb1d4e846b1a07299dd1f, type: 3}
-  sad: []
+  - {fileID: 21300012, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300014, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  sad:
+  - {fileID: 21300016, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300018, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   eating:
-  - {fileID: 21300000, guid: 0a2ecf1a672ef7b48898ba15abe118fa, type: 3}
-  - {fileID: 21300000, guid: cd2570e21c9a1e04fa301915b8f13625, type: 3}
+  - {fileID: 21300004, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300006, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   sleeping:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300028, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300030, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   punch:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300020, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300022, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   defend:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300024, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
+  - {fileID: 21300026, guid: 9ad548b451c566a4bb4d3e6fba74e6ee, type: 3}
   hit:
   - {fileID: 0}
   - {fileID: 0}

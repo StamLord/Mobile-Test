@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
+  m_Name: Turteen
+  m_EditorClassIdentifier: 
+  spritesheets:
+  - {fileID: 11400000, guid: 536b091865b7d864e9bec32b7648b9ee, type: 2}
+  speciesName: Turteen
+  longetivityMin: 86400
+  longetivityMax: 86400
+  careMistakeCost: 1800
+  baseWeight: 100
+  minWeight: 80
+  maxWeight: 150
+  hungerRateMin: 1200
+  hungerRateMax: 1800
+  strengthRateMin: 1200
+  strengthRateMax: 1800
+  attentionRateMin: 1200
+  attentionRateMax: 1800
+  disciplineRateMin: 120
+  disciplineRateMax: 240
+  happinessRateMin: 180
+  happinessRateMax: 300
+  energyRecoveryRate: 600
+  atk: 20
+  spd: 20
+  def: 50

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0710237004851f449afc0cb2f4b9a924, type: 3}
+  m_Name: FrogySpritesheet
+  m_EditorClassIdentifier: 
+  idle:
+  - {fileID: 21300000, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300002, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  pet:
+  - {fileID: 21300016, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300018, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  happy:
+  - {fileID: 21300008, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300010, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  sad:
+  - {fileID: 21300012, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300014, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  eating:
+  - {fileID: 21300004, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300006, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  sleeping: []
+  punch:
+  - {fileID: 21300020, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300022, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  defend:
+  - {fileID: 21300024, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 21300026, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  hit: []

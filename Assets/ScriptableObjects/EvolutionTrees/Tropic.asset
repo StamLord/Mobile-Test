@@ -27,6 +27,18 @@ MonoBehaviour:
       compare: 0
       property2: 5
       customValue: 0
+  - species: {fileID: 11400000, guid: 932176b3202ca444996f4c7f4eee67d8, type: 2}
+    conditions:
+    - property1: 5
+      compare: 0
+      property2: 3
+      customValue: 0
+    - property1: 5
+      compare: 0
+      property2: 4
+      customValue: 0
+  - species: {fileID: 11400000, guid: a2ae325f346035e4a8e032a7b2b1d8c6, type: 2}
+    conditions: []
   stage_3: []
   stage_4: []
   stagesEvolveAt:
