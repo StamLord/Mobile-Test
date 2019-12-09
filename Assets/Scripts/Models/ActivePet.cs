@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ActivePet
 {
-    private PetSnapshot snapshot;
+    [SerializeField] private PetSnapshot snapshot;
     
     #region Properties
 

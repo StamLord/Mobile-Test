@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
             if(tree.IsTimeToEvolve(pet))
             {
                 Species evolveTo = tree.GetEvolution(pet);
-
+                Debug.Log("Evolving to " + evolveTo.name);
                 if(evolveTo)
                 {
                     // Animate
@@ -474,6 +474,8 @@ public class GameManager : MonoBehaviour
             if(s.speciesName == name)
                 return s.spritesheets[0];
         }
+
+        Debug.Log("Species doesn't exist in collection!");
         return null;
     }
 }

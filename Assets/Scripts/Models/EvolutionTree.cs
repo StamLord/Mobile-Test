@@ -6,12 +6,9 @@ using UnityEngine;
 public class EvolutionTree : ScriptableObject
 {
     public Species stage_0;
-    public EvolutionPath[] stage_1;
-    public EvolutionPath[] stage_2;
-    public EvolutionPath[] stage_3;
-    public EvolutionPath[] stage_4;
+    public EvolutionPath[] evolutions;
 
-    public double[] stagesEvolveAt = {60, 600, 6000, 60000};
+    public double[] stagesEvolveAt = {60, 21600, 43200, 86400};
 
     public bool IsTimeToEvolve(ActivePet pet)
     {
@@ -23,20 +20,28 @@ public class EvolutionTree : ScriptableObject
 
     public Species GetEvolution(ActivePet pet)
     {
-        int stage = pet.stage;
-        switch(stage)
+        if(pet.stage == 0)
+            return GetEvolutionFromStage(pet, evolutions);
+        else
+            return GetEvolutionFromStage(pet, FindEvolutions(pet.species, evolutions));
+    }
+
+    private EvolutionPath[] FindEvolutions(string species, EvolutionPath[] paths)
+    {
+        EvolutionPath[] found;
+
+        foreach(EvolutionPath e in paths)
         {
-            case 0:
-                return GetEvolutionFromStage(pet, stage_1);
-            case 1:
-                return GetEvolutionFromStage(pet, stage_2);
-            case 2:
-                return GetEvolutionFromStage(pet, stage_3);
-            case 3:
-                return GetEvolutionFromStage(pet, stage_4);
+            if(e.species.name == species) // Found
+                return e.evolutions;
+            else
+            {
+                found = FindEvolutions(species, e.evolutions);
+                if(found != null)
+                    return found;
+            }
         }
 
-        Debug.Log("Error: Pet's stage is not between 1 and 4");
         return null;
     }
     
@@ -58,6 +63,7 @@ public class EvolutionPath
 {
     public Species species;
     public EvolutionCondition[] conditions = new EvolutionCondition[1];
+    [SerializeField] public EvolutionPath[] evolutions;
 
     public bool CheckConditions(ActivePet pet)
     {
