@@ -198,7 +198,42 @@ public class ActivePet
 
         return (currentInjury > 0);
     }
+/*
+    public void Sleep(int hours)
+    {
+        if(IsSleeping())
+            return;
+        
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.sleepHours = hours;
+        snapshot.sleepStamp = Timestamp.GetTimeStamp();
+        
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
 
+    public void Wake()
+    {
+        if(IsSleeping() == false)
+            return;
+
+        // Create backup in case server doesn't respond
+        PetSnapshot backup = GetSnapshotCopy(); 
+        snapshot.sleepHours = 0;
+        
+        // Send snapshot to server
+        GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
+    }
+
+    public bool IsSleeping()
+    {
+        double timeSinceSleep = Timestamp.GetSecondsSince(snapshot.sleepStamp);
+        int sleepHours = timeSinceSleep / 60 / 60;
+
+        return (sleepHours < snapshot.sleepHours);
+    }
+*/
     public bool IsDead()
     {
         if(stage == 0) // Eggs can't die

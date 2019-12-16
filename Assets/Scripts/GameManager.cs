@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public float pettingTime = 3f;
     public int pettingHappiness = 10;
 
+    public float sleepHour = 21;
+    public float wakeHour = 8;
+
     private int selection = -1;
     public int SelectedPetIndex { get{ return selection; } }
     public ActivePet SelectedPet { get {return activePets[selection]; } }
