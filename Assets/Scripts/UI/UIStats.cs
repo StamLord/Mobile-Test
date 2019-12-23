@@ -4,12 +4,17 @@ using UnityEngine;
 using Doozy.Engine.UI;
 public class UIStats : MonoBehaviour
 {
-    public UIView view;
+    [SerializeField] private UIView view;
     public UIImage[] hunger;
     public UIImage[] strength;
     public UIImage[] attention;
 
     public int viewingPet = 0;
+
+    void Awake()
+    {
+        view = GetComponent<UIView>();
+    }
 
     void Start()
     {

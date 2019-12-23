@@ -5,6 +5,7 @@ using Doozy.Engine.UI;
 
 public class UIIndicators : MonoBehaviour
 {
+    [SerializeField] private UIView view;
     public Sprite[] moodIcons;
 
     public UIImage mood;
@@ -13,11 +14,16 @@ public class UIIndicators : MonoBehaviour
 
     public int viewingPet = 0;
 
+    void Awake()
+    {
+        view = GetComponent<UIView>();
+    }
+
     void Start()
     {
         GameManager.onSelectedPetUpdate += UpdateViewingPet;
     }
-
+    
     void Update()
     {
         UpdateIndicators();
@@ -25,9 +31,13 @@ public class UIIndicators : MonoBehaviour
 
     public void UpdateViewingPet(int index)
     {
-        if(index < 0)
-            index = 0;
-        viewingPet = index;
+        if(index == -1)
+            view.Hide();
+        else
+        {
+            viewingPet = index;
+            view.Show();
+        }
     }
 
     void UpdateIndicators()

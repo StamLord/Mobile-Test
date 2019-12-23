@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public float sleepHour = 21;
     public float wakeHour = 8;
+    public int napHours = 3;
+
 
     private int selection = -1;
     public int SelectedPetIndex { get{ return selection; } }
@@ -73,6 +75,9 @@ public class GameManager : MonoBehaviour
 
     public delegate void evolutionDelegate(Sprite oldSprite, Sprite newSprite);
     public static event evolutionDelegate onEvolutionEvent;
+
+    public delegate void sleepChangeDelegate(int index, bool sleeping);
+    public static event sleepChangeDelegate onSleepChange;
 
     #endregion
 
@@ -344,7 +349,7 @@ public class GameManager : MonoBehaviour
             SetSelection(0);
         
         if(selection > -1)
-            activePets[selection].Praise();
+            SelectedPet.Praise();
     }
 
     public void Scold()
@@ -353,7 +358,7 @@ public class GameManager : MonoBehaviour
             SetSelection(0);
 
         if(selection > -1)
-            activePets[selection].Scold();
+            SelectedPet.Scold();
     }
 
     public void Train(int activePet, string stat, int gain)
@@ -405,6 +410,26 @@ public class GameManager : MonoBehaviour
                 onMidFeeding(timeHovered / feedingTime);
             return false;
         }
+    }
+
+    public void Sleep()
+    {
+        if(selection < 0)
+            return;
+            
+        SelectedPet.Sleep(napHours);
+        if(onSleepChange != null)
+            onSleepChange(selection, true);
+    }
+
+    public void Wake()
+    {   
+        if(selection < 0)
+            return;
+
+        SelectedPet.Wake();
+        if(onSleepChange != null)
+            onSleepChange(selection, false);
     }
 
     public bool Pet(int petIndex, float timeHovered)

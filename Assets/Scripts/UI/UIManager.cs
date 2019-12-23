@@ -5,9 +5,11 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {   
+    [Header("Loading")]
     [SerializeField] private GameObject loadingObject;
     [SerializeField] private TextMeshProUGUI loadingMessage;
     [SerializeField] private GameObject loadingAnim;
+    [Space]
 
     public GameObject sleepMode;
 
@@ -21,19 +23,22 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI lightLevel;
     
+    [Header("Stat Cards")]
     public UIView statCard1;
     public UIStatCard sc1;
     public UIView statCard2;
     public UIStatCard sc2;
+    [Space]
 
+    [Header("Training")]
     public TextMeshProUGUI atkScore;
     public TextMeshProUGUI atkCombo;
     public TextMeshProUGUI atkTimer;
-
+    [Space]
     public TextMeshProUGUI defBlocks;
     public TextMeshProUGUI defTimer;
     public UIImage defMeter;
-
+    [Space]
     public TextMeshProUGUI spdBounces;
     public TextMeshProUGUI spdScore;
     public TextMeshProUGUI spdTimer;
@@ -118,9 +123,13 @@ public class UIManager : MonoBehaviour
         GameManager.instance.Scold();
     }
 
-    public void TurnLight(bool on)
+    public void TurnLight(bool wake)
     {
-        sleepMode.SetActive(!on);
+        //sleepMode.SetActive(!on);
+        if(wake)
+            GameManager.instance.Wake();
+        else
+            GameManager.instance.Sleep();
     }
 
     private void UpdateLightLevel(float lux)

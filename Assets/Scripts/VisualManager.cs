@@ -27,6 +27,7 @@ public class VisualManager : MonoBehaviour
         GameManager.onActivePetsChange += UpdateSpriteSheets;
         GameManager.onSelectedPetUpdate += UpdateSelection;
         GameManager.onMisbehavePet += PetMisbehave;
+        GameManager.onSleepChange += PetSleepChange;
         GameManager.onEvolutionEvent += StartEvoAnimation;
 
         background.onMouseDown += CancelSelection;
@@ -69,7 +70,10 @@ public class VisualManager : MonoBehaviour
                 if(pet.isDead)
                     visualPets[i].state = AIBrain.AIState.DEAD;
 
-                    visualPets[i].transform.localPosition = new Vector3(-horizontalRange + (i * horizontalSegmentPerPet) + horizontalSegmentPerPet / 2, 0, 0);
+                visualPets[i].SetSleep(pet.IsSleeping());
+                Debug.Log(pet.IsSleeping());
+
+                visualPets[i].transform.localPosition = new Vector3(-horizontalRange + (i * horizontalSegmentPerPet) + horizontalSegmentPerPet / 2, 0, 0);
             }
             else
             {
@@ -118,17 +122,26 @@ public class VisualManager : MonoBehaviour
         visualPets[index].Animate("No", false);
     }
 
+    void PetSleepChange(int index, bool sleeping)
+    {
+        if(index < 0)
+            return;
+
+        visualPets[index].SetSleep(sleeping);
+    }
+
     void OnDestroy()
     {
         GameManager.onActivePetsChange -= UpdateSpriteSheets;
         GameManager.onSelectedPetUpdate -= UpdateSelection;
         GameManager.onMisbehavePet -= PetMisbehave;
+        GameManager.onSleepChange -= PetSleepChange;
         GameManager.onEvolutionEvent -= StartEvoAnimation;
     }
 
     public void StartEvoAnimation(Sprite oldSprite, Sprite newSprite)
     {
-        Debug.Log("StartEvoAnimation");
+        //Debug.Log("StartEvoAnimation");
         oldEvo.sprite = oldSprite;
         newEvo.sprite = newSprite;
         evolutionParent.SetActive(true);

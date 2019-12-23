@@ -106,6 +106,7 @@ module.exports.createPet = (req, res) => {
         happiness, happinessRate, happinessStamp,
         discipline, disciplineRate, disciplineStamp,
         energy, energyRecoveryRate, energyStamp,
+        sleepStamp, sleepHours,
         s_atk, s_spd, s_def,
         g_atk, g_spd, g_def,
         t_atk, t_spd, t_def} = req.body;
@@ -126,6 +127,7 @@ module.exports.createPet = (req, res) => {
                     happiness, happinessRate, happinessStamp,
                     discipline, disciplineRate, disciplineStamp,
                     energy, energyRecoveryRate, energyStamp,
+                    sleepStamp, sleepHours,
                     s_atk, s_spd, s_def,
                     g_atk, g_spd, g_def,
                     t_atk, t_spd, t_def
@@ -154,12 +156,13 @@ module.exports.updatePet = (req, res) => {
         happiness, happinessRate, happinessStamp,
         discipline, disciplineRate, disciplineStamp,
         energy, energyRecoveryRate, energyStamp,
+        sleepStamp, sleepHours,
         s_atk, s_spd, s_def,
         g_atk, g_spd, g_def,
         t_atk, t_spd, t_def} = req.body;
         
     //#endregion
-
+    
     User.findOneAndUpdate({'pets._id' : _id}, {
         $set: {'pets.$': {
                 _id,
@@ -173,6 +176,7 @@ module.exports.updatePet = (req, res) => {
                 happiness, happinessRate, happinessStamp,
                 discipline, disciplineRate, disciplineStamp,
                 energy, energyRecoveryRate, energyStamp,
+                sleepStamp, sleepHours,
                 s_atk, s_spd, s_def,
                 g_atk, g_spd, g_def,
                 t_atk, t_spd, t_def

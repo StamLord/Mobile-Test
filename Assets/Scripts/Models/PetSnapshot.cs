@@ -19,4 +19,7 @@ public class PetSnapshot: PetBase
     public double energyStamp;
 
     public double injuryStamp;
+
+    public double sleepStamp;
+    public int sleepHours;
 }

@@ -97,7 +97,7 @@ public class AIBrain : MonoBehaviour
 
     public void OnHover()
     {
-        if(state == AIState.DEAD)
+        if(state == AIState.DEAD || state == AIState.SLEEPING)
             return;
 
         if(GameManager.instance.selectedFood != null)
@@ -128,6 +128,20 @@ public class AIBrain : MonoBehaviour
                 animator.PlayAnimation("Happy", false, 0, 2);
                 roaming.StopWalking();
             }
+        }
+    }
+
+    public void SetSleep(bool sleeping)
+    {
+        if(sleeping)
+        {
+            state = AIState.SLEEPING;
+            animator.PlayAnimation("Sleeping", true);
+        }
+        else
+        {
+            state =AIState.ROAMING;
+            animator.PlayAnimation("Idle", false);
         }
     }
 
@@ -168,7 +182,7 @@ public class AIBrain : MonoBehaviour
 
     public void OnUnHover()
     {
-        if(state == AIState.DEAD)
+        if(state == AIState.DEAD || state == AIState.SLEEPING)
             return;
 
         StopFeeding();

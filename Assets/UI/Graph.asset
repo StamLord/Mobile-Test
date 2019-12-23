@@ -1976,9 +1976,6 @@ MonoBehaviour:
   m_onEnterShowViews:
   - Category: General
     InstantAction: 0
-    Name: Indicators
-  - Category: General
-    InstantAction: 0
     Name: Sensors
   m_onEnterHideViews: []
   m_onExitShowViews: []

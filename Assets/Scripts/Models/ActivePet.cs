@@ -164,7 +164,15 @@ public class ActivePet
     {
         // Update discipline based on time since snapshot
         double timeSinceTrained = Timestamp.GetSecondsSince(snapshot.energyStamp);
-        int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)timeSinceTrained / (float)snapshot.energyRecoveryRate);
+
+        // Find out how much of this time was spent sleeping
+        double timeSlept = (snapshot.energyStamp - (SleepTime() + snapshot.sleepStamp)) * -1;
+        if(timeSlept < 0) timeSlept = 0;
+        double timeAwake = timeSinceTrained - timeSlept;
+
+        int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)timeAwake / (float)snapshot.energyRecoveryRate);
+        calculatedEnergy += Mathf.FloorToInt((float)timeAwake / (float)snapshot.energyRecoveryRate * 2);
+
         calculatedEnergy = Mathf.Clamp(calculatedEnergy, 0, 20);
 
         return calculatedEnergy;
@@ -198,7 +206,7 @@ public class ActivePet
 
         return (currentInjury > 0);
     }
-/*
+
     public void Sleep(int hours)
     {
         if(IsSleeping())
@@ -228,12 +236,15 @@ public class ActivePet
 
     public bool IsSleeping()
     {
-        double timeSinceSleep = Timestamp.GetSecondsSince(snapshot.sleepStamp);
-        int sleepHours = timeSinceSleep / 60 / 60;
-
+        int sleepHours = Mathf.FloorToInt((float)SleepTime()/ 60 / 60);
         return (sleepHours < snapshot.sleepHours);
     }
-*/
+
+    public double SleepTime()
+    {
+        return Timestamp.GetSecondsSince(snapshot.sleepStamp);
+    }
+
     public bool IsDead()
     {
         if(stage == 0) // Eggs can't die
@@ -448,6 +459,9 @@ public class ActivePet
 
         copy.energy = snapshot.energy;
         copy.energyStamp = snapshot.energyStamp;
+
+        copy.sleepStamp = snapshot.sleepStamp;
+        copy.sleepHours = snapshot.sleepHours;
 
         copy.s_atk = snapshot.s_atk;
         copy.s_spd = snapshot.s_spd;

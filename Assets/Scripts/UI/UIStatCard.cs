@@ -93,4 +93,21 @@ public class UIStatCard : MonoBehaviour
                 break;
         }
     }
+
+    public void Share()
+    {
+        StartCoroutine(ShareCoroutine());
+    }
+
+    IEnumerator ShareCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        RectTransform rt = GetComponent<RectTransform>();
+        Vector3[] worldCorners = new Vector3[4];
+        rt.GetWorldCorners(worldCorners);
+
+        Rect rect = new Rect(rt.rect.x, rt.rect.y, rt.rect.width, rt.rect.height);
+        SharingManager.instance.ShareCard(rect);
+    }
 }

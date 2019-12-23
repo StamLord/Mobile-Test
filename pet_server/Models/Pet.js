@@ -50,6 +50,9 @@ const PetSchema = new mongoose.Schema({
     injuryRecoveryRate: Number,
     injuryStamp: Number,
 
+    sleepStamp: Number,
+    sleepHours: Number,
+
     s_atk: Number,
     s_spd: Number,
     s_def: Number,

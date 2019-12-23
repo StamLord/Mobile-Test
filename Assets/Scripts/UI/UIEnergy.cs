@@ -13,7 +13,7 @@ public class UIEnergy : MonoBehaviour
         GameManager.onSelectedPetUpdate += UpdateViewingPet;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateEnergyBars();
     }
@@ -43,6 +43,7 @@ public class UIEnergy : MonoBehaviour
         {
             energy[i].enabled = i <= pet.energy - 1;
         }
+        Debug.Log(pet.energy);
     }
 
     void OnDestroy()
