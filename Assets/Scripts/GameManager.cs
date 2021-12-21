@@ -137,10 +137,10 @@ public class GameManager : MonoBehaviour
     
     void UpdateActivePets()
     {
-       foreach (ActivePet pet in activePets)
-       {
-           UpdatePet(pet);
-       }
+        foreach (ActivePet pet in activePets)
+        {
+            UpdatePet(pet);
+        }
     }
 
     void UpdatePet(ActivePet pet)
@@ -196,6 +196,32 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetLoading(true, "Syncing", true);
 
         Coroutine<User> routine = this.StartCoroutine<User>(DataService.Login(username, password));
+        yield return routine.coroutine;
+
+        UIManager.instance.SetLoading(false, "", true);
+
+        if(routine.returnVal != null)
+        {
+            Debug.Log(routine.returnVal);
+            if(remember)
+            {
+                // Remembers credentials
+                PlayerPrefs.SetString("username", username);
+                PlayerPrefs.SetString("password", password);
+            }
+
+            SetUser(routine.returnVal);
+            yield return true;
+        }
+
+        yield return false;
+    }
+
+    public IEnumerator Register(string username, string password, bool remember)
+    {
+        UIManager.instance.SetLoading(true, "Syncing", true);
+
+        Coroutine<User> routine = this.StartCoroutine<User>(DataService.Register(username, password));
         yield return routine.coroutine;
 
         UIManager.instance.SetLoading(false, "", true);

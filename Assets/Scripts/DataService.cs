@@ -9,7 +9,7 @@ public class  DataService
     public static bool isLoggedin;
     public static bool tryingToLogin;
 
-    public const string HOST = "https://hidden-gorge-63443.herokuapp.com/api/"; //"http://localhost:5000/api/"; 
+    public const string HOST = "https://hidden-gorge-63443.herokuapp.com/api/"; //"http://localhost:5000/api/";
 
     public static IEnumerator Login(string username, string password)
     {
@@ -55,6 +55,59 @@ public class  DataService
             //GameManager.instance.SetUser();
             isLoggedin = true;
             Debug.Log("Successfully logged in");
+            yield return user;
+        }
+        else
+        {
+            Debug.Log("Error fetching from server");
+        }
+
+        tryingToLogin = false;
+    }
+    public static IEnumerator Register(string username, string password)
+    {
+        // Build JSON object and convert it to bytes
+        string json = "{" + String.Format("\"username\":\"{0}\",\"password\":\"{1}\",\"email\":\"{2}\"", username, password, "test@test.com") + "}";
+        byte[] userData = System.Text.Encoding.Default.GetBytes(json);
+
+        // Create a POST request because Unity apperantly cannot
+        UnityWebRequest request = new UnityWebRequest(HOST+"register", "POST");
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(userData);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        Debug.Log("Trying to Login...");
+        tryingToLogin = true;
+        yield return request.SendWebRequest();
+        
+        if (!request.isNetworkError)
+        {
+            byte[] result = request.downloadHandler.data;
+            string resJson = System.Text.Encoding.Default.GetString(result);
+            //Debug.Log(resJson);
+
+            User user = null;
+            bool convertedJson = true;
+            try 
+            {
+                user = JsonUtility.FromJson<User>(resJson);
+            }
+            catch (ArgumentException e)
+            {
+                Debug.Log(e);
+                convertedJson = false;
+            }
+
+            if (convertedJson == false)
+            {   
+                Debug.Log("Failed to convert API result");
+                yield break;
+            }
+
+            //GameManager.instance.user = user;
+            //GameManager.instance.SetUser();
+            isLoggedin = true;
+            Debug.Log("Successfully registerd");
             yield return user;
         }
         else

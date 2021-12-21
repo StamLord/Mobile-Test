@@ -113,6 +113,21 @@ public class UIManager : MonoBehaviour
             loginPopup.Hide();
     }
 
+    public void Register()
+    {
+        StartCoroutine(this.RegisterEnum(username.text, password.text, rememberMe));
+    }
+
+    private IEnumerator RegisterEnum(string username, string password, bool rememberMe)
+    {
+        Coroutine<bool> routine = this.StartCoroutine<bool>(GameManager.instance.Register(username, password, rememberMe));
+        yield return routine.coroutine;
+
+        Debug.Log(routine.returnVal);
+        if(routine.returnVal == true)
+            loginPopup.Hide();
+    }
+
     public void RememberMe()
     {
         rememberMe = !rememberMe;

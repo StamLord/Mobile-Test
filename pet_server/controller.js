@@ -24,6 +24,7 @@ module.exports.register = (req, res) => {
     const {username, password, email} = req.body;
 
     User.countDocuments({username}, (err, count) => {
+        console.log(`[Register] ${username} trying to register!` );
         
         if(err) {
             res.sendStatus(500);
@@ -32,6 +33,7 @@ module.exports.register = (req, res) => {
 
         if(count > 0){
             // Username exists
+            console.log(`[Register] ${username} already exists!` );
             res.status('409').send({msg: 'Username exists'});
         } else {
             User.count({email}, (err, count) => {
@@ -43,6 +45,7 @@ module.exports.register = (req, res) => {
 
                 if(count > 0){
                     // Email exists
+                    console.log(`[Register] ${email} already exists!` );
                     res.status('409').send({msg: 'Email exists'});
                 } else {
                     User.create({
@@ -51,9 +54,11 @@ module.exports.register = (req, res) => {
                         email
                     } , (err, result) => {
                         if(err) {
+                            console.log(`[Register] Error 500` );
                             res.sendStatus(500);
                             return;
                         }
+                        console.log(`[Register] Error 201` );
                         res.sendStatus(201);
                     });
                 }
@@ -70,19 +75,22 @@ module.exports.login = (req, res) => {
     }
 
     const {username, password} = req.body;
-    console.log(`${username} has logged in!` );
+    console.log(`[Login] ${username} is trying to login...` );
     User.findOne({username, password}, (err, result) =>{
         if(err) {
+            console.log(`[Login] ${username} server error!` );
             res.sendStatus(500);
             return;
         }
-
+        
         if(result) {
             let user = result;
             user.password = undefined;
+            console.log(`[Login] ${username} has logged in!` );
             
             res.send(user);
         } else {
+            console.log(`[Login] ${username} invalid credentials!` );
             res.status(404).send({msg: 'Invalid credentials'});
         }
     })
@@ -162,7 +170,7 @@ module.exports.updatePet = (req, res) => {
         t_atk, t_spd, t_def} = req.body;
         
     //#endregion
-    
+
     User.findOneAndUpdate({'pets._id' : _id}, {
         $set: {'pets.$': {
                 _id,
