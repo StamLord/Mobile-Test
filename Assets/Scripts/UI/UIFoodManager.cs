@@ -7,6 +7,7 @@ using TMPro;
 public class UIFoodManager : MonoBehaviour
 {
     public Food[] foods;
+    public bool autoPopulate = false;
 
     public Transform foodParent;
     public GameObject foodButtonPrefab;
@@ -16,7 +17,8 @@ public class UIFoodManager : MonoBehaviour
 
     void Start()
     {
-        InitializeFoods();
+        if(autoPopulate)
+            InitializeFoods();
     }
 
     void InitializeFoods()
@@ -41,68 +43,38 @@ public class UIFoodManager : MonoBehaviour
         info.SetActive(true);
 
         if(newFood.hunger > 0)
-        {
-            hunger.text = "HUNGER +" + newFood.hunger;
-        } 
+            hunger.text = "HUNGER    +" + newFood.hunger; 
         else if(newFood.hunger < 0)
-        {
-            hunger.text = "HUNGER " + newFood.hunger;
-        }
+            hunger.text = "HUNGER    " + newFood.hunger;
         else
-        {
-            hunger.text = "HUNGER ";
-        }
+            hunger.text = "HUNGER    N/A";
 
         if(newFood.weight > 0)
-        {
-            weight.text = "WEIGHT +" + newFood.weight;
-        } 
+            weight.text = "WEIGHT    +" + newFood.weight; 
         else if(newFood.weight < 0)
-        {
-            weight.text = "WEIGHT " + newFood.weight;
-        }
+            weight.text = "WEIGHT    " + newFood.weight;
         else
-        {
-            weight.text = "WEIGHT ";
-        }
+            weight.text = "WEIGHT    N/A";
 
         if(newFood.discipline > 0)
-        {
-            discipline.text = "DISCIPLINE +" + newFood.discipline;
-        } 
+            discipline.text = "DISCIPLINE    +" + newFood.discipline; 
         else if(newFood.discipline < 0)
-        {
-            discipline.text = "DISCIPLINE " + newFood.discipline;
-        }
+            discipline.text = "DISCIPLINE    " + newFood.discipline;
         else
-        {
-            discipline.text = "DISCIPLINE ";
-        }
+            discipline.text = "DISCIPLINE    N/A";
 
         if(newFood.happiness > 0)
-        {
-            happiness.text = "HAPPINESS +" + newFood.happiness;
-        } 
+            happiness.text = "HAPPINESS    +" + newFood.happiness; 
         else if(newFood.happiness < 0)
-        {
-            happiness.text = "HAPPINESS " + newFood.happiness;
-        }
+            happiness.text = "HAPPINESS    " + newFood.happiness;
         else
-        {
-            happiness.text = "HAPPINESS ";
-        }
+            happiness.text = "HAPPINESS    N/A";
 
         if(newFood.energy > 0)
-        {
-            energy.text = "ENERGY +" + newFood.energy;
-        } 
+            energy.text = "ENERGY    +" + newFood.energy; 
         else if(newFood.energy < 0)
-        {
-            energy.text = "ENERGY " + newFood.energy;
-        }
+            energy.text = "ENERGY    " + newFood.energy;
         else
-        {
-            energy.text = "ENERGY ";
-        }
+            energy.text = "ENERGY    N/A";
     }
 }

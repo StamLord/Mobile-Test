@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94874fb4323d56342a6ef6592d8e1ae3, type: 3}
   m_Name: Vegetable
   m_EditorClassIdentifier: 
-  foodName: Seeds
+  foodName: Vegetable
   sprite:
   - {fileID: 21300000, guid: a90e5b432f521324197064c3d30b0699, type: 3}
   - {fileID: 21300000, guid: 886364e14cd0a1f429a015c70032b1fe, type: 3}

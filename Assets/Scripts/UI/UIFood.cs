@@ -8,6 +8,15 @@ public class UIFood : UIDraggable
     public Image image;
     public UIFoodManager manager;
 
+    public float scaleTime = 1f;
+    public Vector2 originalSize;
+    public Vector2 pickedSize;
+
+    public void Awake() 
+    {
+        originalSize = image.rectTransform.localScale;    
+    }
+
     public void SetFood(Food food)
     {
         this.food = food;
@@ -19,12 +28,14 @@ public class UIFood : UIDraggable
     {
         base.OnPointerDown(eventData);
         PickFood();
+        StartCoroutine(ScaleUp(scaleTime));
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
         ReturnFood();
+        StartCoroutine(ScaleDown(scaleTime));
     }
 
     public void ReturnFood()
@@ -59,7 +70,7 @@ public class UIFood : UIDraggable
     public void CancelFood()
     {
         GameManager.instance.selectedFood = null;
-         GameManager.onMidFeeding -= BiteFood;
+        GameManager.onMidFeeding -= BiteFood;
         GameManager.onFinishedFeeding -= AteFood;
     }
 
@@ -82,5 +93,27 @@ public class UIFood : UIDraggable
         canDrag = true;
         image.enabled = true;
         image.sprite = food.sprite[0];
+    }
+
+    IEnumerator ScaleUp(float time)
+    {
+        float timer = 0;
+        while(timer < time)
+        {
+            image.rectTransform.localScale = Vector2.Lerp(originalSize, pickedSize, timer / time);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator ScaleDown(float time)
+    {
+        float timer = 0;
+        while(timer < time)
+        {
+            image.rectTransform.localScale = Vector2.Lerp(pickedSize, originalSize, timer / time);
+            yield return null;
+            timer += Time.deltaTime;
+        }
     }
 }
