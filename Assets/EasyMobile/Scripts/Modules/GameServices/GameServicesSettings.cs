@@ -13,6 +13,12 @@ namespace EasyMobile
         public bool IsAutoInit { get { return mAutoInit; } set { mAutoInit = value; } }
 
         /// <summary>
+        /// Whether the Game Services module should initialize itself when the user has logged out in the previous session.
+        /// </summary>
+        /// <value><c>true</c> if is auto init; otherwise, <c>false</c>.</value>
+        public bool IsAutoInitAfterUserLogout { get { return mAutoInitAfterUserLogout; } set { mAutoInitAfterUserLogout = value; } }
+
+        /// <summary>
         /// The delay (in seconds) after the Easy Mobile runtime has been initialized that this module initializes itself automatically.
         /// </summary>
         /// <value>The auto init delay.</value>
@@ -39,6 +45,21 @@ namespace EasyMobile
         public GpgsGravity GpgsPopupGravity { get { return mGpgsPopupGravity; } set { mGpgsPopupGravity = value; } }
 
         /// <summary>
+        /// [Google Play Games] Whether to request a server authentication code during initialization.
+        /// </summary>
+        public bool GpgsShouldRequestServerAuthCode { get { return mGpgsShouldRequestServerAuthCode; } set { mGpgsShouldRequestServerAuthCode = value; } }
+
+        /// <summary>
+        /// [Google Play Games] Whether to force refresh while requesting a server authentication code during initialization.
+        /// </summary>
+        public bool GpgsForceRefreshServerAuthCode { get { return mGpgsForceRefreshServerAuthCode; } set { mGpgsForceRefreshServerAuthCode = value; } }
+
+        /// <summary>
+        /// [Google Play Games] The OAuth scopes to be added during initialization.
+        /// </summary>
+        public string[] GpgsOauthScopes { get { return mGpgsOauthScopes; } set { mGpgsOauthScopes = value; } }
+
+        /// <summary>
         /// Gets or sets the leaderboards.
         /// </summary>
         /// <value>The leaderboards.</value>
@@ -54,6 +75,8 @@ namespace EasyMobile
         [SerializeField]
         private bool mAutoInit = true;
         [SerializeField]
+        private bool mAutoInitAfterUserLogout = false;
+        [SerializeField]
         [Range(0, 120)]
         private float mAutoInitDelay = 0;
         [SerializeField]
@@ -65,6 +88,12 @@ namespace EasyMobile
         private bool mGpgsDebugLogEnabled = false;
         [SerializeField]
         private GpgsGravity mGpgsPopupGravity = GpgsGravity.Top;
+        [SerializeField]
+        private bool mGpgsShouldRequestServerAuthCode = false;
+        [SerializeField]
+        private bool mGpgsForceRefreshServerAuthCode = false;
+        [SerializeField]
+        private string[] mGpgsOauthScopes = null;
 
         // Leaderboards & Achievements
         [SerializeField]

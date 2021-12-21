@@ -31,6 +31,7 @@ public class  DataService
         {
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
+            Debug.Log(resJson);
             User user = JsonUtility.FromJson<User>(resJson);
             //GameManager.instance.user = user;
             //GameManager.instance.SetUser();

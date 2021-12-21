@@ -17,6 +17,38 @@ using GPGSSavedGame = GooglePlayGames.BasicApi.SavedGame;
 
 namespace EasyMobile
 {
+
+#if UNITY_ANDROID && EM_GPGS
+    /// <summary> Native response status codes for GPGS UI operations.</summary>
+    /// </remarks>
+    public enum AskFriendResolutionStatus
+    {
+        /// <summary>The result is valid.</summary>
+        Valid = 1,
+
+        /// <summary>An internal error occurred.</summary>
+        InternalError = -2,
+
+        /// <summary>The player is not authorized to perform the operation.</summary>
+        NotAuthorized = -3,
+
+        /// <summary>The installed version of Google Play services is out of date.</summary>
+        VersionUpdateRequired = -4,
+
+        /// <summary>Timed out while awaiting the result.</summary>
+        Timeout = -5,
+
+        /// <summary>UI closed by user.</summary>
+        UserClosedUI = -6,
+        UiBusy = -12,
+
+        /// <summary>An network error occurred.</summary>
+        NetworkError = -20,
+
+        /// <sumary>The service haven't been fully initialized.</sumary>
+        NotInitialized = -30,
+    }
+#endif
     [AddComponentMenu("")]
     public partial class GameServices : MonoBehaviour
     {
@@ -71,6 +103,7 @@ namespace EasyMobile
 #if UNITY_ANDROID
         private const string ANDROID_LOGIN_REQUEST_NUMBER_PPKEY = "SGLIB_ANDROID_LOGIN_REQUEST_NUMBER";
 #endif
+        private const string USER_CALLED_LOG_OUT_IN_PREVIOUS_SESSION = "SGLIB_USER_CALLED_LOG_OUT_IN_PREVIOUS_SESSION";
 
         void Awake()
         {
@@ -87,10 +120,11 @@ namespace EasyMobile
         void Start()
         {
             // Init the module if automatic init is enabled.
-            if (EM_Settings.GameServices.IsAutoInit)
-            {
-                StartCoroutine(CRAutoInit(EM_Settings.GameServices.AutoInitDelay));
-            }
+            if (!EM_Settings.GameServices.IsAutoInit)
+                return;
+            if (!EM_Settings.GameServices.IsAutoInitAfterUserLogout && StorageUtil.GetInt(USER_CALLED_LOG_OUT_IN_PREVIOUS_SESSION, 0) == 1)
+                return;
+            StartCoroutine(CRAutoInit(EM_Settings.GameServices.AutoInitDelay));
         }
 
         IEnumerator CRAutoInit(float delay)
@@ -155,28 +189,39 @@ namespace EasyMobile
 #endif
 
 #elif UNITY_ANDROID && EM_GPGS
-#if EASY_MOBILE_PRO
             PlayGamesClientConfiguration.Builder gpgsConfigBuilder = new PlayGamesClientConfiguration.Builder();
-
+#if EASY_MOBILE_PRO
             // Enable Saved Games.
             if (EM_Settings.GameServices.IsSavedGamesEnabled)
             {
                 gpgsConfigBuilder.EnableSavedGames();
             }
 
+#if EM_OBSOLETE_GPGS
             // Register an internal invitation delegate and match delegate if Multiplayer is enabled.
             if (EM_Settings.GameServices.IsMultiplayerEnabled)
             {
                 gpgsConfigBuilder.WithInvitationDelegate(OnGPGSInvitationReceived);
                 gpgsConfigBuilder.WithMatchDelegate(OnGPGSTBMatchReceived);
             }
+#endif
+#endif
+            // Add the OAuth scopes if any.
+            if (EM_Settings.GameServices.GpgsOauthScopes != null && EM_Settings.GameServices.GpgsOauthScopes.Length > 0)
+            {
+                foreach (string scope in EM_Settings.GameServices.GpgsOauthScopes)
+                    gpgsConfigBuilder.AddOauthScope(scope);
+            }
+
+            // Request ServerAuthCode if needed.
+            if (EM_Settings.GameServices.GpgsShouldRequestServerAuthCode)
+                gpgsConfigBuilder.RequestServerAuthCode(EM_Settings.GameServices.GpgsForceRefreshServerAuthCode);
 
             // Build the config
             PlayGamesClientConfiguration gpgsConfig = gpgsConfigBuilder.Build();
 
             // Initialize PlayGamesPlatform
             PlayGamesPlatform.InitializeInstance(gpgsConfig);
-#endif
 
             // Enable logging if required
             PlayGamesPlatform.DebugLogEnabled = EM_Settings.GameServices.GgpsDebugLogEnabled;
@@ -554,7 +599,7 @@ namespace EasyMobile
             request.fromRank = -1;
             request.scoreCount = -1;
             request.timeScope = TimeScope.AllTime;
-            request.userScope = UserScope.FriendsOnly;
+            request.userScope = UserScope.Global;
 
             // Add request to the queue
             loadScoreRequests.Add(request);
@@ -595,7 +640,50 @@ namespace EasyMobile
         }
 
         /// <summary>
-        /// Signs the user out. Available on Android only.
+        /// [Google Play Games] Gets the server auth code.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetServerAuthCode()
+        {
+            if (!IsInitialized())
+            {
+                return string.Empty;
+            }
+
+#if UNITY_ANDROID && EM_GPGS
+            return PlayGamesPlatform.Instance.GetServerAuthCode();
+#elif UNITY_ANDROID && !EM_GPGS
+            Debug.LogError("SDK missing. Please import Google Play Games plugin for Unity.");
+            return string.Empty;
+#else
+            Debug.Log("GetServerAuthCode is only available on Google Play Games platform.");
+            return string.Empty;
+#endif
+        }
+
+        /// <summary>
+        /// [Google Play Games] Gets another server auth code.
+        /// </summary>
+        /// <param name="reAuthenticateIfNeeded"></param>
+        /// <param name="callback"></param>
+        public static void GetAnotherServerAuthCode(bool reAuthenticateIfNeeded, Action<string> callback)
+        {
+            if (!IsInitialized())
+            {
+                return;
+            }
+
+#if UNITY_ANDROID && EM_GPGS
+            PlayGamesPlatform.Instance.GetAnotherServerAuthCode(reAuthenticateIfNeeded, callback);
+#elif UNITY_ANDROID && !EM_GPGS
+            Debug.LogError("SDK missing. Please import Google Play Games plugin for Unity.");
+#else
+            Debug.Log("GetAnotherServerAuthCode is only available on Google Play Games platform.");
+#endif
+        }
+
+        /// <summary>
+        /// [Google Play Games] Signs the user out.
         /// </summary>
         public static void SignOut()
         {
@@ -611,7 +699,54 @@ namespace EasyMobile
 #else
             Debug.Log("Signing out from script is not available on this platform.");
 #endif
+            StorageUtil.SetInt(USER_CALLED_LOG_OUT_IN_PREVIOUS_SESSION, 1);
         }
+
+#if UNITY_ANDROID && EM_GPGS
+        public static void AskForLoadFriendsResolution(Action<AskFriendResolutionStatus> callback)
+        {
+            if (!IsInitialized())
+            {
+                callback(AskFriendResolutionStatus.NotInitialized);
+            }
+
+            if (!PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                callback(AskFriendResolutionStatus.NotInitialized);
+            }
+
+            PlayGamesPlatform.Instance.AskForLoadFriendsResolution(status =>
+            {
+                switch (status)
+                {
+                    case UIStatus.Valid:
+                        callback(AskFriendResolutionStatus.Valid);
+                        break;
+                    case UIStatus.InternalError:
+                        callback(AskFriendResolutionStatus.InternalError);
+                        break;
+                    case UIStatus.NotAuthorized:
+                        callback(AskFriendResolutionStatus.NotAuthorized);
+                        break;
+                    case UIStatus.VersionUpdateRequired:
+                        callback(AskFriendResolutionStatus.VersionUpdateRequired);
+                        break;
+                    case UIStatus.Timeout:
+                        callback(AskFriendResolutionStatus.Timeout);
+                        break;
+                    case UIStatus.UserClosedUI:
+                        callback(AskFriendResolutionStatus.UserClosedUI);
+                        break;
+                    case UIStatus.UiBusy:
+                        callback(AskFriendResolutionStatus.UiBusy);
+                        break;
+                    case UIStatus.NetworkError:
+                        callback(AskFriendResolutionStatus.NetworkError);
+                        break;
+                };
+            });
+        }
+#endif
 
         #region Private methods
 
@@ -715,7 +850,7 @@ namespace EasyMobile
 
                 if (request.fromRank > 0 && request.scoreCount > 0)
                 {
-                    ldb.range = new Range(request.fromRank, request.scoreCount);
+                    ldb.range = new UnityEngine.SocialPlatforms.Range(request.fromRank, request.scoreCount);
                 }
 
                 ldb.LoadScores((bool success) =>
@@ -763,6 +898,8 @@ namespace EasyMobile
 #if UNITY_ANDROID && EM_GPGS
                 PlayGamesPlatform.Instance.SetGravityForPopups(ToGpgsGravity(EM_Settings.GameServices.GpgsPopupGravity));
 #endif
+                StorageUtil.SetInt(USER_CALLED_LOG_OUT_IN_PREVIOUS_SESSION, 0);
+                StorageUtil.Save();
             }
             else
             {

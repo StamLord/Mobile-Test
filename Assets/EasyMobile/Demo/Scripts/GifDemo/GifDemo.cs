@@ -61,9 +61,12 @@ namespace EasyMobile.Demo
 
         void OnDestroy()
         {
-            // Dispose the used clip if needed
+            // Dispose the used clips if needed
             if (recordedClip != null)
                 recordedClip.Dispose();
+
+            if (decodedClip != null)
+                decodedClip.Dispose();
         }
 
         void Awake()
@@ -119,7 +122,14 @@ namespace EasyMobile.Demo
                 www.downloadHandler = new DownloadHandlerBuffer();
                 yield return www.SendWebRequest();
 
-                if (www.isNetworkError || www.isHttpError)
+                bool isError;
+#if UNITY_2020_1_OR_NEWER
+                isError = www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError;
+#else
+                isError = www.isNetworkError || www.isHttpError;
+#endif
+
+                if (isError)
                 {
                     demoGifDownloadingText.text = "Failed to download demo GIF:\n" + www.error;
                     retryDownloadButton.SetActive(true);
@@ -297,7 +307,11 @@ namespace EasyMobile.Demo
             if (!string.IsNullOrEmpty(giphyUsername) && !string.IsNullOrEmpty(giphyApiKey))
                 Giphy.Upload(giphyUsername, giphyApiKey, content, OnGiphyUploadProgress, OnGiphyUploadCompleted, OnGiphyUploadFailed);
             else
-                Giphy.Upload(content, OnGiphyUploadProgress, OnGiphyUploadCompleted, OnGiphyUploadFailed);
+#if UNITY_EDITOR
+                Debug.LogError("Upload failed: please provide valid Giphy username and API key in the GifDemo game object.");
+#else
+                NativeUI.Alert("Upload Failed", "Please provide valid Giphy username and API key in the GifDemo game object.");
+#endif
         }
 
         public void ShareGiphyURL()

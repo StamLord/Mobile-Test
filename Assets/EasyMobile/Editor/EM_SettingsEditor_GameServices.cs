@@ -20,6 +20,7 @@ namespace EasyMobile.Editor
         const string AndroidGPGSImportInstruction = "Google Play Games plugin is required. Please download and import it to use this module on Android.";
         const string AndroidGPGSAvailMsg = "Google Play Games plugin is imported and ready to use.";
         const string AndroidGPGPSSetupInstruction = "Paste in the Android XML Resources from the Play Console and hit the Setup button.";
+        const string AndroidGPGSMultiplayerDeprecatedMsg = "The Play Games Services multiplayer APIs have been deprecated since Mar 31, 2020 :(";
         const string GameServiceConstantGenerationIntro = "Generate the static class " + EM_Constants.RootNameSpace + "." + EM_Constants.GameServicesConstantsClassName + " that contains the constants of leaderboard and achievement names." +
                                                           " Remember to regenerate if you make changes to these names.";
 
@@ -83,6 +84,16 @@ namespace EasyMobile.Editor
                     // GPGS popup gravity.
                     EditorGUILayout.PropertyField(GameServiceProperties.gpgsPopupGravity.property, GameServiceProperties.gpgsPopupGravity.content);
 
+                    // GPGS request ServerAuthCode config.
+                    EditorGUILayout.PropertyField(GameServiceProperties.gpgsShouldRequestServerAuthCode.property, GameServiceProperties.gpgsShouldRequestServerAuthCode.content);
+                    EditorGUI.BeginDisabledGroup(!GameServiceProperties.gpgsShouldRequestServerAuthCode.property.boolValue);
+                    EditorGUILayout.PropertyField(GameServiceProperties.gpgsForceRefreshServerAuthCode.property, GameServiceProperties.gpgsForceRefreshServerAuthCode.content);
+                    EditorGUI.EndDisabledGroup();
+
+
+                    // GPGS OAuth scopes.
+                    EditorGUILayout.PropertyField(GameServiceProperties.gpgsOauthScopes.property, GameServiceProperties.gpgsOauthScopes.content, true);
+
                     // GPGS (optional) Web App Client ID.
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Web App Client ID (Optional)", EditorStyles.boldLabel);
@@ -121,6 +132,7 @@ namespace EasyMobile.Editor
                     EditorGUILayout.PropertyField(GameServiceProperties.autoInit.property, GameServiceProperties.autoInit.content);
 
                     EditorGUI.BeginDisabledGroup(!GameServiceProperties.autoInit.property.boolValue);
+                    EditorGUILayout.PropertyField(GameServiceProperties.autoInitAfterUserLogout.property, GameServiceProperties.autoInitAfterUserLogout.content);
                     EditorGUILayout.PropertyField(GameServiceProperties.autoInitDelay.property, GameServiceProperties.autoInitDelay.content);
                     EditorGUI.EndDisabledGroup();
 
@@ -153,7 +165,15 @@ namespace EasyMobile.Editor
             EditorGUILayout.Space();
             DrawUppercaseSection("MULTIPLAYER_CONFIG_FOLDOUT_KEY", "MULTIPLAYER", () =>
                 {
+#if UNITY_ANDROID
+                    EditorGUILayout.HelpBox(AndroidGPGSMultiplayerDeprecatedMsg, MessageType.Warning);
+                    EditorGUI.BeginDisabledGroup(true);
+                    GameServiceProperties.enableMultiplayer.property.boolValue = false;
                     EditorGUILayout.PropertyField(GameServiceProperties.enableMultiplayer.property, GameServiceProperties.enableMultiplayer.content);
+                    EditorGUI.EndDisabledGroup();
+#else
+                    EditorGUILayout.PropertyField(GameServiceProperties.enableMultiplayer.property, GameServiceProperties.enableMultiplayer.content);
+#endif
                 });
 #endif
 
@@ -211,7 +231,7 @@ namespace EasyMobile.Editor
 
         // Replicate the "DoSetup" method of the GPGSAndroidSetupUI class.
         void SetupAndroidGPGS(string webClientId, string folder, string className, string resourceXmlData, string nearbySvcId, bool requiresGooglePlus)
-        {           
+        {
             // Create the folder to store the generated cs file if it doesn't exist.
             FileIO.EnsureFolderExists(folder);
 
@@ -224,9 +244,9 @@ namespace EasyMobile.Editor
             bool isSetupSucceeded = false;
 
             // GPGS 0.9.37 and newer: PerformSetup has no trailing bool parameter
-            MethodInfo newPerformSetup = gpgsAndroidSetupClass.GetMethod(methodName, 
-                                             BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, 
-                                             Type.DefaultBinder, 
+            MethodInfo newPerformSetup = gpgsAndroidSetupClass.GetMethod(methodName,
+                                             BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic,
+                                             Type.DefaultBinder,
                                              new Type[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) },
                                              new ParameterModifier[0]);
 
@@ -237,9 +257,9 @@ namespace EasyMobile.Editor
             else
             {
                 // GPGS 0.9.36 and older: PerformSetup has a trailing bool parameter
-                MethodInfo oldPerformSetup = gpgsAndroidSetupClass.GetMethod(methodName, 
-                                                 BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, 
-                                                 Type.DefaultBinder, 
+                MethodInfo oldPerformSetup = gpgsAndroidSetupClass.GetMethod(methodName,
+                                                 BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic,
+                                                 Type.DefaultBinder,
                                                  new Type[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(string), typeof(bool) },
                                                  new ParameterModifier[0]);
 
@@ -248,7 +268,7 @@ namespace EasyMobile.Editor
                     isSetupSucceeded = (bool)oldPerformSetup.Invoke(null, new object[] { webClientId, folder, className, resourceXmlData, nearbySvcId, requiresGooglePlus });
                 }
             }
-                
+
             if (isSetupSucceeded)
             {
                 GPGSAndroidSetupUI.CheckBundleId();

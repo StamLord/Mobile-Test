@@ -26,6 +26,8 @@ namespace EasyMobile.Editor
         #endregion
 
         #region Target properties
+        //Runtime auto initialization
+        SerializedProperty autoInitializationProperty;
 
         // Module toggles
         SerializedProperty isAdModuleEnable;
@@ -64,11 +66,15 @@ namespace EasyMobile.Editor
             public static SerializedProperty appLovinSettings;
             public static SerializedProperty chartboostSettings;
             public static SerializedProperty fbAudienceSettings;
-            public static SerializedProperty heyzapSettings;
+            public static SerializedProperty fairBidSettings;
             public static SerializedProperty ironSourceSettings;
             public static SerializedProperty mopubSettings;
             public static SerializedProperty tapjoySettings;
             public static SerializedProperty unityAdsSettings;
+            public static SerializedProperty vungleAdsSettings;
+            
+            // Module auto-initialization
+            public static EMProperty autoInit = new EMProperty(null, new GUIContent("Auto Init", "Whether the module should automatically initialize itself"));
 
             // Auto ad-loading settings.
             public static EMProperty autoLoadAdsMode = new EMProperty(null, new GUIContent("Auto Ad-Loading Mode"));
@@ -80,28 +86,36 @@ namespace EasyMobile.Editor
             public static EMProperty androidDefaultAdNetworks = new EMProperty(null, new GUIContent("Android"));
 
             // AdColony properties.
+            public static EMProperty adColonyEnabled = new EMProperty(new GUIContent("Ad Colony enable"));
             public static EMProperty adColonyAppId = new EMProperty(new GUIContent("App ID"));
             public static EMProperty adColonyAdOrientation = new EMProperty(new GUIContent("Ad Orientation"));
             public static EMProperty adColonyEnableRewardedAdPrePopup = new EMProperty(new GUIContent("Show Rewarded Ad PrePopup", "Show popup before the rewarded video starts"));
             public static EMProperty adColonyEnableRewardedAdPostPopup = new EMProperty(new GUIContent("Show Rewarded Ad PostPopup", "Show popup after the rewarded video has finished"));
             public static EMProperty adColonyDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
             public static EMProperty adColonyDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
+            public static EMProperty adColonyDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty adColonyCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
             public static EMProperty adColonyCustomRewardedAdIds = new EMProperty(new GUIContent("Rewarded Ads"));
+            public static EMProperty adColonyCustomBannerAdIds = new EMProperty(new GUIContent("Banner Ads"));
 
             // Admob properties.
+            public static EMProperty adMobEnabled = new EMProperty(new GUIContent("AdMob enable"));
             public static EMProperty admobAppId = new EMProperty(new GUIContent("App ID"));
             public static EMProperty admobDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty admobDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
             public static EMProperty admobDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
+            public static EMProperty admobDefaultRewardedInterstitialAdId = new EMProperty(new GUIContent("Rewarded Interstitial Ad"));
             public static EMProperty admobCustomBannerAdIds = new EMProperty(new GUIContent("Banner Ads"));
             public static EMProperty admobCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
             public static EMProperty admobCustomRewardedAdIds = new EMProperty(new GUIContent("Rewarded Ads"));
+            public static EMProperty admobCustomRewardedInterstitialAdIds = new EMProperty(new GUIContent("Rewarded Interstitial Ads"));
             public static EMProperty admobEnableTestMode = new EMProperty(new GUIContent("Enable Test Mode"));
+            public static EMProperty admobAdaptiveBanner = new EMProperty(new GUIContent("Use Adaptive Banner"));
             public static EMProperty admobTestDeviceIds = new EMProperty(new GUIContent("Test Device IDs"));
             public static EMProperty admobTargetingSettings = new EMProperty(new GUIContent("Targeting Settings"));
 
             // AppLovin properties.
+            public static EMProperty appLovinEnabled = new EMProperty(new GUIContent("Applovin enable"));
             public static EMProperty appLovinSDKKey = new EMProperty(new GUIContent("SDK Key"));
             public static EMProperty appLovinDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty appLovinDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
@@ -109,14 +123,15 @@ namespace EasyMobile.Editor
             public static EMProperty appLovinCustomBannerAdIds = new EMProperty(new GUIContent("Banner Ads"));
             public static EMProperty appLovinCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
             public static EMProperty appLovinCustomRewardedAdIds = new EMProperty(new GUIContent("Rewarded Ads"));
-            public static EMProperty appLovinEnableTestMode = new EMProperty(new GUIContent("Enable Test Mode"));
             public static EMProperty appLovinEnableAgeRestricted = new EMProperty(new GUIContent("Enable Age-Restricted"));
 
             // Chartboost properties.
+            public static EMProperty chartboostEnabled = new EMProperty(new GUIContent("ChartBoost enable"));
             public static EMProperty chartboostCustomInterstitialPlacements = new EMProperty(new GUIContent("Interstitial Ads"));
             public static EMProperty chartboostCustomRewardedPlacements = new EMProperty(new GUIContent("Rewarded Ads"));
 
             // Facebook Audience properties.
+            public static EMProperty facebookAdEnabled = new EMProperty(new GUIContent("Facebook Ad enable"));
             public static EMProperty fbAudienceDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty fbAudienceDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
             public static EMProperty fbAudienceDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
@@ -127,18 +142,26 @@ namespace EasyMobile.Editor
             public static EMProperty fbAudienceEnableTestMode = new EMProperty(new GUIContent("Enable Test Mode"));
             public static EMProperty fbAudienceTestDeviceIds = new EMProperty(new GUIContent("Test Device IDs"));
 
-            // Heyzap properties.
-            public static EMProperty heyzapPublisherId = new EMProperty(null, new GUIContent("Heyzap Publisher ID"));
-            public static EMProperty heyzapShowTestSuite = new EMProperty(null, new GUIContent("Show Heyzap Test Suite"));
-            public static EMProperty heyzapCustomInterstitialPlacements = new EMProperty(new GUIContent("Interstitial Ads"));
-            public static EMProperty heyzapCustomRewardedPlacements = new EMProperty(new GUIContent("Rewarded Ads"));
+            // FairBid properties.
+            public static EMProperty fairBitEnabled = new EMProperty(new GUIContent("FairBit enable"));
+            public static EMProperty fairBidPublisherId = new EMProperty(null, new GUIContent("FairBid Publisher ID"));
+            public static EMProperty fairBidShowTestSuite = new EMProperty(null, new GUIContent("Show FairBid Test Suite"));
+
+            public static EMProperty fairBidDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
+            public static EMProperty fairBidDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
+            public static EMProperty fairBidDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
+            public static EMProperty fairBidCustomBannerPlacements = new EMProperty(new GUIContent("Banner Ads"));
+            public static EMProperty fairBidCustomInterstitialPlacements = new EMProperty(new GUIContent("Interstitial Ads"));
+            public static EMProperty fairBidCustomRewardedPlacements = new EMProperty(new GUIContent("Rewarded Ads"));
 
             // IronSource properties.
+            public static EMProperty ironSourceEnabled = new EMProperty(new GUIContent("IronSource enable"));
             public static EMProperty ironSourceAppKey = new EMProperty(null, new GUIContent("App Key"));
             public static EMProperty ironSourceUseAdvancedSetting = new EMProperty(null, new GUIContent("Use Advanced Settings"));
             public static EMProperty ironSourceSegmentSettings = new EMProperty(null, new GUIContent("Segment Settings"));
 
             // Mopub properties.
+            public static EMProperty mopubEnabled = new EMProperty(new GUIContent("Mopub enable"));
             public static EMProperty mopubDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty mopubDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
             public static EMProperty mopubDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
@@ -156,6 +179,7 @@ namespace EasyMobile.Editor
             public static EMProperty mopubForceGdprApplicable = new EMProperty(null, new GUIContent("Force GDPR Applicable", "Enable this to show GPDR consent in all regions, FOR DEBUG PURPOSE ONLY"));
 
             // Tapjoy properties.
+            public static EMProperty tapJoyEnabled = new EMProperty(new GUIContent("Tap joy enable"));
             public static EMProperty tapjoyDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
             public static EMProperty tapjoyDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
             public static EMProperty tapjoyCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
@@ -164,6 +188,7 @@ namespace EasyMobile.Editor
             public static EMProperty tapjoyAutoReconnectInterval = new EMProperty(null, new GUIContent("Auto Reconnect Interval"));
 
             // UnityAds properties.
+            public static EMProperty unityAdEnabled = new EMProperty(new GUIContent("Unity Ads enable"));
             public static EMProperty unityAdsAppId = new EMProperty(new GUIContent("App ID"));
             public static EMProperty unityAdsDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
             public static EMProperty unityAdsDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
@@ -172,6 +197,18 @@ namespace EasyMobile.Editor
             public static EMProperty unityAdsCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
             public static EMProperty unityAdsCustomRewardedAdIds = new EMProperty(new GUIContent("Rewarded Ads"));
             public static EMProperty unityAdsEnableTestMode = new EMProperty(new GUIContent("Enable Test Mode"));
+
+            // Vungle properties
+            public static EMProperty vungleAdEnabled = new EMProperty(new GUIContent("Vungle Ad enable"));
+            public static EMProperty vungleAdsAppId = new EMProperty(new GUIContent("App ID"));
+            public static EMProperty vungleDefaultInterstitialAdId = new EMProperty(new GUIContent("Interstitial Ad"));
+            public static EMProperty vungleDefaultRewardedAdId = new EMProperty(new GUIContent("Rewarded Ad"));
+            public static EMProperty vungleDefaultBannerAdId = new EMProperty(new GUIContent("Banner Ad"));
+            public static EMProperty vungleCustomInterstitialAdIds = new EMProperty(new GUIContent("Interstitial Ads"));
+            public static EMProperty vungleCustomRewardedAdIds = new EMProperty(new GUIContent("Rewarded Ads"));
+            public static EMProperty vungleCustomBannerAdIds = new EMProperty(new GUIContent("Banner Ads"));
+            public static EMProperty vungleUseAdvancedSettings = new EMProperty(new GUIContent("Advanced settings"));
+            public static EMProperty vungleAdvancedSettings = new EMProperty(new GUIContent("Vungle advanced settings"));
         }
 
         // In App Purchase module properties
@@ -193,10 +230,11 @@ namespace EasyMobile.Editor
         private static class GameServiceProperties
         {
             public static SerializedProperty mainProperty;
-            public static EMProperty gpgsDebugLog = new EMProperty(null, new GUIContent("GPGS Debug Log", "Show debug log from Google Play Games plugin"));
-            public static EMProperty gpgsPopupGravity = new EMProperty(null, new GUIContent("GPGS Popup Gravity", "Sets the gravity for popups on Google Play Games platform"));
+            public static EMProperty gpgsDebugLog = new EMProperty(null, new GUIContent("Debug Log", "Show debug log from Google Play Games plugin"));
+            public static EMProperty gpgsPopupGravity = new EMProperty(null, new GUIContent("Popup Gravity", "Sets the gravity for popups on Google Play Games platform"));
             public static EMProperty gpgsXmlResources = new EMProperty(null, new GUIContent("Android XML Resources", "The XML resources exported from Google Play Console"));
             public static EMProperty autoInit = new EMProperty(null, new GUIContent("Auto Init", "Whether the module should automatically initialize itself"));
+            public static EMProperty autoInitAfterUserLogout = new EMProperty(null, new GUIContent("Auto Init (User Logged Out)", "Whether the module should automatically initialize itself when the user has logged out in the previous session."));
             public static EMProperty autoInitDelay = new EMProperty(null, new GUIContent("Auto Init Delay", "Delay time (seconds) after Start() that the service is automatically initialized"));
             public static EMProperty androidMaxLoginRequest =
                 new EMProperty(null,
@@ -205,6 +243,10 @@ namespace EasyMobile.Editor
                         "When this value is reached, the init process will stop thus not showing the login popup anymore (avoid annoying the user). " +
                         "Set to 0 to ignore this limit."));
 
+            public static EMProperty gpgsShouldRequestServerAuthCode = new EMProperty(null, new GUIContent("Request ServerAuthCode", "Whether to request a server authentication code during initialization on Google Play Games platform."));
+            public static EMProperty gpgsForceRefreshServerAuthCode = new EMProperty(null, new GUIContent("Force Refresh", "Whether to force refresh while requesting a server authentication code " +
+                "during initialization on Google Play Games platform."));
+            public static EMProperty gpgsOauthScopes = new EMProperty(null, new GUIContent("OAuth Scopes", "The OAuth scopes to be added during initialization on Google Play Games platform."));
             public static EMProperty leaderboards = new EMProperty(null, new GUIContent("Leaderboards"));
             public static EMProperty achievements = new EMProperty(null, new GUIContent("Achievements"));
 
@@ -244,6 +286,8 @@ namespace EasyMobile.Editor
             public static EMProperty selectedToggleIndex = new EMProperty(null, new GUIContent("Selected Toggle Index"));
             public static EMProperty selectedButtonIndex = new EMProperty(null, new GUIContent("Selected Button Index"));
             public static EMProperty enableCopyPasteMode = new EMProperty(null, new GUIContent("Enable Copy & Paste", "We need to do this because GUILayout.TextArea, the only TextArea that work with TextEditor, doesn't support copy & paste."));
+            public static EMProperty isAppTrackingEnabled = new EMProperty(null, new GUIContent("Enable App Tracking", "Enable App Tracking API."));
+            public static EMProperty iOSUserTrackingUsageDescription = new EMProperty(null, new GUIContent("User Tracking Usage Description", "[iOS] Will be added into Info.plist if the App Tracking submodule is enabled."));    
         }
 
         // Utility module consists other sub-module properties
@@ -266,13 +310,13 @@ namespace EasyMobile.Editor
         private static class NativeApisProperties
         {
             public static SerializedProperty mainProperty;
-            public static EMProperty isMediaEnabled = new EMProperty(null, new GUIContent("Enable Camera & Gallery", "Enable native camera & gallery apis."));
-            public static EMProperty isContactsEnabled = new EMProperty(null, new GUIContent("Enable Contacts", "Enable native contacts apis."));
-            public static EMProperty iOSPhotoUsageDescription = new EMProperty(null, new GUIContent("Photo Usage Description", "[iOS] Will be added into Info.plist if the Media module is enabled."));
-            public static EMProperty iOSAddPhotoUsageDescription = new EMProperty(null, new GUIContent("Add Photo Usage Description", "[IOS] Will be added into Info.plist of the Media module is enabled. Used when adding photo(s) into device."));
-            public static EMProperty iOSCameraUsageDescription = new EMProperty(null, new GUIContent("Camera Usage Description", "[iOS] Will be added into Info.plist if the Media module is enabled."));
-            public static EMProperty iOSMicrophoneUsageDescription = new EMProperty(null, new GUIContent("Microphone Usage Description", "[iOS] Will be added into Info.plist if the Media module is enabled. Used when recording video."));
-            public static EMProperty iOSContactUsageDescription = new EMProperty(null, new GUIContent("Contacts Usage Description", "[iOS] Will be added into Info.plist if the Contact module is enabled."));
+            public static EMProperty isMediaEnabled = new EMProperty(null, new GUIContent("Enable Camera & Gallery", "Enable native camera & gallery API."));
+            public static EMProperty isContactsEnabled = new EMProperty(null, new GUIContent("Enable Contacts", "Enable native contacts API."));
+            public static EMProperty iOSPhotoUsageDescription = new EMProperty(null, new GUIContent("Photo Usage Description", "[iOS] Will be added into Info.plist if the Media submodule is enabled."));
+            public static EMProperty iOSAddPhotoUsageDescription = new EMProperty(null, new GUIContent("Add Photo Usage Description", "[IOS] Will be added into Info.plist of the Media submodule is enabled. Used when adding photo(s) into device."));
+            public static EMProperty iOSCameraUsageDescription = new EMProperty(null, new GUIContent("Camera Usage Description", "[iOS] Will be added into Info.plist if the Media submodule is enabled."));
+            public static EMProperty iOSMicrophoneUsageDescription = new EMProperty(null, new GUIContent("Microphone Usage Description", "[iOS] Will be added into Info.plist if the Media submodule is enabled. Used when recording video."));
+            public static EMProperty iOSContactUsageDescription = new EMProperty(null, new GUIContent("Contacts Usage Description", "[iOS] Will be added into Info.plist if the Contact submodule is enabled."));
             public static EMProperty iOSExtraUsageDescriptions = new EMProperty(null, new GUIContent("Extra iOS Usage Descriptions", "Define usage descriptions here to add them into Info.plist when building to iOS."));
         }
 #endif
@@ -305,6 +349,9 @@ namespace EasyMobile.Editor
 
         void OnEnable()
         {
+            // Runtime properties.
+            autoInitializationProperty = serializedObject.FindProperty("mRuntimeAutoInitialization");
+            
             // Module-control properties.
             isAdModuleEnable = serializedObject.FindProperty("mIsAdModuleEnable");
             isIAPModuleEnable = serializedObject.FindProperty("mIsIAPModuleEnable");
@@ -324,7 +371,9 @@ namespace EasyMobile.Editor
             // Ad module properties.
             //--------------------------------------------------------------
             AdProperties.mainProperty = serializedObject.FindProperty("mAdvertisingSettings");
-
+            // Auto init
+            AdProperties.autoInit.property = AdProperties.mainProperty.FindPropertyRelative("mAutoInit");
+            
             // Auto ad-loading.
             AdProperties.autoLoadAdsMode.property = AdProperties.mainProperty.FindPropertyRelative("mAutoLoadAdsMode");
             AdProperties.adCheckingInterval.property = AdProperties.mainProperty.FindPropertyRelative("mAdCheckingInterval");
@@ -336,30 +385,38 @@ namespace EasyMobile.Editor
 
             // AdColony properties.
             AdProperties.adColonySettings = AdProperties.mainProperty.FindPropertyRelative("mAdColony");
+            AdProperties.adColonyEnabled.property = AdProperties.adColonySettings.FindPropertyRelative("mEnable");
             AdProperties.adColonyAppId.property = AdProperties.adColonySettings.FindPropertyRelative("mAppId");
             AdProperties.adColonyAdOrientation.property = AdProperties.adColonySettings.FindPropertyRelative("mOrientation");
             AdProperties.adColonyEnableRewardedAdPrePopup.property = AdProperties.adColonySettings.FindPropertyRelative("mEnableRewardedAdPrePopup");
             AdProperties.adColonyEnableRewardedAdPostPopup.property = AdProperties.adColonySettings.FindPropertyRelative("mEnableRewardedAdPostPopup");
             AdProperties.adColonyDefaultInterstitialAdId.property = AdProperties.adColonySettings.FindPropertyRelative("mDefaultInterstitialAdId");
             AdProperties.adColonyDefaultRewardedAdId.property = AdProperties.adColonySettings.FindPropertyRelative("mDefaultRewardedAdId");
+            AdProperties.adColonyDefaultBannerAdId.property = AdProperties.adColonySettings.FindPropertyRelative("mDefaultBannerAdId");
             AdProperties.adColonyCustomInterstitialAdIds.property = AdProperties.adColonySettings.FindPropertyRelative("mCustomInterstitialAdIds");
             AdProperties.adColonyCustomRewardedAdIds.property = AdProperties.adColonySettings.FindPropertyRelative("mCustomRewardedAdIds");
+            AdProperties.adColonyCustomBannerAdIds.property = AdProperties.adColonySettings.FindPropertyRelative("mCustomBannerAdIds");
 
             // AdMob properties.
             AdProperties.admobSettings = AdProperties.mainProperty.FindPropertyRelative("mAdMob");
+            AdProperties.adMobEnabled.property = AdProperties.admobSettings.FindPropertyRelative("mEnable");
             AdProperties.admobAppId.property = AdProperties.admobSettings.FindPropertyRelative("mAppId");
             AdProperties.admobDefaultBannerAdId.property = AdProperties.admobSettings.FindPropertyRelative("mDefaultBannerAdId");
             AdProperties.admobDefaultInterstitialAdId.property = AdProperties.admobSettings.FindPropertyRelative("mDefaultInterstitialAdId");
             AdProperties.admobDefaultRewardedAdId.property = AdProperties.admobSettings.FindPropertyRelative("mDefaultRewardedAdId");
+            AdProperties.admobDefaultRewardedInterstitialAdId.property = AdProperties.admobSettings.FindPropertyRelative("mDefaultRewardedInterstitialAdId");
             AdProperties.admobCustomBannerAdIds.property = AdProperties.admobSettings.FindPropertyRelative("mCustomBannerAdIds");
             AdProperties.admobCustomInterstitialAdIds.property = AdProperties.admobSettings.FindPropertyRelative("mCustomInterstitialAdIds");
             AdProperties.admobCustomRewardedAdIds.property = AdProperties.admobSettings.FindPropertyRelative("mCustomRewardedAdIds");
+            AdProperties.admobCustomRewardedInterstitialAdIds.property = AdProperties.admobSettings.FindPropertyRelative("mCustomRewardedInterstitialAdIds");
             AdProperties.admobEnableTestMode.property = AdProperties.admobSettings.FindPropertyRelative("mEnableTestMode");
+            AdProperties.admobAdaptiveBanner.property = AdProperties.admobSettings.FindPropertyRelative("mUseAdaptiveBanner");
             AdProperties.admobTestDeviceIds.property = AdProperties.admobSettings.FindPropertyRelative("mTestDeviceIds");
             AdProperties.admobTargetingSettings.property = AdProperties.admobSettings.FindPropertyRelative("mTargetingSettings");
 
             // AppLovin properties.
             AdProperties.appLovinSettings = AdProperties.mainProperty.FindPropertyRelative("mAppLovin");
+            AdProperties.appLovinEnabled.property = AdProperties.appLovinSettings.FindPropertyRelative("mEnable");
             AdProperties.appLovinSDKKey.property = AdProperties.appLovinSettings.FindPropertyRelative("mSDKKey");
             AdProperties.appLovinDefaultBannerAdId.property = AdProperties.appLovinSettings.FindPropertyRelative("mDefaultBannerAdId");
             AdProperties.appLovinDefaultInterstitialAdId.property = AdProperties.appLovinSettings.FindPropertyRelative("mDefaultInterstitialAdId");
@@ -367,16 +424,17 @@ namespace EasyMobile.Editor
             AdProperties.appLovinCustomBannerAdIds.property = AdProperties.appLovinSettings.FindPropertyRelative("mCustomBannerAdIds");
             AdProperties.appLovinCustomInterstitialAdIds.property = AdProperties.appLovinSettings.FindPropertyRelative("mCustomInterstitialAdIds");
             AdProperties.appLovinCustomRewardedAdIds.property = AdProperties.appLovinSettings.FindPropertyRelative("mCustomRewardedAdIds");
-            AdProperties.appLovinEnableTestMode.property = AdProperties.appLovinSettings.FindPropertyRelative("mEnableTestMode");
             AdProperties.appLovinEnableAgeRestricted.property = AdProperties.appLovinSettings.FindPropertyRelative("mAgeRestrictMode");
 
             // Chartboost properties.
             AdProperties.chartboostSettings = AdProperties.mainProperty.FindPropertyRelative("mChartboost");
+            AdProperties.chartboostEnabled.property = AdProperties.chartboostSettings.FindPropertyRelative("mEnable");
             AdProperties.chartboostCustomInterstitialPlacements.property = AdProperties.chartboostSettings.FindPropertyRelative("mCustomInterstitialPlacements");
             AdProperties.chartboostCustomRewardedPlacements.property = AdProperties.chartboostSettings.FindPropertyRelative("mCustomRewardedPlacements");
 
             // Facebook Audience properties.
             AdProperties.fbAudienceSettings = AdProperties.mainProperty.FindPropertyRelative("mFBAudience");
+            AdProperties.facebookAdEnabled.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mEnable");
             AdProperties.fbAudienceDefaultBannerAdId.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mDefaultBannerId");
             AdProperties.fbAudienceDefaultInterstitialAdId.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mDefaultInterstitialAdId");
             AdProperties.fbAudienceDefaultRewardedAdId.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mDefaultRewardedAdId");
@@ -388,21 +446,28 @@ namespace EasyMobile.Editor
             AdProperties.fbAudienceTestDeviceIds.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mTestDevices");
             AdProperties.fbAudienceBannerSize.property = AdProperties.fbAudienceSettings.FindPropertyRelative("mBannerAdSize");
 
-            // Heyzap properties.
-            AdProperties.heyzapSettings = AdProperties.mainProperty.FindPropertyRelative("mHeyzap");
-            AdProperties.heyzapPublisherId.property = AdProperties.heyzapSettings.FindPropertyRelative("mPublisherId");
-            AdProperties.heyzapShowTestSuite.property = AdProperties.heyzapSettings.FindPropertyRelative("mShowTestSuite");
-            AdProperties.heyzapCustomInterstitialPlacements.property = AdProperties.heyzapSettings.FindPropertyRelative("mCustomInterstitialPlacements");
-            AdProperties.heyzapCustomRewardedPlacements.property = AdProperties.heyzapSettings.FindPropertyRelative("mCustomRewardedPlacements");
+            // FairBid properties.
+            AdProperties.fairBidSettings = AdProperties.mainProperty.FindPropertyRelative("mFairBid");
+            AdProperties.fairBitEnabled.property = AdProperties.fairBidSettings.FindPropertyRelative("mEnable");
+            AdProperties.fairBidPublisherId.property = AdProperties.fairBidSettings.FindPropertyRelative("mPublisherId");
+            AdProperties.fairBidShowTestSuite.property = AdProperties.fairBidSettings.FindPropertyRelative("mShowTestSuite");
+            AdProperties.fairBidDefaultBannerAdId.property = AdProperties.fairBidSettings.FindPropertyRelative("mDefaultBannerId");
+            AdProperties.fairBidDefaultInterstitialAdId.property = AdProperties.fairBidSettings.FindPropertyRelative("mDefaultInterstitialAdId");
+            AdProperties.fairBidDefaultRewardedAdId.property = AdProperties.fairBidSettings.FindPropertyRelative("mDefaultRewardedAdId");
+            AdProperties.fairBidCustomBannerPlacements.property = AdProperties.fairBidSettings.FindPropertyRelative("mCustomBannerPlacements");
+            AdProperties.fairBidCustomInterstitialPlacements.property = AdProperties.fairBidSettings.FindPropertyRelative("mCustomInterstitialPlacements");
+            AdProperties.fairBidCustomRewardedPlacements.property = AdProperties.fairBidSettings.FindPropertyRelative("mCustomRewardedPlacements");
 
             // IronSource properties.
             AdProperties.ironSourceSettings = AdProperties.mainProperty.FindPropertyRelative("mIronSource");
+            AdProperties.ironSourceEnabled.property = AdProperties.ironSourceSettings.FindPropertyRelative("mEnable");
             AdProperties.ironSourceAppKey.property = AdProperties.ironSourceSettings.FindPropertyRelative("mAppId");
             AdProperties.ironSourceUseAdvancedSetting.property = AdProperties.ironSourceSettings.FindPropertyRelative("mUseAdvancedSetting");
             AdProperties.ironSourceSegmentSettings.property = AdProperties.ironSourceSettings.FindPropertyRelative("mSegments");
 
             // Mopub properties.
             AdProperties.mopubSettings = AdProperties.mainProperty.FindPropertyRelative("mMoPub");
+            AdProperties.mopubEnabled.property = AdProperties.mopubSettings.FindPropertyRelative("mEnable");
             AdProperties.mopubDefaultBannerAdId.property = AdProperties.mopubSettings.FindPropertyRelative("mDefaultBannerId");
             AdProperties.mopubDefaultInterstitialAdId.property = AdProperties.mopubSettings.FindPropertyRelative("mDefaultInterstitialAdId");
             AdProperties.mopubDefaultRewardedAdId.property = AdProperties.mopubSettings.FindPropertyRelative("mDefaultRewardedAdId");
@@ -422,6 +487,7 @@ namespace EasyMobile.Editor
 
             // Tapjoy properties.
             AdProperties.tapjoySettings = AdProperties.mainProperty.FindPropertyRelative("mTapjoy");
+            AdProperties.tapJoyEnabled.property = AdProperties.tapjoySettings.FindPropertyRelative("mEnable");
             AdProperties.tapjoyDefaultInterstitialAdId.property = AdProperties.tapjoySettings.FindPropertyRelative("mDefaultInterstitialAdId");
             AdProperties.tapjoyDefaultRewardedAdId.property = AdProperties.tapjoySettings.FindPropertyRelative("mDefaultRewardedAdId");
             AdProperties.tapjoyCustomInterstitialAdIds.property = AdProperties.tapjoySettings.FindPropertyRelative("mCustomInterstitialAdIds");
@@ -431,6 +497,7 @@ namespace EasyMobile.Editor
 
             // UnityAds properties.
             AdProperties.unityAdsSettings = AdProperties.mainProperty.FindPropertyRelative("mUnityAds");
+            AdProperties.unityAdEnabled.property = AdProperties.unityAdsSettings.FindPropertyRelative("mEnable");
             AdProperties.unityAdsAppId.property = AdProperties.unityAdsSettings.FindPropertyRelative("mAppId");
             AdProperties.unityAdsDefaultBannerAdId.property = AdProperties.unityAdsSettings.FindPropertyRelative("mDefaultBannerAdId");
             AdProperties.unityAdsDefaultInterstitialAdId.property = AdProperties.unityAdsSettings.FindPropertyRelative("mDefaultInterstitialAdId");
@@ -439,6 +506,19 @@ namespace EasyMobile.Editor
             AdProperties.unityAdsCustomInterstitialAdIds.property = AdProperties.unityAdsSettings.FindPropertyRelative("mCustomInterstitialAdIds");
             AdProperties.unityAdsCustomRewardedAdIds.property = AdProperties.unityAdsSettings.FindPropertyRelative("mCustomRewardedAdIds");
             AdProperties.unityAdsEnableTestMode.property = AdProperties.unityAdsSettings.FindPropertyRelative("mEnableTestMode");
+
+            //Vungle properties.
+            AdProperties.vungleAdsSettings = AdProperties.mainProperty.FindPropertyRelative("mVungleAds");
+            AdProperties.vungleAdEnabled.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mEnable");
+            AdProperties.vungleAdsAppId.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mAppId");
+            AdProperties.vungleDefaultInterstitialAdId.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mDefaultInterstitialAdId");
+            AdProperties.vungleDefaultRewardedAdId.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mDefaultRewardedAdId");
+            AdProperties.vungleDefaultBannerAdId.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mDefaultBannerAdId");
+            AdProperties.vungleCustomInterstitialAdIds.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mCustomInterstitialAdIds");
+            AdProperties.vungleCustomRewardedAdIds.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mCustomRewardedAdIds");
+            AdProperties.vungleCustomBannerAdIds.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mCustomBannerAdIds");
+            AdProperties.vungleUseAdvancedSettings.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mUseAdvancedSetting");
+            AdProperties.vungleAdvancedSettings.property = AdProperties.vungleAdsSettings.FindPropertyRelative("mAdvancedSettings");
 
             // In App Purchase module properties.
             IAPProperties.mainProperty = serializedObject.FindProperty("mInAppPurchaseSettings");
@@ -457,8 +537,12 @@ namespace EasyMobile.Editor
             GameServiceProperties.gpgsPopupGravity.property = GameServiceProperties.mainProperty.FindPropertyRelative("mGpgsPopupGravity");
             GameServiceProperties.gpgsXmlResources.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAndroidXmlResources");
             GameServiceProperties.autoInit.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAutoInit");
+            GameServiceProperties.autoInitAfterUserLogout.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAutoInitAfterUserLogout");
             GameServiceProperties.autoInitDelay.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAutoInitDelay");
             GameServiceProperties.androidMaxLoginRequest.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAndroidMaxLoginRequests");
+            GameServiceProperties.gpgsShouldRequestServerAuthCode.property = GameServiceProperties.mainProperty.FindPropertyRelative("mGpgsShouldRequestServerAuthCode");
+            GameServiceProperties.gpgsForceRefreshServerAuthCode.property = GameServiceProperties.mainProperty.FindPropertyRelative("mGpgsForceRefreshServerAuthCode");
+            GameServiceProperties.gpgsOauthScopes.property = GameServiceProperties.mainProperty.FindPropertyRelative("mGpgsOauthScopes");
             GameServiceProperties.leaderboards.property = GameServiceProperties.mainProperty.FindPropertyRelative("mLeaderboards");
             GameServiceProperties.achievements.property = GameServiceProperties.mainProperty.FindPropertyRelative("mAchievements");
 
@@ -481,7 +565,7 @@ namespace EasyMobile.Editor
             NotificationProperties.defaultCategory.property = NotificationProperties.mainProperty.FindPropertyRelative("mDefaultCategory");
             NotificationProperties.userCategories.property = NotificationProperties.mainProperty.FindPropertyRelative("mUserCategories");
 
-            // Privacy module properties.
+            // Privacy module properties, since EMP 2.16.0 it becomes a composite module with the App Tracking the first submodule.
             PrivacyProperties.mainProperty = serializedObject.FindProperty("mPrivacySettings");
             PrivacyProperties.consentDialogProperty = PrivacyProperties.mainProperty.FindPropertyRelative("mDefaultConsentDialog");
             PrivacyProperties.consentDialogContent.property = PrivacyProperties.consentDialogProperty.FindPropertyRelative("mContent");
@@ -491,6 +575,7 @@ namespace EasyMobile.Editor
             PrivacyProperties.selectedToggleIndex.property = PrivacyProperties.mainProperty.FindPropertyRelative("mConsentDialogComposerSettings.mToggleSelectedIndex");
             PrivacyProperties.selectedButtonIndex.property = PrivacyProperties.mainProperty.FindPropertyRelative("mConsentDialogComposerSettings.mButtonSelectedIndex");
             PrivacyProperties.enableCopyPasteMode.property = PrivacyProperties.mainProperty.FindPropertyRelative("mConsentDialogComposerSettings.mEnableCopyPasteMode");
+            PrivacyProperties.isAppTrackingEnabled.property = PrivacyProperties.mainProperty.FindPropertyRelative("mIsAppTrackingEnabled");
 
             // Utility module consists of other sub-module properties.
             // RatingRequest properties.

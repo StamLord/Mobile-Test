@@ -31,5 +31,6 @@ public class AndroidLightSensorPluginScript : MonoBehaviour {
 		#if UNITY_ANDROID
 		return jo.Call<float>("getLux");
 		#endif
+		return 1f;
 	}
 }

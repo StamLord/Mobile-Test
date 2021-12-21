@@ -11,7 +11,7 @@ using UnityEditor.iOS.Xcode;
 
 namespace EasyMobile.Editor
 {
-    #if UNITY_2018_1_OR_NEWER
+#if UNITY_2018_1_OR_NEWER
     using UnityEditor.Build;
     using UnityEditor.Build.Reporting;
 
@@ -58,7 +58,7 @@ namespace EasyMobile.Editor
         }
     }
 
-    #else
+#else
     using UnityEditor.Callbacks;
 
     public class EM_LegacyBuildProcessor
@@ -69,13 +69,22 @@ namespace EasyMobile.Editor
             EM_BuildProcessorUtil.PostBuildProcessing(target, path);
         }
     }
-    #endif
+#endif
 
 
     public class EM_BuildProcessorUtil
     {
         public static void PreBuildProcessing(BuildTarget target, string path)
         {
+            // Auto initialization check warning
+            if (!EM_Settings.IsRuntimeAutoInitializationEnabled)
+            {
+                Debug.LogWarning(
+                    "Easy Mobile's Auto Runtime Initialization feature is turned off. " +
+                    "Make sure you call RuntimeManager.Init() before using Easy Mobile API in your code. " +
+                    "You can re-enable the feature in menu Window > Easy Mobile > Build tab > Auto Initialization.");
+            }
+
             if (target == BuildTarget.Android)
             {
                 // Force regenerating manifest at every build to avoid issues due to
@@ -85,14 +94,14 @@ namespace EasyMobile.Editor
                 if (string.IsNullOrEmpty(jdkPath))
                     throw new BuildFailedException(
                         "A JDK path needs to be specified for the Android build. Go to Preferences > External Tools > JDK to set it.");
-                
+
                 EM_AndroidManifestBuilder.GenerateManifest(jdkPath, forceGenerate: true);
             }
         }
 
         public static void PostBuildProcessing(BuildTarget target, string path)
         {
-            #if UNITY_IOS
+#if UNITY_IOS
             if (target == BuildTarget.iOS)
             {
                 // Read PBX project.
@@ -100,13 +109,21 @@ namespace EasyMobile.Editor
                 PBXProject project = new PBXProject();
                 project.ReadFromFile(pbxPath);
 
+#if UNITY_2019_3_OR_NEWER
+                string targetGUID = project.GetUnityMainTargetGuid();
+#else
                 string targetName = PBXProject.GetUnityTargetName();
                 string targetGUID = project.TargetGuidByName(targetName);
+#endif
 
                 // Add frameworks here if needed.
 
                 // Add required flags.
                 project.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
+
+                // Fixing bug unrecognized category selector in Xcode 12.3:
+                // -ObjC needs to be added to project-wide build properties.
+                project.AddBuildProperty(project.ProjectGuid(), "OTHER_LDFLAGS", "-ObjC");
 
                 // Write PBX project.
                 project.WriteToFile(pbxPath);
@@ -123,16 +140,15 @@ namespace EasyMobile.Editor
 
                 // Add necessary keys.
                 AddIOSInfoPlistItemsRequiredByModules(plist);
-                AddGADAppIdToPlist(plist);
 
                 // Close Plist.
                 WritePlist(plistPath, plist);
             }
-            #endif
+#endif
         }
 
-        #if UNITY_IOS
-        
+#if UNITY_IOS
+
         private static PlistDocument ReadPlist(string plistPath)
         {
             PlistDocument plist = new PlistDocument();
@@ -169,37 +185,6 @@ namespace EasyMobile.Editor
             return plist;
         }
 
-        /// <summary>
-        /// Adds GADApplicationIdentifier with value of Admob's application id to info.split.
-        /// Required by Admob SDK version 7.42.0s
-        /// </summary>
-        private static PlistDocument AddGADAppIdToPlist(PlistDocument plist)
-        {
-
-
-
-#if EM_ADMOB
-            // Don't interfere if our Ads module is not used.
-            if (!EM_Settings.IsModuleEnable(Module.Advertising))
-                return plist;
-
-            if (plist == null || plist.root == null)
-                return plist;
-            
-            string appId = EM_Settings.Advertising.AdMob.AppId.IosId;
-            if (string.IsNullOrEmpty(appId))
-                return plist;
-
-            plist.root.AddIOSInfoPlistItem("GADApplicationIdentifier", appId);
-            return plist;
-
-
-
-#else
-            return plist;
-            #endif
-        }
-
         internal static PlistElementDict AddIOSInfoPlistItemIf(bool shoudAdd, PlistElementDict root, string key, string value)
         {
             if (!shoudAdd)
@@ -223,12 +208,12 @@ namespace EasyMobile.Editor
         {
             if (plistRoot == null)
                 return plistRoot;
-            
+
             if (string.IsNullOrEmpty(key))
                 return plistRoot;
 
             if (string.IsNullOrEmpty(value))
-                Debug.LogWarning("Dectected an empty Info.plist item value with the key: " + key);
+                Debug.LogWarning("Detected an empty Info.plist item value with the key: " + key);
 
             plistRoot.SetString(key, value);
             return plistRoot;
@@ -239,10 +224,10 @@ namespace EasyMobile.Editor
             return Path.Combine(path, "Info.plist");
         }
 
-        #endif
+#endif
     }
 
-    #if UNITY_IOS
+#if UNITY_IOS
     public static class EM_BuildProcessorUtilExtension
     {
         public static PlistElementDict AddIOSInfoPlistItemIf(this PlistElementDict root, bool shoudAdd, string key, string description)
@@ -260,6 +245,6 @@ namespace EasyMobile.Editor
             return EM_BuildProcessorUtil.AddIOSInfoPlistItem(plistRoot, key, description);
         }
     }
-    #endif
+#endif
 }
 #endif

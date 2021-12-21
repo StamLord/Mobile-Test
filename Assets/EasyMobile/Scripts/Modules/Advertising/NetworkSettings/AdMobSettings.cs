@@ -7,13 +7,14 @@ using EasyMobile.Internal;
 namespace EasyMobile
 {
     [Serializable]
-    public class AdMobSettings
+    public class AdMobSettings : AdNetworkSettings
     {
+        [Obsolete("AppId has been deprecated since Easy Mobile Pro version 2.6.0 because the GoogleMobileAds SDK no longer allows access to this value in runtime.")]
         /// <summary>
         /// Gets or sets the AdMob app identifier.
         /// </summary>
         public AdId AppId
-        { 
+        {
             get { return mAppId; }
             set { mAppId = value; }
         }
@@ -22,7 +23,7 @@ namespace EasyMobile
         /// Gets or sets the default banner identifier.
         /// </summary>
         public AdId DefaultBannerAdId
-        { 
+        {
             get { return mDefaultBannerAdId; }
             set { mDefaultBannerAdId = value; }
         }
@@ -31,7 +32,7 @@ namespace EasyMobile
         /// Gets or sets the default interstitial ad identifier.
         /// </summary>
         public AdId DefaultInterstitialAdId
-        { 
+        {
             get { return mDefaultInterstitialAdId; }
             set { mDefaultInterstitialAdId = value; }
         }
@@ -40,9 +41,18 @@ namespace EasyMobile
         /// Gets or sets the default rewarded ad identifier.
         /// </summary>
         public AdId DefaultRewardedAdId
-        { 
-            get { return mDefaultRewardedAdId; } 
+        {
+            get { return mDefaultRewardedAdId; }
             set { mDefaultRewardedAdId = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the default rewarded interstitial ad identifier.
+        /// </summary>
+        public AdId DefaultRewardedInterstitialAdId
+        {
+            get { return mDefaultRewardedInterstitialAdId; }
+            set { mDefaultRewardedInterstitialAdId = value; }
         }
 
         /// <summary>
@@ -52,6 +62,15 @@ namespace EasyMobile
         {
             get { return mEnableTestMode; }
             set { mEnableTestMode = value; }
+        }
+
+        /// <summary>
+        /// Use google mobile ad adaptive banner when calling for smart banner
+        /// </summary>
+        public bool UseAdaptiveBanner
+        {
+            get { return mUseAdaptiveBanner; }
+            set { mUseAdaptiveBanner = value; }
         }
 
 
@@ -94,10 +113,22 @@ namespace EasyMobile
             set { mCustomRewardedAdIds = value as Dictionary_AdPlacement_AdId; }
         }
 
+        /// <summary>
+        /// Gets or sets the list of custom rewarded interstitial ad identifiers.
+        /// Each identifier is associated with an ad placement.
+        /// </summary>
+        public Dictionary<AdPlacement, AdId> CustomRewardedInterstitialAdIds
+        {
+            get { return mCustomRewardedInterstitialAdIds; }
+            set { mCustomRewardedInterstitialAdIds = value as Dictionary_AdPlacement_AdId; }
+        }
+
         [SerializeField]
         private AdMobTargetingSettings mTargetingSettings;
         [SerializeField]
         private bool mEnableTestMode;
+        [SerializeField]
+        private bool mUseAdaptiveBanner;
 
         [SerializeField]
         private AdId mAppId;
@@ -108,11 +139,15 @@ namespace EasyMobile
         [SerializeField]
         private AdId mDefaultRewardedAdId;
         [SerializeField]
+        private AdId mDefaultRewardedInterstitialAdId;
+        [SerializeField]
         private Dictionary_AdPlacement_AdId mCustomBannerAdIds;
         [SerializeField]
         private Dictionary_AdPlacement_AdId mCustomInterstitialAdIds;
         [SerializeField]
         private Dictionary_AdPlacement_AdId mCustomRewardedAdIds;
+        [SerializeField]
+        private Dictionary_AdPlacement_AdId mCustomRewardedInterstitialAdIds;
 
         [Serializable]
         public class AdMobTargetingSettings

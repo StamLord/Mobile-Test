@@ -56,6 +56,7 @@ namespace EasyMobile
         // Rating Request (Store Review) belongs to Utilities module.
         public static RatingRequestSettings RatingRequest { get { return Instance.mRatingRequestSettings; } }
 
+        public static bool IsRuntimeAutoInitializationEnabled { get { return Instance.mRuntimeAutoInitialization; } }
         public static bool IsAdModuleEnable { get { return Instance.mIsAdModuleEnable; } }
 
         public static bool IsIAPModuleEnable { get { return Instance.mIsIAPModuleEnable; } }
@@ -66,7 +67,7 @@ namespace EasyMobile
 
         public static bool IsCompositeModule(Module mod)
         {
-            if (mod == Module.NativeApis || mod == Module.Utilities)
+            if (mod == Module.NativeApis || mod == Module.Privacy || mod == Module.Utilities)
                 return true;
             else
                 return false;
@@ -117,6 +118,8 @@ namespace EasyMobile
                     #endif
                 case Submodule.RatingRequest:
                     return true;
+                case Submodule.AppTracking:
+                    return Privacy.IsAppTrackingEnabled;
                 default:
                     return false;
             }
@@ -148,6 +151,8 @@ namespace EasyMobile
         private NativeApisSettings mNativeApisSettings = null;
         #endif
 
+        [SerializeField] 
+        private bool mRuntimeAutoInitialization = true;
         [SerializeField]
         private bool mIsAdModuleEnable = false;
         [SerializeField]
@@ -159,7 +164,7 @@ namespace EasyMobile
         [SerializeField]
         private bool mIsSharingModuleEnable = false;
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         // These fields are only used as a SerializedProperty in the editor scripts, hence the warning suppression.
         #pragma warning disable 0414

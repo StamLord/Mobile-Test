@@ -12,23 +12,26 @@ namespace EasyMobile
         AppLovin,
         AudienceNetwork,
         Chartboost,
-        Heyzap,
+        FairBid,
         IronSource,
         MoPub,
         TapJoy,
         UnityAds,
+        Vungle,
     }
 
     public enum BannerAdNetwork
     {
         None = AdNetwork.None,
+        AdColony = AdNetwork.AdColony,
         AdMob = AdNetwork.AdMob,
         AppLovin = AdNetwork.AppLovin,
         AudienceNetwork = AdNetwork.AudienceNetwork,
-        Heyzap = AdNetwork.Heyzap,
+        FairBid = AdNetwork.FairBid,
         IronSource = AdNetwork.IronSource,
         MoPub = AdNetwork.MoPub,
-        UnityAds = AdNetwork.UnityAds
+        UnityAds = AdNetwork.UnityAds,
+        Vungle = AdNetwork.Vungle,
     }
 
     public enum InterstitialAdNetwork
@@ -39,11 +42,12 @@ namespace EasyMobile
         AppLovin = AdNetwork.AppLovin,
         AudienceNetwork = AdNetwork.AudienceNetwork,
         Chartboost = AdNetwork.Chartboost,
-        Heyzap = AdNetwork.Heyzap,
+        FairBid = AdNetwork.FairBid,
         IronSource = AdNetwork.IronSource,
         MoPub = AdNetwork.MoPub,
         TapJoy = AdNetwork.TapJoy,
         UnityAds = AdNetwork.UnityAds,
+        Vungle = AdNetwork.Vungle,
     }
 
     public enum RewardedAdNetwork
@@ -54,10 +58,17 @@ namespace EasyMobile
         AppLovin = AdNetwork.AppLovin,
         AudienceNetwork = AdNetwork.AudienceNetwork,
         Chartboost = AdNetwork.Chartboost,
-        Heyzap = AdNetwork.Heyzap,
+        FairBid = AdNetwork.FairBid,
         IronSource = AdNetwork.IronSource,
         MoPub = AdNetwork.MoPub,
         TapJoy = AdNetwork.TapJoy,
         UnityAds = AdNetwork.UnityAds,
+        Vungle = AdNetwork.Vungle,
+    }
+
+    public enum RewardedInterstitialAdNetwork
+    {
+        None = AdNetwork.None,
+        AdMob = AdNetwork.AdMob
     }
 }

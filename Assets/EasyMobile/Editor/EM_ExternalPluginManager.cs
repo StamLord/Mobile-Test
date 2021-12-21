@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System;
 
 namespace EasyMobile.Editor
 {
@@ -12,8 +13,8 @@ namespace EasyMobile.Editor
         // AdMob
         public const string GoogleMobileAdsNameSpace = "GoogleMobileAds";
 
-        // AppLovin
-        public const string AppLovinClassName = "AppLovin";
+        // AppLovin //AppLovin class has been remove and replaced with MaxSdk
+        public const string AppLovinClassName = "MaxSdk";
 
         // Chartboost
         public const string ChartboostNameSpace = "ChartboostSDK";
@@ -22,8 +23,8 @@ namespace EasyMobile.Editor
         // Facebook Audience Network.
         public const string FBAudienceNameSpace = "AudienceNetwork";
 
-        // Heyzap
-        public const string HeyzapNameSpace = "Heyzap";
+        // FairBid
+        public const string FairBidNameSpace = "Fyber";
 
         // IronSource
         public const string IronSourceClassname = "IronSource";
@@ -33,6 +34,13 @@ namespace EasyMobile.Editor
 
         // TapJoy
         public const string TapJoyNameSpace = "TapjoyUnity";
+
+        //UnityAds
+        public const string UnityAdNameSpace = "UnityEngine.Advertisements";
+        public const string UnityAdvertisementClass = "Advertisement";
+
+        //Vungle
+        public const string VungleClassName = "Vungle";
 
         // Unity Monetization
         public const string UnityMonetizationClass = "UnityEngine.Monetization";
@@ -57,16 +65,27 @@ namespace EasyMobile.Editor
         // PlayMaker Unity UI add-on
         public const string PlayMakerUguiAddOnClass = "PlayMakerUGuiSceneProxy";
 
+        // External Dependency Manager namespaces and classes
+        public const string GoogleNameSpace = "Google";
+        public const string IosResolverClass = "IOSResolver";
+        public const string JarResolverNamespace = "Google.JarResolver";
+        public const string JarResolverDependencyClass = "Dependency";
+        public const string PackageManagerResolverClass = "PackageManagerResolver";
+
+        // URP namespace
+        public const string URPNamespace = "UnityEngine.Rendering.Universal";
+
         // Advertising 3rd party plugins URLs
-        public const string AdColonyDownloadURL = "https://github.com/AdColony/AdColony-Unity-SDK-3";
+        public const string AdColonyDownloadURL = "https://github.com/AdColony/AdColony-Unity-Plugin";
         public const string ChartboostDownloadURL = "https://answers.chartboost.com/en-us/articles/download";
         public const string FBAudienceDownloadURL = "https://developers.facebook.com/docs/audience-network/download#unity";
         public const string GoogleMobileAdsDownloadURL = "https://github.com/googleads/googleads-mobile-unity/releases";
         public const string AppLovinDownloadURL = "https://www.applovin.com/monetize/";
-        public const string HeyzapDownloadURL = "https://developers.heyzap.com/docs/unity_sdk_setup_and_requirements";
+        public const string FairBidDownloadURL = "https://dev-unity.fyber.com/docs";
         public const string IronSourceDownloadURL = "https://developers.ironsrc.com/ironsource-mobile/unity/unity-plugin/#step-1";
         public const string MoPubDownloadURL = "https://github.com/mopub/mopub-unity-sdk/";
         public const string TapJoyDownloadURL = "https://ltv.tapjoy.com/d/sdks";
+        public const string VungleDownloadURL = "https://publisher.vungle.com/sdk/plugins/unity";
 
         // Game Services 3rd party plugins URLs
         public const string GooglePlayGamesDownloadURL = "https://github.com/playgameservices/play-games-plugin-for-unity";
@@ -76,7 +95,7 @@ namespace EasyMobile.Editor
         public const string FirebaseDownloadURL = "https://firebase.google.com/docs/unity/setup";
 
         // PlayServicesResolver
-        public const string PlayServicesResolverPackagePath = EM_Constants.PackagesFolder + "/PlayServicesResolver/play-services-resolver.unitypackage";
+        public const string PlayServicesResolverPackagePath = EM_Constants.PackagesFolder + "/ExternalDependencyManager/external-dependency-manager-latest.unitypackage";
 
         // PlayMaker actions for EM.
         public const string PlayMakerActionsPackagePath = EM_Constants.PackagesFolder + "/PlayMakerActions/PlayMakerActions.unitypackage";
@@ -88,6 +107,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if AdColony plugin available; otherwise, <c>false</c>.</returns>
         public static bool IsAdColonyAvail()
         {
+            if (!EM_Settings.Advertising.AdColony.Enable)
+                return false;
             return EM_EditorUtil.NamespaceExists(AdColonyNameSpace);
         }
 
@@ -97,6 +118,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if AdMob plugin available; otherwise, <c>false</c>.</returns>
         public static bool IsAdMobAvail()
         {
+            if (!EM_Settings.Advertising.AdMob.Enable)
+                return false;
             return EM_EditorUtil.NamespaceExists(GoogleMobileAdsNameSpace);
         }
 
@@ -106,6 +129,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if AppLovin plugin available; otherwise, <c>false</c>.</returns>
         public static bool IsAppLovinAvail()
         {
+            if (!EM_Settings.Advertising.AppLovin.Enable)
+                return false;
             return EM_EditorUtil.FindClass(AppLovinClassName) != null;
         }
 
@@ -115,6 +140,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if Chartboost plugin available; otherwise, <c>false</c>.</returns>
         public static bool IsChartboostAvail()
         {
+            if (!EM_Settings.Advertising.Chartboost.Enable)
+                return false;
             System.Type chartboost = EM_EditorUtil.FindClass(ChartboostClassName, ChartboostNameSpace);
             return chartboost != null;
         }
@@ -125,16 +152,20 @@ namespace EasyMobile.Editor
         /// <returns></returns>
         public static bool IsFBAudienceAvail()
         {
+            if (!EM_Settings.Advertising.AudienceNetwork.Enable)
+                return false;
             return EM_EditorUtil.NamespaceExists(FBAudienceNameSpace);
         }
 
         /// <summary>
-        /// Determines if Heyzap plugin is available.
+        /// Determines if FairBid plugin is available.
         /// </summary>
-        /// <returns><c>true</c> if Heyzap plugin available; otherwise, <c>false</c>.</returns>
-        public static bool IsHeyzapAvail()
+        /// <returns><c>true</c> if FairBid plugin available; otherwise, <c>false</c>.</returns>
+        public static bool IsFairBidAvail()
         {
-            return EM_EditorUtil.NamespaceExists(HeyzapNameSpace);
+            if (!EM_Settings.Advertising.FairBid.Enable)
+                return false;
+            return EM_EditorUtil.NamespaceExists(FairBidNameSpace);
         }
 
         /// <summary>
@@ -143,6 +174,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if MoPub plugin is available; otherwise, <c>false</c>.</returns>
         public static bool IsMoPubAvail()
         {
+            if (!EM_Settings.Advertising.MoPub.Enable)
+                return false;
             return EM_EditorUtil.FindClass(MoPubClassName) != null;
         }
 
@@ -150,6 +183,8 @@ namespace EasyMobile.Editor
         /// </summary>
         public static bool IsIronSourceAvail()
         {
+            if (!EM_Settings.Advertising.IronSource.Enable)
+                return false;
             return EM_EditorUtil.FindClass(IronSourceClassname) != null;
         }
 
@@ -158,7 +193,29 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if TapJoy plugin is available, otherwise <c>false</c>.</returns>
         public static bool IsTapJoyAvail()
         {
+            if (!EM_Settings.Advertising.Tapjoy.Enable)
+                return false;
             return EM_EditorUtil.NamespaceExists(TapJoyNameSpace);
+        }
+
+        /// Determindes if UnityAds plugin is available.
+        /// </summary>
+        /// <returns><c>true</c> if UnityAds plugin is available, otherwise <c>false</c>.</returns>
+        public static bool IsUnityAdAvail()
+        {
+            if (!EM_Settings.Advertising.UnityAds.Enable)
+                return false;
+            return EM_EditorUtil.NamespaceExists(UnityAdNameSpace) && EM_EditorUtil.FindClass(UnityAdvertisementClass, UnityAdNameSpace) != null;
+        }
+
+        //Determindes if Vungle plugin is available.
+        /// </summary>
+        /// <returns><c>true</c> if Vungle plugin is available, otherwise <c>false</c>.</returns>
+        public static bool IsVungleAvail()
+        {
+            if (!EM_Settings.Advertising.VungleAds.Enable)
+                return false;
+            return EM_EditorUtil.FindClass(VungleClassName) != null;
         }
 
         /// Determines if Unity Monetization plugin is available.
@@ -166,6 +223,8 @@ namespace EasyMobile.Editor
         /// <returns><c>true</c> if Unity Monetization plugin is available, otherwise <c>false</c>.</returns>
         public static bool IsUnityMonetizationAvail()
         {
+            if (!EM_Settings.Advertising.UnityAds.Enable)
+                return false;
             return EM_EditorUtil.NamespaceExists(UnityMonetizationClass);
         }
 
@@ -210,6 +269,15 @@ namespace EasyMobile.Editor
         }
 
         /// <summary>
+        /// Determines if URP is in use.
+        /// </summary>
+        /// <returns><c>true</c> if URP is not used; otherwise, <c>false</c>.</returns>
+        public static bool IsUsingURP()
+        {
+            return EM_EditorUtil.NamespaceExists(URPNamespace);
+        }
+
+        /// <summary>
         /// Determines if PlayMaker is installed.
         /// </summary>
         /// <returns><c>true</c> if is play maker avail; otherwise, <c>false</c>.</returns>
@@ -249,9 +317,9 @@ namespace EasyMobile.Editor
             Application.OpenURL(ChartboostDownloadURL);
         }
 
-        public static void DownloadHeyzapPlugin()
+        public static void DownloadFairBidPlugin()
         {
-            Application.OpenURL(HeyzapDownloadURL);
+            Application.OpenURL(FairBidDownloadURL);
         }
 
         public static void DownloadAdColonyPlugin()
@@ -287,6 +355,11 @@ namespace EasyMobile.Editor
         public static void DownloadTapJoyPlugin()
         {
             Application.OpenURL(TapJoyDownloadURL);
+        }
+
+        public static void DownloadVunglePlugin()
+        {
+            Application.OpenURL(VungleDownloadURL);
         }
 
         public static void InstallPlayMakerActions(bool interactive)
@@ -332,7 +405,13 @@ namespace EasyMobile.Editor
 
         public static bool IsPlayServicesResolverImported()
         {
-            return EM_ProjectSettings.Instance.GetBool(EM_Constants.PSK_ImportedPlayServicesResolver, false);
+            var imported = EM_ProjectSettings.Instance.GetBool(EM_Constants.PSK_ImportedPlayServicesResolver, false);
+
+            var iosResolver = EM_EditorUtil.FindClass(IosResolverClass, GoogleNameSpace);
+            var jarResolver = EM_EditorUtil.FindClass(JarResolverDependencyClass, JarResolverNamespace);
+            var packageResolver = EM_EditorUtil.FindClass(PackageManagerResolverClass, GoogleNameSpace);
+
+            return iosResolver != null || jarResolver != null || packageResolver != null || imported;
         }
 
         public static void ImportPlayServicesResolver(bool interactive)
