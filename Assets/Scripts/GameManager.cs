@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
 
         if(routine.returnVal != null)
         {
+            Debug.Log(routine.returnVal);
             if(remember)
             {
                 // Remembers credentials
@@ -210,7 +211,10 @@ public class GameManager : MonoBehaviour
             }
 
             SetUser(routine.returnVal);
+            yield return true;
         }
+
+        yield return false;
     }
 
     public bool PickupEgg(EvolutionTree tree)

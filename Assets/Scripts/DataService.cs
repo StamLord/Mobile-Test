@@ -31,14 +31,30 @@ public class  DataService
         {
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
-            Debug.Log(resJson);
-            User user = JsonUtility.FromJson<User>(resJson);
+            //Debug.Log(resJson);
+
+            User user = null;
+            bool convertedJson = true;
+            try 
+            {
+                user = JsonUtility.FromJson<User>(resJson);
+            }
+            catch (ArgumentException e)
+            {
+                Debug.Log(e);
+                convertedJson = false;
+            }
+
+            if (convertedJson == false)
+            {   
+                Debug.Log("Failed to convert API result");
+                yield break;
+            }
+
             //GameManager.instance.user = user;
             //GameManager.instance.SetUser();
             isLoggedin = true;
-
             Debug.Log("Successfully logged in");
-
             yield return user;
         }
         else

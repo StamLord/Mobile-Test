@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Doozy.Engine.UI;
 using TMPro;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {   
@@ -99,8 +100,17 @@ public class UIManager : MonoBehaviour
 
     public void Login()
     {
-        StartCoroutine(GameManager.instance.Login(username.text, password.text, rememberMe));
-        loginPopup.Hide();
+        StartCoroutine(this.LoginEnum(username.text, password.text, rememberMe));
+    }
+
+    private IEnumerator LoginEnum(string username, string password, bool rememberMe)
+    {
+        Coroutine<bool> routine = this.StartCoroutine<bool>(GameManager.instance.Login(username, password, rememberMe));
+        yield return routine.coroutine;
+
+        Debug.Log(routine.returnVal);
+        if(routine.returnVal == true)
+            loginPopup.Hide();
     }
 
     public void RememberMe()
