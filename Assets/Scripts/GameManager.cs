@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
 
     void LoadPets()
     {
+        Debug.Log(user.active);
         for(int i = 0; i < maxActive && i < user.active.Length; i++)
         {
             foreach(PetSnapshot snapshot in user.pets)
@@ -217,11 +218,11 @@ public class GameManager : MonoBehaviour
         yield return false;
     }
 
-    public IEnumerator Register(string username, string password, bool remember)
+    public IEnumerator Register(string username, string password, string email)
     {
         UIManager.instance.SetLoading(true, "Syncing", true);
 
-        Coroutine<User> routine = this.StartCoroutine<User>(DataService.Register(username, password));
+        Coroutine<User> routine = this.StartCoroutine<User>(DataService.Register(username, password, email));
         yield return routine.coroutine;
 
         UIManager.instance.SetLoading(false, "", true);
@@ -229,13 +230,6 @@ public class GameManager : MonoBehaviour
         if(routine.returnVal != null)
         {
             Debug.Log(routine.returnVal);
-            if(remember)
-            {
-                // Remembers credentials
-                PlayerPrefs.SetString("username", username);
-                PlayerPrefs.SetString("password", password);
-            }
-
             SetUser(routine.returnVal);
             yield return true;
         }

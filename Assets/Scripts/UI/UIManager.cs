@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject sleepMode;
 
+    [Header("Login Window")]
     public UIPopup loginPopup;
     public TMPro.TMP_InputField username;
     public TMPro.TMP_InputField password;
@@ -21,6 +22,12 @@ public class UIManager : MonoBehaviour
 
     public bool isLoggedin;
     public bool tryingToLogin;
+
+    [Header("Register Window")]
+    public UIPopup registerPopup;
+    public TMPro.TMP_InputField regUsername;
+    public TMPro.TMP_InputField regPassword;
+    public TMPro.TMP_InputField regEmail;
 
     public TextMeshProUGUI lightLevel;
     
@@ -113,18 +120,24 @@ public class UIManager : MonoBehaviour
             loginPopup.Hide();
     }
 
-    public void Register()
+    public void ShowRegisterPopup()
     {
-        StartCoroutine(this.RegisterEnum(username.text, password.text, rememberMe));
+        registerPopup.Show();
     }
 
-    private IEnumerator RegisterEnum(string username, string password, bool rememberMe)
+    public void Register()
     {
-        Coroutine<bool> routine = this.StartCoroutine<bool>(GameManager.instance.Register(username, password, rememberMe));
+        StartCoroutine(this.RegisterEnum(regUsername.text, regPassword.text, regEmail.text));
+    }
+
+    private IEnumerator RegisterEnum(string username, string password, string email)
+    {
+        Coroutine<bool> routine = this.StartCoroutine<bool>(GameManager.instance.Register(username, password, email));
         yield return routine.coroutine;
 
         Debug.Log(routine.returnVal);
         if(routine.returnVal == true)
+            registerPopup.Hide();
             loginPopup.Hide();
     }
 
