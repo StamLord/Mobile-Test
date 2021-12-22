@@ -461,6 +461,8 @@ public class GameManager : MonoBehaviour
         if(timeHovered >= pettingTime && petIndex >= 0)
         {
             activePets[petIndex].UpdateHapiness(pettingHappiness);
+            if(statPopup) 
+                statPopup.Popup("HAPPY", pettingHappiness);
             return true;
         }
 
