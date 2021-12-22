@@ -51,6 +51,7 @@ public class UIIndicators : MonoBehaviour
         mood.sprite = moodIcons[m_icon];
 
         injury.enabled = pet.isInjured;
+        sickness.enabled = false;
     }
 
     void OnDestroy()
