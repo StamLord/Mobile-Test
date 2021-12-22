@@ -34,8 +34,6 @@ public class UIManager : MonoBehaviour
     [Header("Stat Cards")]
     public UIView statCard1;
     public UIStatCard sc1;
-    public UIView statCard2;
-    public UIStatCard sc2;
     [Space]
 
     [Header("Training")]
@@ -185,18 +183,10 @@ public class UIManager : MonoBehaviour
             statCard1.enabled = true;
             statCard1.Show();
         }
-
-        if(gm.activePets.Count > 1 && gm.activePets[1] != null)
-        {
-            sc2.UpdateCard(1);
-            statCard1.enabled = true;
-            statCard2.Show();
-        }
     }
 
     public void HideStatCards()
     {
         statCard1.Hide();
-        statCard2.Hide();
     }
 }

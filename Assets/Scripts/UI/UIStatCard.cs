@@ -77,7 +77,7 @@ public class UIStatCard : MonoBehaviour
         spdVal.text = pet.spd.ToString();
         defVal.text = pet.def.ToString();
 
-        weightVal.text = + pet.weight + "G";
+        weightVal.text = + pet.weight + "g";
         
         int weightStatus = pet.GetWeightStatus();
         switch(weightStatus)
