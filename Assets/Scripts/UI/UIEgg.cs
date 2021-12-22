@@ -6,12 +6,18 @@ using Doozy.Engine.UI;
 
 public class UIEgg : MonoBehaviour
 {   
+    private UIView view;
     EvolutionTree currentChoice;
     public TextMeshProUGUI pickUpMessage;
 
     public GameObject yes;
     public GameObject no;
     
+    public void Awake()
+    {
+        view = GetComponent<UIView>();
+    }
+
     public void ChooseEgg(string treeName)
     {
         currentChoice = GameManager.instance.evolutionGarden.GetTree(treeName);
@@ -21,13 +27,15 @@ public class UIEgg : MonoBehaviour
     public void PickEgg()
     {
         if(GameManager.instance.PickupEgg(currentChoice))
+        {    
             ScrapChoice();
+            view.Hide();
+        }
         else
         {
             ScrapChoice();
             pickUpMessage.text = string.Format("You are already training {0} pets", GameManager.instance.maxActive).ToUpper();
         }        
-        
     }
 
     public void ScrapChoice()
