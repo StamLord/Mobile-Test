@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public int napHours = 3;
 
 
-    private int selection = -1;
+    [SerializeField] private int selection = -1;
     public int SelectedPetIndex { get{ return selection; } }
     public ActivePet SelectedPet { get {return activePets[selection]; } }
     public Food selectedFood;

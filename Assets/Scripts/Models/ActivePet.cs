@@ -145,7 +145,7 @@ public class ActivePet
         // Update happiness based on time since snapshot
         double timeSinceHappiness = Timestamp.GetSecondsSince(snapshot.happinessStamp);
         int calculatedHappiness = snapshot.happiness - Mathf.FloorToInt((float)timeSinceHappiness / (float)snapshot.happinessRate);
-        calculatedHappiness = Mathf.Clamp(calculatedHappiness, 0, 5);
+        calculatedHappiness = Mathf.Clamp(calculatedHappiness, 0, 100);
 
         return calculatedHappiness;
     }

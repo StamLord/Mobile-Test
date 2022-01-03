@@ -47,7 +47,8 @@ public class UIIndicators : MonoBehaviour
 
         ActivePet pet = GameManager.instance.activePets[viewingPet];
 
-        int m_icon = Mathf.FloorToInt(pet.happiness / 100 / moodIcons.Length );
+        int m_icon = Mathf.FloorToInt(pet.happiness / 100f * moodIcons.Length - 1 );
+        Debug.Log(m_icon);
         mood.sprite = moodIcons[m_icon];
 
         injury.enabled = pet.isInjured;
