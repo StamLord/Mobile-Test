@@ -12,15 +12,17 @@ public class GameManager : MonoBehaviour
     public List<ActivePet> activePets = new List<ActivePet>();
     
     public User user = new User();
-    public int maxActive = 2;
-    public float feedingTime = 3f;
+    [SerializeField] private int maxActive = 2;
+    public int MaxActive { get{return maxActive;}}
+    
+    [SerializeField] private float feedingTime = 3f;
 
-    public float pettingTime = 3f;
-    public int pettingHappiness = 10;
+    [SerializeField] private float pettingTime = 3f;
+    [SerializeField] private int pettingHappiness = 10;
 
-    public float sleepHour = 21;
-    public float wakeHour = 8;
-    public int napHours = 3;
+    [SerializeField] private float sleepHour = 21;
+    [SerializeField] private float wakeHour = 8;
+    [SerializeField] private int napHours = 3;
 
 
     [SerializeField] private int selection = -1;
@@ -28,8 +30,8 @@ public class GameManager : MonoBehaviour
     public ActivePet SelectedPet { get {return activePets[selection]; } }
     public Food selectedFood;
     
-    public StatPopup statPopup;
-    public DeadPopup deadPopup;
+    [SerializeField] private StatPopup statPopup;
+    [SerializeField] private DeadPopup deadPopup;
 
     private bool updatedVisual;
 

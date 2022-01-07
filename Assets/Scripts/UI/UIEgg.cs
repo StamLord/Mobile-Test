@@ -8,10 +8,10 @@ public class UIEgg : MonoBehaviour
 {   
     private UIView view;
     EvolutionTree currentChoice;
-    public TextMeshProUGUI pickUpMessage;
+    [SerializeField] private TextMeshProUGUI pickUpMessage;
 
-    public GameObject yes;
-    public GameObject no;
+    [SerializeField] private GameObject yes;
+    [SerializeField] private GameObject no;
     
     public void Awake()
     {
@@ -34,7 +34,7 @@ public class UIEgg : MonoBehaviour
         else
         {
             ScrapChoice();
-            pickUpMessage.text = string.Format("You are already training {0} pets", GameManager.instance.maxActive).ToUpper();
+            pickUpMessage.text = string.Format("You are already training {0} pets", GameManager.instance.MaxActive).ToUpper();
         }        
     }
 
