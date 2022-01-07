@@ -49,7 +49,14 @@ public class UIIndicators : MonoBehaviour
 
         int m_icon = Mathf.FloorToInt(pet.happiness / 100f * moodIcons.Length - 1 );
         Debug.Log(m_icon);
-        mood.sprite = moodIcons[m_icon];
+        if(m_icon < 0)
+            mood.enabled = false;
+        else
+        {
+            mood.enabled = true;
+            mood.sprite = moodIcons[m_icon];    
+        }
+        
 
         injury.enabled = pet.isInjured;
         sickness.enabled = false;
