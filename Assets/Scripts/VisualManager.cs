@@ -5,22 +5,22 @@ using UnityEngine.EventSystems;
 
 public class VisualManager : MonoBehaviour
 {
-    public Transform visualParent;
-    public float horizontalRange = 5f;
+    [SerializeField] private Transform visualParent;
+    [SerializeField] private float horizontalRange = 5f;
 
-    public GameObject brainPrefab;
-    public GameObject visualPrefab;
+    [SerializeField] private GameObject brainPrefab;
+    [SerializeField] private GameObject visualPrefab;
 
-    public GameObject selection;
-    public Vector3 selectionOffset;
+    [SerializeField] private GameObject selection;
+    [SerializeField] private Vector3 selectionOffset;
 
-    public ClickListener background;
+    [SerializeField] private ClickListener background;
 
-    public List<AIBrain> visualPets = new List<AIBrain>();
+    [SerializeField] private List<AIBrain> visualPets = new List<AIBrain>();
 
-    public GameObject evolutionParent;
-    public SpriteRenderer oldEvo;
-    public SpriteRenderer newEvo;
+    [SerializeField] private GameObject evolutionParent;
+    [SerializeField] private SpriteRenderer oldEvo;
+    [SerializeField] private SpriteRenderer newEvo;
 
     void Awake()
     {
@@ -41,6 +41,7 @@ public class VisualManager : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(new Vector3(-horizontalRange, -1, 0), new Vector3(horizontalRange, -1, 0));
     }
 

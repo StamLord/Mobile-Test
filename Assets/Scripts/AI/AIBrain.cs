@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 public class AIBrain : MonoBehaviour
 {
     public enum AIState {ROAMING, EATING, PETTING, SLEEPING, DEAD}
-    [SerializeField] 
-    private AIState _state;
+    [SerializeField] private AIState _state;
     public AIState state { 
         get{return this._state;}
         set{this._state = value; }
@@ -18,15 +17,11 @@ public class AIBrain : MonoBehaviour
 
     public RoamBehaviour roaming;
 
-    [SerializeField]
-    private int petIndex = -1;
-    [SerializeField]
-    private float hoverFoodTimer = 0;
+    [SerializeField] private int petIndex = -1;
+    [SerializeField] private float hoverFoodTimer = 0;
 
-    [SerializeField]
-    private float hoverPettingTimer = 0;
-    [SerializeField]
-    private float timeBetweenpetting = 2;
+    [SerializeField] private float hoverPettingTimer = 0;
+    [SerializeField] private float timeBetweenpetting = 2;
     private float lastPet;
 
     void Awake()

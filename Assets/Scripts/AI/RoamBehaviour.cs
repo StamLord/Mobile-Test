@@ -29,6 +29,9 @@ public class RoamBehaviour : MonoBehaviour
         yPlaneHeight = transform.position.y;
     }
     
+    /// <summary>
+    /// Main behavior loop run by AIBrain
+    /// </summary>
     public void Behaviour()
     {
         if(isWalking == false)
@@ -44,7 +47,8 @@ public class RoamBehaviour : MonoBehaviour
             RoamTo(destination, currentSpeed);
     }
 
-    Vector3 GenerateDestination(/*float xRange, float zRange*/ float minDistance, float maxDistance)
+    /// <summary>Returns Vector3 based on minimum and maximum distance from origin (0,0,0) and clamped to boundries.</summary>
+    Vector3 GenerateDestination(float minDistance, float maxDistance)
     {
         // return new Vector3(
         //     Random.Range(-xRange, xRange),
@@ -63,6 +67,11 @@ public class RoamBehaviour : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Returns a number with random variation based on given base and variation percentage
+    /// </summary>
+    /// <param name="baseNumber">Default value when no variation is present</param>
+    /// <param name="variation">Percentage of variation. Example: .2 will become a random variation between -20% and 20% of baseNumber</param>
     float GenerateVariation(float baseNumber, float variation)
     {
         return baseNumber * Random.Range(-variation, variation) + baseNumber;
@@ -90,6 +99,4 @@ public class RoamBehaviour : MonoBehaviour
         currentWait = GenerateVariation(wait, waitVariation);
         isWalking = false;
     }
-
-
 }

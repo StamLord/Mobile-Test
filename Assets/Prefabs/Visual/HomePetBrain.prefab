@@ -51,6 +51,7 @@ MonoBehaviour:
   petIndex: -1
   hoverFoodTimer: 0
   hoverPettingTimer: 0
+  timeBetweenpetting: 2
 --- !u!114 &1674760076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,14 +64,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fae2bedbc882af449a3fb76723290c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.02
+  speed: 0.005
   speedVariation: 0.2
   wait: 5
   waitVariation: 0.5
   minDistance: 4
   maxDistance: 6
-  xBoundaryLeft: -8.5
-  xBoundaryRight: 8.5
+  xBoundaryLeft: -1.5
+  xBoundaryRight: 1.5
   zBoundaryLeft: 0
   zBoundaryRight: 0
 --- !u!61 &8867099462436062278
@@ -111,9 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c348256fef0c446b03010f56751b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenPosition: {x: 0, y: 0, z: 0}
-  screenColliderRange: {x: 75, y: 75}
-  colliderOffset: {x: 0, y: 75}
   collider: {fileID: 8867099462436062278}
   lLeft: {x: 0, y: 0}
   lRight: {x: 0, y: 0}
