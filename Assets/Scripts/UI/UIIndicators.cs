@@ -48,7 +48,6 @@ public class UIIndicators : MonoBehaviour
         ActivePet pet = GameManager.instance.activePets[viewingPet];
 
         int m_icon = Mathf.FloorToInt(pet.happiness / 100f * moodIcons.Length - 1 );
-        Debug.Log(m_icon);
         if(m_icon < 0)
             mood.enabled = false;
         else
