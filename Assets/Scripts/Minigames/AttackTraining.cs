@@ -150,7 +150,7 @@ public class AttackTraining : MonoBehaviour
         StartCoroutine(MissAnimation());
     }
 
-     void Crash()
+    void Crash()
     {
         canPunch = false;
         misses++;
