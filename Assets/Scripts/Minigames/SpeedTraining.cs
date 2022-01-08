@@ -7,39 +7,40 @@ using TMPro;
 
 public class SpeedTraining : MonoBehaviour
 {
-    public bool isRunning;
-    public GameObject player;
-    public SpritesheetAnimator spritesheet;
-    public GameObject hoop;
-    public float speed = .1f;
+    [Header("Object References")]
+    [SerializeField] private bool isRunning;
+    [SerializeField] private GameObject player;
+    [SerializeField] private SpritesheetAnimator spritesheet;
+    [SerializeField] private GameObject hoop;
+    [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private TextMeshProUGUI bounceDisplay;
+    [SerializeField] private TextMeshProUGUI scoreDisplay;
+    [SerializeField] private UIImage[] indicator;
 
-    public GameObject ballPrefab;
-
-    public int hoopScore = 1000;
-    public float hoopInterval = 10f;
+    [Header("Training Settings")]
+    [SerializeField] private float speed = .01f;
+    [SerializeField] private int hoopScore = 1000;
+    [SerializeField] private float hoopInterval = 10f;
+    [SerializeField] private float[] ballTimes = {0f, .5f, .75f};
     private float nextHoop;
     private bool hoopGenerated;
 
-    public Transform poolParent;
-    public List<Bouncer> pooledBalls;
-    public Transform spawnedParent;
-    public List<Bouncer> spawnedBalls;
+    [Header("Ball References")]
+    [SerializeField] private Transform poolParent;
+    [SerializeField] private List<Bouncer> pooledBalls;
+    [SerializeField] private Transform spawnedParent;
+    [SerializeField] private List<Bouncer> spawnedBalls;
 
-    public int bounces;
-    public int score;
-    public TextMeshProUGUI bounceDisplay;
-    public TextMeshProUGUI scoreDisplay;
-    public UIImage[] indicator;
+    [Header("Score")]
+    [SerializeField] private Timer timer;
+    [SerializeField] private int bounces;
+    [SerializeField] private int score;
+    [SerializeField] private int[] scoreLevels = {7500, 15000, 20000, 25000, 32000};
 
     private Camera cam;
     private Vector2 screenHorizontalEdges;
 
-    public Timer timer;
-    public float[] ballTimes = {0f, .5f, .75f};
     private int currentBall;
-
-    public int[] scoreLevels = {7500, 15000, 20000, 25000, 32000};
-    
     private bool holdingLeft;
     private bool holdingRight;
 
@@ -86,9 +87,7 @@ public class SpeedTraining : MonoBehaviour
         DisplayIndicators();
 
         if(Time.time >= nextHoop && hoopGenerated == false)
-        {
             GenerateHoop();
-        }
     }
 
     void GenerateHoop()

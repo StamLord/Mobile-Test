@@ -83,9 +83,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec74e0d1f435b4f4eb4d577877daedd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 0}
   visual: {fileID: 5417071845463792335}
   rigid2D: {fileID: 5417071844150771208}
-  context: {fileID: 0}
+  playerBounceForce: 12
+  wallBounceForce: 5
 --- !u!1 &5417071845463792335
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,9 +130,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -142,6 +147,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class Bouncer : MonoBehaviour
 {
-    public GameObject visual;
-    public Rigidbody2D rigid2D;
-    private bool isRunning;
+    [SerializeField] private SpeedTraining context;
 
+    [SerializeField] private GameObject visual;
+    [SerializeField] private Rigidbody2D rigid2D;
+
+    [SerializeField] private float playerBounceForce = 10f;
+    [SerializeField] private float wallBounceForce = 5f;
+
+    private bool isRunning;
     private Vector2 pausedVelocity;
-    public SpeedTraining context;
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Player"))
         {
-            rigid2D.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+            rigid2D.AddForce(Vector2.up * playerBounceForce, ForceMode2D.Impulse);
             rigid2D.AddForce(Vector2.right * Random.Range(-2.5f, 2.5f), ForceMode2D.Impulse);
             context.Bounce();
         }
         else
         {   
-            if(col.gameObject.name == "lowerEdge")
-                DestroyBall();
-            else
+            switch(col.gameObject.name)
             {
-                Vector3 direction = (col.transform.position - transform.position).normalized;
-                rigid2D.AddForce(direction * 5f, ForceMode2D.Impulse);
+                case "lowerEdge":
+                    DestroyBall();
+                    break;
+                case "leftEdge":
+                    rigid2D.AddForce(Vector2.right * wallBounceForce, ForceMode2D.Impulse);
+                    break;
+                case "rightEdge":
+                    rigid2D.AddForce(Vector2.left * wallBounceForce, ForceMode2D.Impulse);
+                    break;
             }
         }
     }
