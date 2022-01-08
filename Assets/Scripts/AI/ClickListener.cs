@@ -24,8 +24,8 @@ public class ClickListener : MonoBehaviour
     // [SerializeField] private Vector2 screenColliderRange = new Vector2(100, 100);
     // [SerializeField] private Vector2 colliderOffset = new Vector2(50, 50);
     
-    public new BoxCollider2D collider;
-    public Vector2 lLeft, lRight, uLeft, uRight;
+    [SerializeField] private new BoxCollider2D collider;
+    [SerializeField] private Vector2 lLeft, lRight, uLeft, uRight;
 
     private bool clickDown;
     private bool hovering;

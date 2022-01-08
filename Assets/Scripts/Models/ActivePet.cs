@@ -245,7 +245,7 @@ public class ActivePet
         return Timestamp.GetSecondsSince(snapshot.sleepStamp);
     }
 
-    public bool IsDead()
+    private bool IsDead()
     {
         if(stage == 0) // Eggs can't die
             return false;
