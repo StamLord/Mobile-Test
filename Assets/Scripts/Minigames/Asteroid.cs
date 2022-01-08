@@ -12,7 +12,7 @@ public class Asteroid : MonoBehaviour
 
     public float lifeTimer;
 
-    public string direction = "left"; // left or right
+    public string direction = "left"; // Left or right (Landscape). Down (Portrait)
 
     public void Initialize(float secondsToImpact, string direction, DefenseTraining context)
     {
@@ -24,15 +24,28 @@ public class Asteroid : MonoBehaviour
     void Update()
     {
         lifeTimer += Time.deltaTime;
+        Vector3 newPos;
 
-        Vector3 newPos = new Vector3(
+        // Vertical trajectory
+        if(direction == "down")
+        {
+            newPos = new Vector3(
+            transform.position.x,
+            xPosition.Evaluate(lifeTimer / secondsToImpact), // Use xPosition curve on Y axis
+            zPosition.Evaluate(lifeTimer / secondsToImpact)
+            ); 
+        }
+        else // Horizontal trajectory
+        {
+            newPos = new Vector3(
             xPosition.Evaluate(lifeTimer / secondsToImpact),
             transform.position.y,
             zPosition.Evaluate(lifeTimer / secondsToImpact)
-        ); 
+            ); 
 
-        if( direction == "left")
+            if( direction == "left")
             newPos.x *= -1;
+        }
 
         transform.position = newPos;
 

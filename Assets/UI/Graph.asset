@@ -173,7 +173,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: -204
   m_y: 312
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: 648
   m_y: -12
@@ -575,7 +575,7 @@ MonoBehaviour:
   AllowSceneActivation: 1
   SceneActivationDelay: 0.5
   SceneBuildIndex: 0
-  SceneName: DEF Training
+  SceneName: DEF Training(Portrait)
 --- !u!114 &114173402316998342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: -432
   m_y: 24
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 152
+  m_height: 156
   m_width: 216
   m_x: -207.63971
   m_y: 129.94621
@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: 648
   m_y: -372
@@ -2255,7 +2255,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: 648
   m_y: -192
@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 184
+  m_height: 192
   m_width: 216
   m_x: 648
   m_y: 192

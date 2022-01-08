@@ -7,33 +7,38 @@ using TMPro;
 
 public class DefenseTraining : MonoBehaviour
 {   
-    public Timer mainTimer;
-    public UIImage defendeMeterDisplay;
-    public TextMeshProUGUI blockedDisplay;
+    [Header("UI")]
+    [SerializeField] private Timer mainTimer;
+    [SerializeField] private UIImage defendeMeterDisplay;
+    [SerializeField] private TextMeshProUGUI blockedDisplay;
+    [SerializeField] private bool landscape = true;
 
-    public Transform player;
-    public Animator playerAnimator;
-    public SpritesheetAnimator spritesheet;
-    public GameObject defenseVisual;
+    [Header("Objects Settings")]
+    [SerializeField] private Transform player;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private SpritesheetAnimator spritesheet;
+    [SerializeField] private GameObject defenseVisual;
 
-    public int blocks;
-    public int[] scoreLevels = {10, 15, 20, 25, 35};
+    [Header("Score Settings")]
+    [SerializeField] private int blocks;
+    [SerializeField] private int[] scoreLevels = {10, 15, 20, 25, 35};
 
-    public bool isRunning;
-    public bool isDefendingLeft;
-    public bool isDefendingRight;
-    public float defendMeter = 1f;
-    public float depleteRate = .01f;
-    public float recoveryRate = .005f;
+    [SerializeField] private bool isRunning;
+    [SerializeField] private bool isDefendingLeft;
+    [SerializeField] private bool isDefendingRight;
+    [SerializeField] private float defendMeter = 1f;
+    [SerializeField] private float depleteRate = .01f;
+    [SerializeField] private float recoveryRate = .005f;
 
-    public Transform asteroidParent;
-    public GameObject asteroidPrefab;
-    public float asteroidSecondsToImpactStart = 3f;
-    public float asteroidSecondsToImpactEnd = 1f;
-    public float secondsToImpactVariation = .2f;
-    public float asteroidWaitStart = 3f;
-    public float asteroidWaitEnd = .5f;
-    public float waitVariation = .2f;
+    [Header("Asteroid Settings")]
+    [SerializeField] private Transform asteroidParent;
+    [SerializeField] private GameObject asteroidPrefab;
+    [SerializeField] private float asteroidSecondsToImpactStart = 3f;
+    [SerializeField] private float asteroidSecondsToImpactEnd = 1f;
+    [SerializeField] private float secondsToImpactVariation = .2f;
+    [SerializeField] private float asteroidWaitStart = 3f;
+    [SerializeField] private float asteroidWaitEnd = .5f;
+    [SerializeField] private float waitVariation = .2f;
     private float nextAsteroid = 1f;
     private float asteroidTimer;
 
@@ -73,9 +78,14 @@ public class DefenseTraining : MonoBehaviour
         // Get precentage to minigame completion
         float timerPrecentage = mainTimer.GetPrecentage();
         
-        // Randomize Direction
-        int randDir = Random.Range(0,2);
-        string direction = (randDir == 0)? "left" : "right";
+        string direction = "down";
+
+        // Randomize Direction if in landscape mode
+        if(landscape)
+        {
+            int randDir = Random.Range(0,2);
+            direction = (randDir == 0)? "left" : "right";
+        }
 
         // Randomize speed
         float secondsToImpact = Mathf.Lerp(asteroidSecondsToImpactStart, asteroidSecondsToImpactEnd, timerPrecentage);
@@ -172,6 +182,13 @@ public class DefenseTraining : MonoBehaviour
                 break;
             case "right":
                 if(isDefendingRight && defendMeter > 0)
+                {    
+                    Success();
+                    return;
+                }
+                break;
+            case "down":
+                if(isDefendingRight || isDefendingLeft && defendMeter > 0)
                 {    
                     Success();
                     return;

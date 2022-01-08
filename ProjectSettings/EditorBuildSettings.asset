@@ -18,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SPD Training.unity
     guid: b98b068d36e6556489bc2d4e86d82b0d
   - enabled: 1
-    path: Assets/Scenes/DEF Training.unity
+    path: Assets/Scenes/DEF Training(LandScape).unity
     guid: fdb5938608be0c044a10c8ccb78c156a
   - enabled: 1
     path: Assets/Scenes/Storage.unity
     guid: 71f522e3f9ecfd540878f8769ab797ef
+  - enabled: 1
+    path: Assets/Scenes/DEF Training(Portrait).unity
+    guid: 7ea49d0a6ec709e47adb1c3efbd8c140
   m_configObjects: {}
