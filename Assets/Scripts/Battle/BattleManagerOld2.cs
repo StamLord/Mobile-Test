@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManagerOld2 : MonoBehaviour
 {
     public BattleUIManager uiManager;
 

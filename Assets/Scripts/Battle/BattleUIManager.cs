@@ -56,7 +56,7 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-    public void UpdateOrders(List<BattleManager.Order> orders)
+    public void UpdateOrders(List<BattleManagerOld2.Order> orders)
     {
         if(orders.Count > spawnedOrders.Length)
             Debug.LogWarning("Mismatch between spawnedOrders and orders!");
@@ -71,10 +71,10 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-    public void UpdateHealth(int playerHealth, int enemyHealth)
+    public void UpdateHealth(float playerHealth, float enemyHealth)
     {
-        this.playerHealth.fillAmount = (float)playerHealth / 100;
-        this.enemyHealth.fillAmount = (float)enemyHealth / 100;
+        this.playerHealth.fillAmount = playerHealth;
+        this.enemyHealth.fillAmount = enemyHealth;
     }
 
     public void UpdatePlayerStrength(int strength)
