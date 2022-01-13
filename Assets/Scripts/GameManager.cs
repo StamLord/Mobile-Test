@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         LoadPets();
     }
 
-    void LoadPets()
+    private void LoadPets()
     {
         Debug.Log(user.active);
         for(int i = 0; i < maxActive && i < user.active.Length; i++)
@@ -138,19 +138,18 @@ public class GameManager : MonoBehaviour
 
     #endregion
     
-    void UpdateActivePets()
+    private void UpdateActivePets()
     {
         foreach (ActivePet pet in activePets)
-        {
             UpdatePet(pet);
-        }
     }
 
-    void UpdatePet(ActivePet pet)
+    private void UpdatePet(ActivePet pet)
     {   
-        if(pet == null || pet.isDead || SceneManager.GetActiveScene().name != "Main")
+        if(pet == null || SceneManager.GetActiveScene().name != "Main")
             return;
 
+        // Care mistakes affect evolution so we check for them before evolving
         if(pet.hunger < 1) 
         {
             // Check if enough time passed for pet to starve
@@ -163,7 +162,7 @@ public class GameManager : MonoBehaviour
                 pet.AddCareMistake();
             }
         }
-
+        
         EvolutionCheck(pet);
     }
 

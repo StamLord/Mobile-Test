@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class SpritesheetAnimator : MonoBehaviour
 {
-    public float secondsPerFrame = 1;
-    private float timer;
-    private int frame = 0; // Current frame
+    [SerializeField] private float secondsPerFrame = 1;
     
-    public string fallBackAnimation = "Idle";
-    public string currentAnimation = "Idle";
-    public bool looping = true;
-    public int cycles;
+    [SerializeField] private string fallBackAnimation = "Idle";
+    [SerializeField] private string currentAnimation = "Idle";
+    [SerializeField] private bool looping = true;
+    [SerializeField] private int cycles;
 
     // Sprites
     public Spritesheet spritesheet;
-    private SpriteRenderer rend;
+    [SerializeField] private SpriteRenderer rend;
     
-    public GameObject teachIcon;
+    [SerializeField] private GameObject teachIcon;
 
-    public Sprite deadSprite;
+    [SerializeField] private Sprite deadSprite;
 
+    private float timer;
+    private int frame = 0; // Current frame
+    
     private void Awake()
     {   
         rend = GetComponent<SpriteRenderer>();
