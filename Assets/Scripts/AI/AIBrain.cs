@@ -71,8 +71,8 @@ public class AIBrain : MonoBehaviour
 
     public void SetSpriteSheet(Spritesheet spritesheet)
     {
-         if(animator == null)
-             animator = GetComponentInChildren<SpritesheetAnimator>();
+        if(animator == null)
+            animator = GetComponentInChildren<SpritesheetAnimator>();
 
         if(animator)
             animator.spritesheet = spritesheet;

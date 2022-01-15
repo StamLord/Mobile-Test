@@ -324,6 +324,8 @@ public class ActivePet
         {
             snapshot.discipline = discipline + 10;
             snapshot.disciplineStamp = Timestamp.GetTimeStamp();
+            // Remove misbehave timestamp
+            snapshot.misbehaveStamp = 0;
         }
         snapshot.happiness -= 10;
         snapshot.happinessStamp = Timestamp.GetTimeStamp();
