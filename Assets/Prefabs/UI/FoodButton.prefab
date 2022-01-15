@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.43137258, g: 0.6117647, b: 0.37254903, a: 1}
+  m_Color: {r: 0.627451, g: 0.76470596, b: 0.20392159, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -141,3 +141,6 @@ MonoBehaviour:
   food: {fileID: 0}
   image: {fileID: 5939174353708911296}
   manager: {fileID: 0}
+  scaleTime: 1
+  originalSize: {x: 0, y: 0}
+  pickedSize: {x: 0, y: 0}
