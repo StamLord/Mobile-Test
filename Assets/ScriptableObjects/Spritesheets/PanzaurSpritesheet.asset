@@ -13,27 +13,33 @@ MonoBehaviour:
   m_Name: PanzaurSpritesheet
   m_EditorClassIdentifier: 
   idle:
-  - {fileID: 21300000, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300002, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: -1558950457860067672, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 8609435220445797858, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 3636997536206018022, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   pet:
-  - {fileID: 21300008, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300010, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 5650928319568908541, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -3783044274538967671, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   happy:
-  - {fileID: 21300008, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300010, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 5650928319568908541, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -3783044274538967671, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   sad:
-  - {fileID: 21300012, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300014, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 8236662369762422149, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -3288609635450546532, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   eating:
-  - {fileID: 21300004, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300006, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: -7379254501314461595, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 1502406023946122760, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   sleeping:
-  - {fileID: 21300024, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300026, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 8263406288549370902, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 6285775163246357099, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   punch:
-  - {fileID: 21300016, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300018, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 4581777040499315019, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 7622410878621729175, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 6230668080723166726, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: 6579064117873621062, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
   defend:
-  - {fileID: 21300020, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  - {fileID: 21300022, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
-  hit: []
+  - {fileID: 1330103007239714316, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -3680433076521720391, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -8366690759210432097, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  hit:
+  - {fileID: -7342890267694108353, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}
+  - {fileID: -1847656614570474537, guid: a3712ceb8035fc647a89c93210e625cf, type: 3}

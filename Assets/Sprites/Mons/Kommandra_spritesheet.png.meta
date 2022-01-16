@@ -1,67 +1,91 @@
 fileFormatVersion: 2
-guid: a3712ceb8035fc647a89c93210e625cf
+guid: 25aa7c2906ae98f43a077ddb98483232
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: Tank_spritesheet_0
+    second: Panzaur_spritesheet_0
   - first:
       213: 21300002
-    second: Tank_spritesheet_1
+    second: Panzaur_spritesheet_1
   - first:
       213: 21300004
-    second: Tank_spritesheet_2
+    second: Panzaur_spritesheet_2
   - first:
       213: 21300006
-    second: Tank_spritesheet_3
+    second: Panzaur_spritesheet_3
   - first:
       213: 21300008
-    second: Tank_spritesheet_4
+    second: Panzaur_spritesheet_4
   - first:
       213: 21300010
-    second: Tank_spritesheet_5
+    second: Panzaur_spritesheet_5
   - first:
       213: 21300012
-    second: Tank_spritesheet_6
+    second: Panzaur_spritesheet_6
   - first:
       213: 21300014
-    second: Tank_spritesheet_7
+    second: Panzaur_spritesheet_7
   - first:
       213: 21300016
-    second: Tank_spritesheet_8
+    second: Panzaur_spritesheet_8
   - first:
       213: 21300018
-    second: Tank_spritesheet_9
+    second: Panzaur_spritesheet_9
   - first:
       213: 21300020
-    second: Tank_spritesheet_10
+    second: Panzaur_spritesheet_10
   - first:
       213: 21300022
-    second: Tank_spritesheet_11
+    second: Panzaur_spritesheet_11
   - first:
       213: 21300024
-    second: Tank_spritesheet_12
+    second: Panzaur_spritesheet_12
   - first:
       213: 21300026
-    second: Tank_spritesheet_13
+    second: Panzaur_spritesheet_13
   - first:
-      213: 21300028
-    second: Tank_spritesheet_14
+      213: 2909086927473862087
+    second: Kommandra_spritesheet_0
   - first:
-      213: 21300030
-    second: Tank_spritesheet_15
+      213: 946539196525334754
+    second: Kommandra_spritesheet_1
   - first:
-      213: 21300032
-    second: Tank_spritesheet_16
+      213: 7119487492687007225
+    second: Kommandra_spritesheet_2
   - first:
-      213: 21300034
-    second: Tank_spritesheet_17
+      213: -1305581496207130472
+    second: Kommandra_spritesheet_3
   - first:
-      213: 21300036
-    second: Tank_spritesheet_18
+      213: -3759894908784694061
+    second: Kommandra_spritesheet_4
   - first:
-      213: 21300038
-    second: Tank_spritesheet_19
+      213: 3309619381278988207
+    second: Kommandra_spritesheet_5
+  - first:
+      213: -2302419787463737590
+    second: Kommandra_spritesheet_6
+  - first:
+      213: 7486183973249583767
+    second: Kommandra_spritesheet_7
+  - first:
+      213: -5190624701199860805
+    second: Kommandra_spritesheet_8
+  - first:
+      213: 3186591983911167712
+    second: Kommandra_spritesheet_9
+  - first:
+      213: 112935858528339727
+    second: Kommandra_spritesheet_10
+  - first:
+      213: 2845430947271629012
+    second: Kommandra_spritesheet_11
+  - first:
+      213: -3883477342180326120
+    second: Kommandra_spritesheet_12
+  - first:
+      213: -4455469959982311505
+    second: Kommandra_spritesheet_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,7 +127,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 7
@@ -163,421 +187,295 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tank_spritesheet_0
+      name: Kommandra_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 270
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b0150da052b9cf4e99cb414a46d386d
-      internalID: 21300000
+      spriteID: 7c5efc4c5272f5820800000000000000
+      internalID: 2909086927473862087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_1
+      name: Kommandra_spritesheet_1
       rect:
         serializedVersion: 2
         x: 30
         y: 270
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a58378244f639e4fbbf52834e2cf8f9
-      internalID: 21300002
+      spriteID: 2e050ee5268c22d00800000000000000
+      internalID: 946539196525334754
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 270
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e8451558ae972845abb91b925863847
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 270
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 76d4f2f12982fa34fb438b1af11db0ed
-      internalID: 21300006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_4
+      name: Kommandra_spritesheet_2
       rect:
         serializedVersion: 2
         x: 0
         y: 240
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94ede6499c4734e4fb041c7ee60cab49
-      internalID: 21300008
+      spriteID: 9fd027867208dc260800000000000000
+      internalID: 7119487492687007225
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_5
+      name: Kommandra_spritesheet_3
       rect:
         serializedVersion: 2
         x: 30
         y: 240
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cbcd1e9520779748973c1c1b563aae5
-      internalID: 21300010
+      spriteID: 8904045eb84a1ede0800000000000000
+      internalID: -1305581496207130472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 240
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 853e87d2c45d586469a5902b05b27beb
-      internalID: 21300012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_7
+      name: Kommandra_spritesheet_4
       rect:
         serializedVersion: 2
         x: 0
         y: 210
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cbdf55aa5985e24f80675a40cc95cd2
-      internalID: 21300014
+      spriteID: 3dca611508b22dbc0800000000000000
+      internalID: -3759894908784694061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_8
+      name: Kommandra_spritesheet_5
       rect:
         serializedVersion: 2
         x: 30
         y: 210
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 849451ddf80395540b35444c6bc66293
-      internalID: 21300016
+      spriteID: fa7d1eaca412eed20800000000000000
+      internalID: 3309619381278988207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_9
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 210
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87f9db609f23efa44893f14b0daa3eb3
-      internalID: 21300018
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_10
+      name: Kommandra_spritesheet_6
       rect:
         serializedVersion: 2
         x: 0
         y: 180
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe892aa156a97d64db48c04f8b9c8fce
-      internalID: 21300020
+      spriteID: a0fb46ce6692c00e0800000000000000
+      internalID: -2302419787463737590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_11
+      name: Kommandra_spritesheet_7
       rect:
         serializedVersion: 2
         x: 30
         y: 180
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9658a867ffa21f24aa4d0193c99968e7
-      internalID: 21300022
+      spriteID: 79a83c009a444e760800000000000000
+      internalID: 7486183973249583767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_12
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 180
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f954f18e66719c54fab0e4e0ee2e0176
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_13
+      name: Kommandra_spritesheet_8
       rect:
         serializedVersion: 2
         x: 0
         y: 150
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4baeb3a9ba3664742b15472765127e47
-      internalID: 21300026
+      spriteID: bbb3d9ad55237f7b0800000000000000
+      internalID: -5190624701199860805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_14
+      name: Kommandra_spritesheet_9
       rect:
         serializedVersion: 2
         x: 30
         y: 150
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c28eb86829d1454aacf9241f47f0026
-      internalID: 21300028
+      spriteID: 0e6e12da68c093c20800000000000000
+      internalID: 3186591983911167712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_15
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 150
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fd8464e1e0b131c458a93ab3ca706dca
-      internalID: 21300030
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tank_spritesheet_16
+      name: Kommandra_spritesheet_10
       rect:
         serializedVersion: 2
         x: 0
         y: 120
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9bb1d74cc6f0a74ab7872da15f0e217
-      internalID: 21300032
+      spriteID: f074cf1a09a319100800000000000000
+      internalID: 112935858528339727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_17
+      name: Kommandra_spritesheet_11
       rect:
         serializedVersion: 2
         x: 30
         y: 120
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 031d16292940cb74eb70fbd38bce2ac9
-      internalID: 21300034
+      spriteID: 4d8570dee500d7720800000000000000
+      internalID: 2845430947271629012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_18
+      name: Kommandra_spritesheet_12
       rect:
         serializedVersion: 2
-        x: 60
-        y: 120
+        x: 0
+        y: 90
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0068ca5f23640a4cb66981238bcda43
-      internalID: 21300036
+      spriteID: 815401eceed1b1ac0800000000000000
+      internalID: -3883477342180326120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tank_spritesheet_19
+      name: Kommandra_spritesheet_13
       rect:
         serializedVersion: 2
-        x: 90
-        y: 120
+        x: 30
+        y: 90
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1e3bbbcfa2b91042b2cf49ff58e2695
-      internalID: 21300038
+      spriteID: fa794df6dadfa22c0800000000000000
+      internalID: -4455469959982311505
       vertices: []
       indices: 
       edges: []
@@ -585,7 +483,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 223ee8d0a2c46fd4d853f188973d2492
+    spriteID: ff1b4a9318d8b50498f8f82d8983157c
     internalID: 0
     vertices: []
     indices: 

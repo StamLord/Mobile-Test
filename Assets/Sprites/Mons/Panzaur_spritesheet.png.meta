@@ -1,49 +1,127 @@
 fileFormatVersion: 2
-guid: 25aa7c2906ae98f43a077ddb98483232
+guid: a3712ceb8035fc647a89c93210e625cf
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: Panzaur_spritesheet_0
+    second: Tank_spritesheet_0
   - first:
       213: 21300002
-    second: Panzaur_spritesheet_1
+    second: Tank_spritesheet_1
   - first:
       213: 21300004
-    second: Panzaur_spritesheet_2
+    second: Tank_spritesheet_2
   - first:
       213: 21300006
-    second: Panzaur_spritesheet_3
+    second: Tank_spritesheet_3
   - first:
       213: 21300008
-    second: Panzaur_spritesheet_4
+    second: Tank_spritesheet_4
   - first:
       213: 21300010
-    second: Panzaur_spritesheet_5
+    second: Tank_spritesheet_5
   - first:
       213: 21300012
-    second: Panzaur_spritesheet_6
+    second: Tank_spritesheet_6
   - first:
       213: 21300014
-    second: Panzaur_spritesheet_7
+    second: Tank_spritesheet_7
   - first:
       213: 21300016
-    second: Panzaur_spritesheet_8
+    second: Tank_spritesheet_8
   - first:
       213: 21300018
-    second: Panzaur_spritesheet_9
+    second: Tank_spritesheet_9
   - first:
       213: 21300020
-    second: Panzaur_spritesheet_10
+    second: Tank_spritesheet_10
   - first:
       213: 21300022
-    second: Panzaur_spritesheet_11
+    second: Tank_spritesheet_11
   - first:
       213: 21300024
-    second: Panzaur_spritesheet_12
+    second: Tank_spritesheet_12
   - first:
       213: 21300026
+    second: Tank_spritesheet_13
+  - first:
+      213: 21300028
+    second: Tank_spritesheet_14
+  - first:
+      213: 21300030
+    second: Tank_spritesheet_15
+  - first:
+      213: 21300032
+    second: Tank_spritesheet_16
+  - first:
+      213: 21300034
+    second: Tank_spritesheet_17
+  - first:
+      213: 21300036
+    second: Tank_spritesheet_18
+  - first:
+      213: 21300038
+    second: Tank_spritesheet_19
+  - first:
+      213: -1558950457860067672
+    second: Panzaur_spritesheet_0
+  - first:
+      213: 8609435220445797858
+    second: Panzaur_spritesheet_1
+  - first:
+      213: 3636997536206018022
+    second: Panzaur_spritesheet_2
+  - first:
+      213: -7379254501314461595
+    second: Panzaur_spritesheet_4
+  - first:
+      213: 1502406023946122760
+    second: Panzaur_spritesheet_5
+  - first:
+      213: 5650928319568908541
+    second: Panzaur_spritesheet_7
+  - first:
+      213: -3783044274538967671
+    second: Panzaur_spritesheet_8
+  - first:
+      213: 8236662369762422149
+    second: Panzaur_spritesheet_10
+  - first:
+      213: -3288609635450546532
+    second: Panzaur_spritesheet_11
+  - first:
+      213: 8263406288549370902
     second: Panzaur_spritesheet_13
+  - first:
+      213: 6285775163246357099
+    second: Panzaur_spritesheet_14
+  - first:
+      213: 4581777040499315019
+    second: Panzaur_spritesheet_16
+  - first:
+      213: 7622410878621729175
+    second: Panzaur_spritesheet_17
+  - first:
+      213: 6230668080723166726
+    second: Panzaur_spritesheet_18
+  - first:
+      213: 6579064117873621062
+    second: Panzaur_spritesheet_19
+  - first:
+      213: 1330103007239714316
+    second: Panzaur_spritesheet_20
+  - first:
+      213: -3680433076521720391
+    second: Panzaur_spritesheet_21
+  - first:
+      213: -8366690759210432097
+    second: Panzaur_spritesheet_22
+  - first:
+      213: -7342890267694108353
+    second: Panzaur_spritesheet_23
+  - first:
+      213: -1847656614570474537
+    second: Panzaur_spritesheet_24
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -85,7 +163,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 7
@@ -152,15 +230,15 @@ TextureImporter:
         y: 270
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfd0e066dfaccd1468978d03c174f701
-      internalID: 21300000
+      spriteID: 8ae61d871de7d5ae0800000000000000
+      internalID: -1558950457860067672
       vertices: []
       indices: 
       edges: []
@@ -173,15 +251,15 @@ TextureImporter:
         y: 270
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a375b3c9563d0345bb4e653a9ee0e74
-      internalID: 21300002
+      spriteID: 2ed986fd7bbda7770800000000000000
+      internalID: 8609435220445797858
       vertices: []
       indices: 
       edges: []
@@ -190,40 +268,19 @@ TextureImporter:
       name: Panzaur_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 240
+        x: 60
+        y: 270
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f63fac1d1de19d245be7e38369d0ef70
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Panzaur_spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 240
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e34a5e56773133d4da244f5bda0a00f8
-      internalID: 21300006
+      spriteID: 6e5d7825df5397230800000000000000
+      internalID: 3636997536206018022
       vertices: []
       indices: 
       edges: []
@@ -233,18 +290,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 210
+        y: 240
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce82d76dda2d58e4fb7d75bff7ab1ca1
-      internalID: 21300008
+      spriteID: 56003f5c02f979990800000000000000
+      internalID: -7379254501314461595
       vertices: []
       indices: 
       edges: []
@@ -254,39 +311,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 30
-        y: 210
+        y: 240
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96140958e7cb89e4e84fa02493b71652
-      internalID: 21300010
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Panzaur_spritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 180
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59d9e1d40397efe4188e8017924e977b
-      internalID: 21300012
+      spriteID: 80637b5915e99d410800000000000000
+      internalID: 1502406023946122760
       vertices: []
       indices: 
       edges: []
@@ -295,19 +331,19 @@ TextureImporter:
       name: Panzaur_spritesheet_7
       rect:
         serializedVersion: 2
-        x: 30
-        y: 180
+        x: 0
+        y: 210
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a21c214b22ec034d89105bc8ad6c817
-      internalID: 21300014
+      spriteID: df09913ed512c6e40800000000000000
+      internalID: 5650928319568908541
       vertices: []
       indices: 
       edges: []
@@ -316,40 +352,19 @@ TextureImporter:
       name: Panzaur_spritesheet_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 150
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 22eb8dcd5101bee4ab7fb222886c3eea
-      internalID: 21300016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Panzaur_spritesheet_9
-      rect:
-        serializedVersion: 2
         x: 30
-        y: 150
+        y: 210
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e0c0ccf0e0c445409df03f8464c4473
-      internalID: 21300018
+      spriteID: 98d8786964def7bc0800000000000000
+      internalID: -3783044274538967671
       vertices: []
       indices: 
       edges: []
@@ -359,18 +374,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 120
+        y: 180
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a1b55d67ae5386439a4f5b2a1550e31
-      internalID: 21300020
+      spriteID: 58d248c19c08e4270800000000000000
+      internalID: 8236662369762422149
       vertices: []
       indices: 
       edges: []
@@ -380,39 +395,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 30
-        y: 120
+        y: 180
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f65c80b9b80e1e4c917f0cd6b3a249c
-      internalID: 21300022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Panzaur_spritesheet_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 90
-        width: 30
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 356c4daef92049348ad6f7a7b039baa1
-      internalID: 21300024
+      spriteID: c961b0ad5f28c52d0800000000000000
+      internalID: -3288609635450546532
       vertices: []
       indices: 
       edges: []
@@ -421,19 +415,229 @@ TextureImporter:
       name: Panzaur_spritesheet_13
       rect:
         serializedVersion: 2
-        x: 30
-        y: 90
+        x: 0
+        y: 150
         width: 30
         height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9fe87f7909e9664ab46b7fdf02320e3
-      internalID: 21300026
+      spriteID: 61cd6bfec348da270800000000000000
+      internalID: 8263406288549370902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 150
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6aa54f153f8b3750800000000000000
+      internalID: 6285775163246357099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b41900b61fdb59f30800000000000000
+      internalID: 4581777040499315019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 120
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79142501f4e38c960800000000000000
+      internalID: 7622410878621729175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 120
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6068ed0ab97c77650800000000000000
+      internalID: 6230668080723166726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 120
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 648306435f78d4b50800000000000000
+      internalID: 6579064117873621062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 90
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c06b33d43a9757210800000000000000
+      internalID: 1330103007239714316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 90
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b5235edd997cecc0800000000000000
+      internalID: -3680433076521720391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 90
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9908b7451b83eb80800000000000000
+      internalID: -8366690759210432097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f317b61b430d81a90800000000000000
+      internalID: -7342890267694108353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panzaur_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 60
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d340ad291ecb56e0800000000000000
+      internalID: -1847656614570474537
       vertices: []
       indices: 
       edges: []
@@ -441,7 +645,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ff1b4a9318d8b50498f8f82d8983157c
+    spriteID: 223ee8d0a2c46fd4d853f188973d2492
     internalID: 0
     vertices: []
     indices: 

@@ -27,11 +27,15 @@ MonoBehaviour:
   eating:
   - {fileID: 21300004, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
   - {fileID: 21300006, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
-  sleeping: []
+  sleeping:
+  - {fileID: -8794921426188984073, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 4894078559065781911, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
   punch:
   - {fileID: 21300020, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
   - {fileID: 21300022, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
   defend:
   - {fileID: 21300024, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
   - {fileID: 21300026, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
-  hit: []
+  hit:
+  - {fileID: 8784209860309819421, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}
+  - {fileID: 8226953126146033279, guid: 6f91b7e49d595884dba143fd886a7a27, type: 3}

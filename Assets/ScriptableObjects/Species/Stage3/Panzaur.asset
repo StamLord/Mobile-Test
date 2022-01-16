@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Panzaur
   m_EditorClassIdentifier: 
   spritesheets:
-  - {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
+  - {fileID: 11400000, guid: adba44bfd95651e449245d12f079ac75, type: 2}
   speciesName: Panzaur
   longetivityMin: 136800
   longetivityMax: 136800

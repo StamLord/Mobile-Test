@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0710237004851f449afc0cb2f4b9a924, type: 3}
+  m_Name: KommandraSpritesheet
+  m_EditorClassIdentifier: 
+  idle:
+  - {fileID: 2909086927473862087, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 946539196525334754, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  pet:
+  - {fileID: 7119487492687007225, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: -1305581496207130472, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  happy:
+  - {fileID: -3759894908784694061, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 3309619381278988207, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  sad:
+  - {fileID: -2302419787463737590, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 7486183973249583767, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  eating:
+  - {fileID: 7119487492687007225, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: -1305581496207130472, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  sleeping:
+  - {fileID: -3883477342180326120, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: -4455469959982311505, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  punch:
+  - {fileID: -5190624701199860805, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 3186591983911167712, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  defend:
+  - {fileID: 112935858528339727, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  - {fileID: 2845430947271629012, guid: 25aa7c2906ae98f43a077ddb98483232, type: 3}
+  hit: []
