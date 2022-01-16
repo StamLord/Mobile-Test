@@ -54,7 +54,7 @@ public class UIEgg : MonoBehaviour
         }
         else
         {
-            pickUpMessage.text = "";
+            pickUpMessage.text = "Coming Soon...".ToUpper();
             yes.SetActive(false);
             no.SetActive(false);
         }
