@@ -84,8 +84,8 @@ public class  DataService
         {
             byte[] result = request.downloadHandler.data;
             string resJson = System.Text.Encoding.Default.GetString(result);
-            //Debug.Log(resJson);
-            /*
+            Debug.Log(resJson);
+            
             User user = null;
             bool convertedJson = true;
             try 
@@ -108,7 +108,7 @@ public class  DataService
             //GameManager.instance.SetUser();
             isLoggedin = true;
             Debug.Log("Successfully registerd");
-            yield return user;*/
+            yield return user;
         }
         else
         {
