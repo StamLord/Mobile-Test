@@ -18,14 +18,25 @@ public class EvolutionTree : ScriptableObject
         return false;
     }
 
+    /// <summary>
+    /// Get Species the pet will evolve to.
+    /// </summary>
+    /// <param name="pet">Pet we check evolution for.</param>
+    /// <returns>If no evolution that meets all conditions was found returns Null. Otherwise, returns Species object.</returns>
     public Species GetEvolution(ActivePet pet)
     {
         if(pet.stage == 0)
-            return GetEvolutionFromStage(pet, evolutions);
+            return GetEvolutionFromStage(pet, evolutions); // We don't need to check nested EvolutionPaths
         else
-            return GetEvolutionFromStage(pet, FindEvolutions(pet.species, evolutions));
+            return GetEvolutionFromStage(pet, FindEvolutions(pet.species, evolutions)); // We need to find the current EvolutionPath so we check nested paths.
     }
 
+    /// <summary>
+    /// Gets EvolutionPath that matches species name. Checks nested paths.
+    /// </summary>
+    /// <param name="species">Name of the species to find a path for.</param>
+    /// <param name="paths">Array of paths to check. Nested will be checked.</param>
+    /// <returns>EvolutionPath for the species name.</returns>
     private EvolutionPath[] FindEvolutions(string species, EvolutionPath[] paths)
     {
         EvolutionPath[] found;
@@ -41,10 +52,16 @@ public class EvolutionTree : ScriptableObject
                     return found;
             }
         }
-
         return null;
     }
     
+    /// <summary>
+    /// Get first evolution that meets all conditions from an array of EvolutionPaths.
+    /// Does not check nested paths.
+    /// </summary>
+    /// <param name="pet">Pet we check conditions for.</param>
+    /// <param name="paths">EvolutionPaths that contain the conditions.</param>
+    /// <returns>Species object to evolve to.</returns>
     private Species GetEvolutionFromStage(ActivePet pet, EvolutionPath[] paths)
     {
         // Return the species of the first path that meets all conditions or no conditions exist
@@ -61,8 +78,11 @@ public class EvolutionTree : ScriptableObject
 [System.Serializable]
 public class EvolutionPath
 {
+    // Species to evolve to
     public Species species;
+    // Conditions for current evolution path
     public EvolutionCondition[] conditions = new EvolutionCondition[1];
+    // Next evolution paths
     [SerializeField] public EvolutionPath[] evolutions;
 
     public bool CheckConditions(ActivePet pet)

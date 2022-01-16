@@ -247,6 +247,8 @@ public class ActivePet
 
     private bool IsDead()
     {
+        // Remove death for testing
+            return false;
         if(stage == 0) // Eggs can't die
             return false;
 

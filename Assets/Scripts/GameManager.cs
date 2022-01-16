@@ -180,6 +180,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Evolving to " + evolveTo.name);
                 if(evolveTo)
                 {
+                    Debug.Log("Evolving to " + evolveTo.name);
                     // Animate
                     if(onEvolutionEvent != null)
                         onEvolutionEvent(FindSheet(pet.species).idle[0], FindSheet(evolveTo.speciesName).idle[0]);
