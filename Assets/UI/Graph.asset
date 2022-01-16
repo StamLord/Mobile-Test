@@ -35,7 +35,7 @@ MonoBehaviour:
   m_version: 1
   m_description: 
   m_id: f5eefae8-11b8-4b97-9424-7fa8932ee8d2
-  m_lastModified: 132189021452038392
+  m_lastModified: 132867960306248313
 --- !u!114 &114041291739314854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,14 +113,7 @@ MonoBehaviour:
   ErrorDuplicateNameFoundInGraph: 0
   m_inputSockets:
   - m_connectionMode: 1
-    m_connections:
-    - m_inputConnectionPoint: {x: 202, y: 4}
-      m_outputConnectionPoint: {x: -2, y: 4}
-      m_id: b3870a0a-2232-4dbe-aa1f-34fd200c2d4c
-      m_inputNodeId: d695ad55-1bc3-4ce3-b225-30331a272543
-      m_inputSocketId: 2861b866-f3d1-4329-a03e-aeab21a5295f
-      m_outputNodeId: 2b8e2161-625f-4bf4-9d4e-974b526ba9d6
-      m_outputSocketId: 4f6bda43-6b6b-4cce-b678-31cacee65965
+    m_connections: []
     m_connectionPoints:
     - {x: -2, y: 4}
     - {x: 202, y: 4}
@@ -1904,14 +1897,7 @@ MonoBehaviour:
     m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - m_connectionMode: 0
-    m_connections:
-    - m_inputConnectionPoint: {x: 202, y: 4}
-      m_outputConnectionPoint: {x: -2, y: 4}
-      m_id: b3870a0a-2232-4dbe-aa1f-34fd200c2d4c
-      m_inputNodeId: d695ad55-1bc3-4ce3-b225-30331a272543
-      m_inputSocketId: 2861b866-f3d1-4329-a03e-aeab21a5295f
-      m_outputNodeId: 2b8e2161-625f-4bf4-9d4e-974b526ba9d6
-      m_outputSocketId: 4f6bda43-6b6b-4cce-b678-31cacee65965
+    m_connections: []
     m_connectionPoints:
     - {x: -2, y: 4}
     - {x: 202, y: 4}
