@@ -11,7 +11,9 @@ public class StatPopup : MonoBehaviour
     
     public void Popup(string stat, int gain)
     {
-        statGain.text = stat + " +" + gain;
+        statGain.text = stat;
+        if(gain > 0) statGain.text += "+";
+        statGain.text += gain;
         window.Show();
     }
 

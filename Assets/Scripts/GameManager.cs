@@ -336,6 +336,8 @@ public class GameManager : MonoBehaviour
                 onMisbehavePet(petIndex);
 
             activePets[petIndex].Misbehave();
+            if(statPopup) 
+                statPopup.Popup("X");
             return;
         }
         
@@ -374,7 +376,11 @@ public class GameManager : MonoBehaviour
             SetSelection(0);
         
         if(selection > -1)
+        {
             SelectedPet.Praise();
+            if(statPopup)
+                statPopup.Popup("HAPPY", 10);
+        }
     }
 
     public void Scold()
@@ -383,7 +389,15 @@ public class GameManager : MonoBehaviour
             SetSelection(0);
 
         if(selection > -1)
+        {
             SelectedPet.Scold();
+
+            if(statPopup)
+                if(SelectedPet.CanDiscipline()) 
+                    statPopup.Popup("DISCIPLINE", 10);
+                else
+                    statPopup.Popup("HAPPY", -10);
+        }
     }
 
     public void Train(int activePet, string stat, int gain)

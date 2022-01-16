@@ -301,7 +301,7 @@ public class ActivePet
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
     }
 
-    private bool CanDiscipline()
+    public bool CanDiscipline()
     {
         double timeSinceMisbehaved = Timestamp.GetSecondsSince(snapshot.misbehaveStamp);
         return (timeSinceMisbehaved <= 600);
