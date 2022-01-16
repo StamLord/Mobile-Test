@@ -25,7 +25,7 @@ module.exports.register = (req, res) => {
 
     User.countDocuments({username}, (err, count) => {
         console.log(`[Register] ${username} trying to register!` );
-        
+
         if(err) {
             res.sendStatus(500);
             return;
@@ -58,8 +58,10 @@ module.exports.register = (req, res) => {
                             res.sendStatus(500);
                             return;
                         }
-                        console.log(`[Register] Error 201` );
-                        res.sendStatus(201);
+                        console.log(`[Register] ${username} registered succesfully!` );
+                        let user = result;
+                        user.password = undefined;
+                        res.send(user);
                     });
                 }
             });
