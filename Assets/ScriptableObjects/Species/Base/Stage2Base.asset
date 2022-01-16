@@ -18,12 +18,15 @@ MonoBehaviour:
   longetivityMin: 86400
   longetivityMax: 86400
   careMistakeCost: 1800
-  hungerRateMin: 1200
-  hungerRateMax: 1800
-  strengthRateMin: 1200
-  strengthRateMax: 1800
-  attentionRateMin: 1200
-  attentionRateMax: 1800
+  baseWeight: 0
+  minWeight: 0
+  maxWeight: 0
+  hungerRateMin: 1800
+  hungerRateMax: 3600
+  strengthRateMin: 1800
+  strengthRateMax: 3600
+  attentionRateMin: 1800
+  attentionRateMax: 3600
   disciplineRateMin: 180
   disciplineRateMax: 300
   happinessRateMin: 180

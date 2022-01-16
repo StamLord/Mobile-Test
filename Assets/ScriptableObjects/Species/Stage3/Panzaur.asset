@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
-  m_Name: Stage3Base
+  m_Name: Panzaur
   m_EditorClassIdentifier: 
   spritesheets:
   - {fileID: 11400000, guid: fc2b0ca07ebb518448f28f8e00d922ec, type: 2}
-  speciesName: Null
+  speciesName: Panzaur
   longetivityMin: 136800
   longetivityMax: 136800
   careMistakeCost: 1800
