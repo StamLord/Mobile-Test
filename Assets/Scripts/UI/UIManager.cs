@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Doozy.Engine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {   
@@ -50,6 +50,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI spdTimer;
     public UIImage[] spdIndicators;
 
+    [Header("Egg Window")]
+    [SerializeField] private UIButton eggButton;
+
     #region Singleton
 
     public static UIManager instance;
@@ -82,6 +85,7 @@ public class UIManager : MonoBehaviour
             password.text = s_password;
 
         SensorsManager.onLuxChange += UpdateLightLevel;
+        GameManager.onActivePetsChange += UpdatePets;
     }
 
     void Update(){
@@ -188,5 +192,14 @@ public class UIManager : MonoBehaviour
     public void HideStatCards()
     {
         statCard1.Hide();
+    }
+
+    private void UpdatePets(List<ActivePet> activePets)
+    {
+        // In case no active pet is present, call "Eggs" window
+
+        if(activePets.Count == 0)
+            eggButton.ExecuteClick();
+
     }
 }
