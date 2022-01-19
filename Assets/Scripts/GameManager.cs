@@ -319,15 +319,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set the selection to be the first active pet or -1 if none
+    /// </summary>
+    public void ForceSelection()
+    {
+        if(activePets.Count > 0)
+            SetSelection(0);
+        else
+            SetSelection(-1);
+    }
+
     public void StartTraining(string stat)
     {
         int petIndex = selection;
+
+        if(petIndex < 0)
+        {
+            UIManager.instance.ShowTrainingTip("Please select your pet!");
+            return;
+        }
 
         if(activePets[petIndex].isDead)
             return;
 
         if(activePets[petIndex].energy < 1)
+        {
+            UIManager.instance.ShowTrainingTip("Pet has no energy!");
             return;
+        }
 
         if(DiscplineCheck(activePets[petIndex].discipline) == false)
         {

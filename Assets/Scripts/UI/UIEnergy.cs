@@ -40,10 +40,7 @@ public class UIEnergy : MonoBehaviour
         ActivePet pet = GameManager.instance.activePets[viewingPet];
 
         for(int i = 0; i < energy.Length; i++)
-        {
             energy[i].enabled = i <= pet.energy - 1;
-        }
-        Debug.Log(pet.energy);
     }
 
     void OnDestroy()

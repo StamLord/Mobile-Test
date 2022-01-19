@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour
     [Space]
 
     [Header("Training")]
+    [SerializeField] private TextMeshProUGUI trainingTip;
+
     public TextMeshProUGUI atkScore;
     public TextMeshProUGUI atkCombo;
     public TextMeshProUGUI atkTimer;
@@ -216,5 +218,20 @@ public class UIManager : MonoBehaviour
     {
         if(statPopup)
             statPopup.Popup(stat, gain);
+    }
+
+    public void ShowTrainingTip(string text, float duration = 3)
+    {
+        trainingTip.text = text.ToUpper();
+        StartCoroutine("HideTrainingTip", duration);
+    }
+
+    IEnumerator HideTrainingTip(float duration)
+    {
+        float startTime = Time.time;
+        while(Time.time < startTime + duration)
+            yield return null;
+
+        trainingTip.text = "";
     }
 }
