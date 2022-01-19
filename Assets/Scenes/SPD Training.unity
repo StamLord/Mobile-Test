@@ -7769,7 +7769,7 @@ MonoBehaviour:
   - {fileID: 354026650}
   - {fileID: 153899257}
   - {fileID: 1292053327}
-  speed: 0.01
+  speed: 5
   hoopScore: 1000
   hoopInterval: 10
   ballTimes:
