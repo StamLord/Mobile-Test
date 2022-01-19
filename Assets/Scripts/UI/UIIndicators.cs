@@ -61,7 +61,7 @@ public class UIIndicators : MonoBehaviour
 
         // Update Discipline Icon
         int d_icon = Mathf.FloorToInt(pet.discipline / 100f * (disciplineIcons.Length - 1));
-        Debug.Log(pet.discipline);
+        
         if(d_icon < 0)
             discipline.enabled = false;
         else

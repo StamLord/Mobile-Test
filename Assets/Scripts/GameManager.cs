@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     public ActivePet SelectedPet { get {return activePets[selection]; } }
     public Food selectedFood;
     
-    [SerializeField] private StatPopup statPopup;
     [SerializeField] private DeadPopup deadPopup;
 
     private bool updatedVisual;
@@ -176,7 +175,7 @@ public class GameManager : MonoBehaviour
             if(tree.IsTimeToEvolve(pet))
             {
                 Species evolveTo = tree.GetEvolution(pet);
-                Debug.Log("Evolving to " + evolveTo.name);
+                //Debug.Log("Evolving to " + evolveTo.name);
                 if(evolveTo)
                 {
                     Debug.Log("Evolving to " + evolveTo.name);
@@ -336,8 +335,7 @@ public class GameManager : MonoBehaviour
                 onMisbehavePet(petIndex);
 
             activePets[petIndex].Misbehave();
-            if(statPopup) 
-                statPopup.Popup("X");
+            UIManager.instance.ShowPopup("X");
             return;
         }
         
@@ -378,8 +376,7 @@ public class GameManager : MonoBehaviour
         if(selection > -1)
         {
             SelectedPet.Praise();
-            if(statPopup)
-                statPopup.Popup("HAPPY", 10);
+            UIManager.instance.ShowPopup("HAPPY", 10);
         }
     }
 
@@ -392,18 +389,16 @@ public class GameManager : MonoBehaviour
         {
             SelectedPet.Scold();
 
-            if(statPopup)
-                if(SelectedPet.CanDiscipline()) 
-                    statPopup.Popup("DISCIPLINE", 10);
-                else
-                    statPopup.Popup("HAPPY", -10);
+        if(SelectedPet.CanDiscipline()) 
+            UIManager.instance.ShowPopup("DISCIPLINE", 10);
+        else
+            UIManager.instance.ShowPopup("HAPPY", -10);
         }
     }
 
     public void Train(int activePet, string stat, int gain)
     {
-        if(statPopup) 
-            statPopup.Popup(stat, gain);
+        UIManager.instance.ShowPopup(stat, gain);
 
         activePets[activePet].TrainStat(stat, gain, 1);
         activePets[activePet].ReduceEnergy(1);
@@ -477,15 +472,13 @@ public class GameManager : MonoBehaviour
         {
             if(activePets[petIndex].happiness >= 100)
             {
-                if(statPopup) 
-                    statPopup.Popup("MAX HAPPY");
+                UIManager.instance.ShowPopup("MAX HAPPY");
                 return false;
             }
             else
             {
                 activePets[petIndex].UpdateHapiness(pettingHappiness);
-                if(statPopup) 
-                    statPopup.Popup("HAPPY", pettingHappiness);
+                UIManager.instance.ShowPopup("HAPPY", pettingHappiness);
                 return true;
             }
         }

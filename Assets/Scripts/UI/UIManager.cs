@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI lightLevel;
     
+    [Header("Stat Popup")]
+    [SerializeField] private StatPopup statPopup;
+
     [Header("Stat Cards")]
     public UIView statCard1;
     public UIStatCard sc1;
@@ -201,5 +204,17 @@ public class UIManager : MonoBehaviour
         if(activePets.Count == 0)
             eggButton.ExecuteClick();
 
+    }
+
+    public void ShowPopup(string text)
+    {
+        if(statPopup)
+            statPopup.Popup(text);
+    }
+
+    public void ShowPopup(string stat, int gain)
+    {
+        if(statPopup)
+            statPopup.Popup(stat, gain);
     }
 }

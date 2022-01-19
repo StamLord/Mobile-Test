@@ -5,26 +5,27 @@ using TMPro;
 
 public class AttackTraining : MonoBehaviour
 {
-    public TextMeshProUGUI scoreDisplay;
-    public TextMeshProUGUI comboDisplay;
+    [SerializeField] private TextMeshProUGUI scoreDisplay;
+    [SerializeField] private TextMeshProUGUI comboDisplay;
 
-    public Transform[] spots;
-    public Transform player;
-    public Animator playerAnimator;
-    public SpritesheetAnimator spritesheet;
-    public Transform bag;
-    public Animator bagAnimator;
+    [SerializeField] private Transform[] spots;
+    [SerializeField] private Transform player;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private SpritesheetAnimator spritesheet;
+    [SerializeField] private Transform bag;
+    [SerializeField] private Animator bagAnimator;
+    [SerializeField] private StatPopup popup;
     
-    public int position = 4;
-    public int punchBag = -1;
+    [SerializeField] private int position = 4;
+    [SerializeField] private int punchBag = -1;
 
-    public int hits;
-    public int misses;
-    public int score;
-    public int combo;
-    public int highestCombo;
+    [SerializeField] private int hits;
+    [SerializeField] private int misses;
+    [SerializeField] private int score;
+    [SerializeField] private int combo;
+    [SerializeField] private int highestCombo;
 
-    public int[] scoreLevels = {5000, 10000, 15000, 20000};
+    [SerializeField] private int[] scoreLevels = {5000, 10000, 15000, 20000};
 
     private bool isRunning;
     private bool canPunch;
@@ -93,7 +94,7 @@ public class AttackTraining : MonoBehaviour
     }
 
     void Punch()
-    {   Debug.Log("Punching");
+    {   
         if(isRunning == false || canPunch == false)
             return;
             
@@ -133,6 +134,8 @@ public class AttackTraining : MonoBehaviour
             addToScore *= 2;
 
         UpdateScore(addToScore);
+        Popup("+" + addToScore);
+
 
         // if(playerAnimator) 
         //     playerAnimator.Play("Punch");
@@ -148,6 +151,7 @@ public class AttackTraining : MonoBehaviour
         misses++;
         ResetCombo();
         StartCoroutine(MissAnimation());
+        Popup("MISS");
     }
 
     void Crash()
@@ -156,6 +160,14 @@ public class AttackTraining : MonoBehaviour
         misses++;
         ResetCombo();
         StartCoroutine(CrashAnimation());
+        Popup("OOF");
+    }
+
+    private void Popup(string str)
+    {
+        // Move popup to current player location
+        popup.transform.position = new Vector2(spots[position].position.x, popup.transform.position.y);
+        popup.Popup(str);
     }
 
     IEnumerator HitBagAnimation()

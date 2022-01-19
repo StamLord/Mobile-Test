@@ -6,20 +6,27 @@ using Doozy.Engine.UI;
 
 public class StatPopup : MonoBehaviour
 {   
-    public TextMeshProUGUI statGain;
-    public UIView window;
+    public TextMeshProUGUI text;
+    [SerializeField] private Animator animator;
+    [SerializeField] private UIView view;
     
     public void Popup(string stat, int gain)
     {
-        statGain.text = stat;
-        if(gain > 0) statGain.text += "+";
-        statGain.text += gain;
-        window.Show();
+        text.text = stat;
+        if(gain > 0) text.text += "+";
+        text.text += gain;
+        if(view)
+            view.Show();
+        else if(animator)
+            animator.SetTrigger("Popup");
     }
 
     public void Popup(string text)
     {
-        statGain.text = text;
-        window.Show();
+        this.text.text = text;
+        if(view)
+            view.Show();
+        else if(animator)
+            animator.SetTrigger("Popup");
     }
 }
