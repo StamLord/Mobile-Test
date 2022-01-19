@@ -18,7 +18,7 @@ public class SpeedTraining : MonoBehaviour
     [SerializeField] private UIImage[] indicator;
 
     [Header("Training Settings")]
-    [SerializeField] private float speed = .01f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private int hoopScore = 1000;
     [SerializeField] private float hoopInterval = 10f;
     [SerializeField] private float[] ballTimes = {0f, .5f, .75f};
@@ -103,7 +103,7 @@ public class SpeedTraining : MonoBehaviour
 
     void MovePlayer(int direction)
     {
-        player.transform.position += new Vector3(speed * direction, 0f, 0f);
+        player.transform.position += new Vector3(speed * direction * Time.deltaTime, 0f, 0f);
         player.transform.localScale = new Vector3(direction * -1, 1f, 1f);
         ClampPlayerPosition();
     }
