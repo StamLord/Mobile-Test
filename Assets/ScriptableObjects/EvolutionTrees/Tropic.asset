@@ -17,30 +17,57 @@ MonoBehaviour:
   - species: {fileID: 11400000, guid: b9943e1d2e34f8f46ac078d90fbcec38, type: 2}
     conditions: []
     evolutions:
-    - species: {fileID: 11400000, guid: c5c0874431561ab47b5d74b8f7c10807, type: 2}
+    - species: {fileID: 11400000, guid: 932176b3202ca444996f4c7f4eee67d8, type: 2}
       conditions:
-      - property1: 3
-        compare: 0
-        property2: 4
-        customValue: 0
-      - property1: 3
-        compare: 0
-        property2: 5
-        customValue: 0
-      evolutions:
-      - species: {fileID: 11400000, guid: a2ae325f346035e4a8e032a7b2b1d8c6, type: 2}
-        conditions: []
-        evolutions: []
-    - species: {fileID: 11400000, guid: a2ae325f346035e4a8e032a7b2b1d8c6, type: 2}
-      conditions:
-      - property1: 4
+      - property1: 5
         compare: 0
         property2: 3
         customValue: 0
-      - property1: 4
+      - property1: 5
         compare: 0
-        property2: 5
+        property2: 4
         customValue: 0
+      - property1: 7
+        compare: 0
+        property2: 13
+        customValue: 70
+      evolutions:
+      - species: {fileID: 11400000, guid: 9dc5e5ef24883ea4b8cde1acfebc12ed, type: 2}
+        conditions:
+        - property1: 7
+          compare: 0
+          property2: 13
+          customValue: 80
+        - property1: 3
+          compare: 0
+          property2: 13
+          customValue: 80
+        - property1: 5
+          compare: 0
+          property2: 13
+          customValue: 100
+        evolutions:
+        - species: {fileID: 11400000, guid: c9878d50fe21a1a41ada3fb04a4402e0, type: 2}
+          conditions:
+          - property1: 7
+            compare: 0
+            property2: 13
+            customValue: 99
+          - property1: 3
+            compare: 0
+            property2: 13
+            customValue: 200
+          - property1: 5
+            compare: 0
+            property2: 13
+            customValue: 200
+          evolutions: []
+    - species: {fileID: 11400000, guid: 799f36dc13636364aac5dec90ca2ec80, type: 2}
+      conditions:
+      - property1: 3
+        compare: 0
+        property2: 13
+        customValue: 50
       evolutions:
       - species: {fileID: 0}
         conditions:
@@ -77,23 +104,19 @@ MonoBehaviour:
                   property2: 0
                   customValue: 0
                 evolutions: []
-    - species: {fileID: 11400000, guid: 932176b3202ca444996f4c7f4eee67d8, type: 2}
-      conditions:
-      - property1: 5
-        compare: 0
-        property2: 3
-        customValue: 0
-      - property1: 5
-        compare: 0
-        property2: 4
-        customValue: 0
+    - species: {fileID: 11400000, guid: a2ae325f346035e4a8e032a7b2b1d8c6, type: 2}
+      conditions: []
       evolutions:
-      - species: {fileID: 0}
+      - species: {fileID: 11400000, guid: 3eec472fc8bf14d41b34aad9433ce681, type: 2}
         conditions:
-        - property1: 0
+        - property1: 7
           compare: 0
-          property2: 0
-          customValue: 0
+          property2: 13
+          customValue: 80
+        - property1: 3
+          compare: 0
+          property2: 13
+          customValue: 100
         evolutions:
         - species: {fileID: 0}
           conditions:

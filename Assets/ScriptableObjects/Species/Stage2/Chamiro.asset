@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
+  m_Name: Chamiro
+  m_EditorClassIdentifier: 
+  spritesheets:
+  - {fileID: 11400000, guid: d7a66bd7197cf5b45aa9ed6afb45a00f, type: 2}
+  speciesName: Chamiro
+  longetivityMin: 86400
+  longetivityMax: 86400
+  careMistakeCost: 1800
+  baseWeight: 70
+  minWeight: 55
+  maxWeight: 100
+  hungerRateMin: 1200
+  hungerRateMax: 1800
+  strengthRateMin: 1200
+  strengthRateMax: 1800
+  attentionRateMin: 1200
+  attentionRateMax: 1800
+  disciplineRateMin: 180
+  disciplineRateMax: 300
+  happinessRateMin: 180
+  happinessRateMax: 300
+  energyRecoveryRate: 600
+  atk: 40
+  spd: 15
+  def: 35

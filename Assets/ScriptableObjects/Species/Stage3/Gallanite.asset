@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc9330c3770b8704999015c73ec753ee, type: 3}
-  m_Name: Panzaur
+  m_Name: Gallanite
   m_EditorClassIdentifier: 
   spritesheets:
-  - {fileID: 11400000, guid: 5ddbdeca396d26b47a832fe8bbbaae98, type: 2}
-  speciesName: Panzaur
+  - {fileID: 11400000, guid: d4e93a700f6170a4796dcad3613c3de2, type: 2}
+  speciesName: Gallanite
   longetivityMin: 136800
   longetivityMax: 136800
   careMistakeCost: 1800
@@ -33,5 +33,5 @@ MonoBehaviour:
   happinessRateMax: 1800
   energyRecoveryRate: 420
   atk: 80
-  spd: 30
-  def: 100
+  spd: 50
+  def: 80
