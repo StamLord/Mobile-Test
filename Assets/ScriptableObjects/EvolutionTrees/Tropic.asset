@@ -116,7 +116,7 @@ MonoBehaviour:
         - property1: 3
           compare: 0
           property2: 13
-          customValue: 100
+          customValue: 70
         evolutions:
         - species: {fileID: 0}
           conditions:
