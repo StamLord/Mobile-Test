@@ -203,7 +203,6 @@ public class GameManager : MonoBehaviour
 
         if(routine.returnVal != null)
         {
-            Debug.Log(routine.returnVal);
             if(remember)
             {
                 // Remembers credentials
@@ -303,7 +302,10 @@ public class GameManager : MonoBehaviour
 
     public void SetSelection(int index)
     {
-        if(deadPopup.IsVisible())
+        if(index < 0) // If background selected (index -1)
+            return;
+
+        if(deadPopup.IsVisible()) // Currently not in use since death removed
             return;
 
         selection = index;
