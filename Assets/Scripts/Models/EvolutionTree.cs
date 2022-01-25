@@ -43,6 +43,8 @@ public class EvolutionTree : ScriptableObject
 
         foreach(EvolutionPath e in paths)
         {
+            if(e.species == null) // Fix empty species reference in path
+                continue;
             if(e.species.name == species) // Found
                 return e.evolutions;
             else
@@ -132,7 +134,6 @@ public class EvolutionCondition
         else 
         {
             string propName = property1.ToString("g");
-            Debug.Log(propName);
             try 
             {
                 prop1 = (int)pet.GetType().GetProperty(propName).GetValue(pet, null);
