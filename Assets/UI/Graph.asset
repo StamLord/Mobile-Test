@@ -262,8 +262,8 @@ MonoBehaviour:
   m_useUpdate: 0
   m_height: 128
   m_width: 216
-  m_x: 384
-  m_y: -444
+  m_x: 372
+  m_y: -288
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: f5eefae8-11b8-4b97-9424-7fa8932ee8d2
@@ -274,7 +274,13 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: Info
-  m_onEnterHideViews: []
+  m_onEnterHideViews:
+  - Category: General
+    InstantAction: 0
+    Name: Indicators
+  - Category: General
+    InstantAction: 0
+    Name: Stats
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: General
@@ -457,8 +463,8 @@ MonoBehaviour:
   m_useUpdate: 0
   m_height: 128
   m_width: 216
-  m_x: 360
-  m_y: 300
+  m_x: 372
+  m_y: 228
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: f5eefae8-11b8-4b97-9424-7fa8932ee8d2
@@ -469,7 +475,13 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: Feed
-  m_onEnterHideViews: []
+  m_onEnterHideViews:
+  - Category: General
+    InstantAction: 0
+    Name: Indicators
+  - Category: General
+    InstantAction: 0
+    Name: Stats
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: General
@@ -1211,7 +1223,10 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: Training
-  m_onEnterHideViews: []
+  m_onEnterHideViews:
+  - Category: General
+    InstantAction: 0
+    Name: Stats
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: General
@@ -1507,7 +1522,7 @@ MonoBehaviour:
   m_height: 128
   m_width: 216
   m_x: 372
-  m_y: 108
+  m_y: 72
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: f5eefae8-11b8-4b97-9424-7fa8932ee8d2
@@ -1518,7 +1533,13 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: Eggs
-  m_onEnterHideViews: []
+  m_onEnterHideViews:
+  - Category: General
+    InstantAction: 0
+    Name: Indicators
+  - Category: General
+    InstantAction: 0
+    Name: Stats
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: General
@@ -1962,25 +1983,25 @@ MonoBehaviour:
   m_onEnterShowViews:
   - Category: General
     InstantAction: 0
-    Name: Sensors
-  m_onEnterHideViews: []
-  m_onExitShowViews: []
-  m_onExitHideViews:
+    Name: Home
   - Category: General
     InstantAction: 0
     Name: Indicators
   - Category: General
     InstantAction: 0
+    Name: Stats
+  m_onEnterHideViews: []
+  m_onExitShowViews: []
+  m_onExitHideViews:
+  - Category: General
+    InstantAction: 0
     Name: Light
   - Category: General
     InstantAction: 0
-    Name: Sensors
-  - Category: General
-    InstantAction: 0
-    Name: Stats
-  - Category: General
-    InstantAction: 0
     Name: Teach
+  - Category: General
+    InstantAction: 0
+    Name: Home
 --- !u!114 &114699006836765720
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -112,6 +112,8 @@ public class GameManager : MonoBehaviour
 
         if(onActivePetsChange != null)
             onActivePetsChange(activePets);
+
+        ForceSelection();
     }
 
     #region Scene Prepare
