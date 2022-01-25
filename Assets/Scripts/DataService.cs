@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 
-public class  DataService 
+public class DataService 
 {
+    public static bool offline_mode = true;
     public static bool isLoggedin;
     public static bool tryingToLogin;
 
@@ -57,9 +58,18 @@ public class  DataService
             Debug.Log("Successfully logged in");
             yield return user;
         }
-        else
+        else //Network error
         {
-            Debug.Log("Error fetching from server");
+            if(offline_mode)
+            {
+                Debug.Log("[OFFLINE MODE] Creating offline user");
+                User offline_user = new User();
+                offline_user.username = "Offline";
+                offline_user.active = new string[0];
+                yield return offline_user;
+            }
+            else
+                Debug.Log("Error fetching from server");
         }
 
         tryingToLogin = false;
@@ -225,7 +235,12 @@ public class  DataService
         yield return request.SendWebRequest();
 
         if(request.isNetworkError)
-            Debug.Log("Error sending data to server");
+        {
+            if(offline_mode)
+                yield return "0000-0000-0000";
+            else
+                Debug.Log("Error sending data to server");
+        }
         else
         {
             byte[] result = request.downloadHandler.data;
@@ -256,8 +271,13 @@ public class  DataService
         }
         else
         {
-            Debug.Log("Error updating pet");
-            yield return false;
+            if(offline_mode)
+                yield return true;
+            else
+            {   
+                Debug.Log("Error updating pet");
+                yield return false;
+            }
         }
     }
 
