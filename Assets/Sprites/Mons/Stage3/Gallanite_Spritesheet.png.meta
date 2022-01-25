@@ -44,6 +44,12 @@ TextureImporter:
   - first:
       213: -8064841316431734666
     second: Gallanite_Spritesheet_13
+  - first:
+      213: 4524042660826888963
+    second: Gallanite_Spritesheet_14
+  - first:
+      213: -7592789958203111959
+    second: Gallanite_Spritesheet_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -434,6 +440,48 @@ TextureImporter:
       bones: []
       spriteID: 67851345d8de31090800000000000000
       internalID: -8064841316431734666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gallanite_Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30bbc43a4d0a8ce30800000000000000
+      internalID: 4524042660826888963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gallanite_Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 60
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e58627e2cdf0a690800000000000000
+      internalID: -7592789958203111959
       vertices: []
       indices: 
       edges: []
