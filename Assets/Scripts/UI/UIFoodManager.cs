@@ -15,6 +15,9 @@ public class UIFoodManager : MonoBehaviour
     public GameObject info;
     public TextMeshProUGUI hunger, weight, discipline, happiness, energy;
 
+    [Tooltip("Values will be represented with this character. Leave empty if you want to display in numeric values.")]
+    [SerializeField] private char bar_char = '█';
+
     void Start()
     {
         if(autoPopulate)
@@ -42,19 +45,9 @@ public class UIFoodManager : MonoBehaviour
 
         info.SetActive(true);
 
-        if(newFood.hunger > 0)
-            hunger.text = "HUNGER    +" + newFood.hunger; 
-        else if(newFood.hunger < 0)
-            hunger.text = "HUNGER    " + newFood.hunger;
-        else
-            hunger.text = "HUNGER    N/A";
-
-        if(newFood.weight > 0)
-            weight.text = "WEIGHT    +" + newFood.weight; 
-        else if(newFood.weight < 0)
-            weight.text = "WEIGHT    " + newFood.weight;
-        else
-            weight.text = "WEIGHT    N/A";
+        UpdateText(hunger, "HUNGER", newFood.hunger);
+        UpdateText(energy, "ENERGY", newFood.energy);
+        weight.text = "WEIGHT " + newFood.weight + "G";
 
         if(newFood.discipline > 0)
             discipline.text = "DISCIPLINE    +" + newFood.discipline; 
@@ -69,12 +62,20 @@ public class UIFoodManager : MonoBehaviour
             happiness.text = "HAPPINESS    " + newFood.happiness;
         else
             happiness.text = "HAPPINESS    N/A";
+    }
 
-        if(newFood.energy > 0)
-            energy.text = "ENERGY    +" + newFood.energy; 
-        else if(newFood.energy < 0)
-            energy.text = "ENERGY    " + newFood.energy;
+    private void UpdateText(TextMeshProUGUI textHolder, string attributeName, int value)
+    {
+        textHolder.text = attributeName + " ";
+        if(bar_char != ' ')
+        {
+            for (var i = 0; i < Mathf.Abs(value); i++)
+                textHolder.text += bar_char + " ";
+        }
         else
-            energy.text = "ENERGY    N/A";
+        {
+            if(value > 0) textHolder.text += "+";
+            textHolder.text += value;
+        }
     }
 }
