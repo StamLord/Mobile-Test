@@ -411,12 +411,11 @@ public class GameManager : MonoBehaviour
 
         if(selection > -1)
         {
+            if(SelectedPet.CanDiscipline()) 
+                UIManager.instance.ShowPopup("DISCIPLINE", 10);
+            else
+                UIManager.instance.ShowPopup("HAPPY", -10);
             SelectedPet.Scold();
-
-        if(SelectedPet.CanDiscipline()) 
-            UIManager.instance.ShowPopup("DISCIPLINE", 10);
-        else
-            UIManager.instance.ShowPopup("HAPPY", -10);
         }
     }
 
