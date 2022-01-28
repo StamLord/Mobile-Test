@@ -117,35 +117,7 @@ MonoBehaviour:
           compare: 0
           property2: 13
           customValue: 70
-        evolutions:
-        - species: {fileID: 0}
-          conditions:
-          - property1: 0
-            compare: 0
-            property2: 0
-            customValue: 0
-          evolutions:
-          - species: {fileID: 0}
-            conditions:
-            - property1: 0
-              compare: 0
-              property2: 0
-              customValue: 0
-            evolutions:
-            - species: {fileID: 0}
-              conditions:
-              - property1: 0
-                compare: 0
-                property2: 0
-                customValue: 0
-              evolutions:
-              - species: {fileID: 0}
-                conditions:
-                - property1: 0
-                  compare: 0
-                  property2: 0
-                  customValue: 0
-                evolutions: []
+        evolutions: []
   stagesEvolveAt:
   - 60
   - 21600
