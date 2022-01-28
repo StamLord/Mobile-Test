@@ -162,19 +162,23 @@ public class ActivePet
 
     private int CalculateEnergy()
     {
-        // Update discipline based on time since snapshot
+        // Update energy based on time since snapshot
         double timeSinceTrained = Timestamp.GetSecondsSince(snapshot.energyStamp);
-
+        
         // Find out how much of this time was spent sleeping
-        double timeSlept = (snapshot.energyStamp - (SleepTime() + snapshot.sleepStamp)) * -1;
+        double lastSleep = Timestamp.GetSecondsSince(snapshot.sleepStamp);
+        double timeSlept = 0.0;
+
+        if(snapshot.sleepStamp > snapshot.energyStamp) // Compares stampts to see if slept after training
+            timeSlept = (IsSleeping())? Timestamp.GetSecondsSince(snapshot.sleepStamp) : snapshot.sleepHours;
+        
         if(timeSlept < 0) timeSlept = 0;
         double timeAwake = timeSinceTrained - timeSlept;
+        
+        double totalTime = timeAwake + timeSlept * 2; // When sleeping energy regenerates twice as fast
+        int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)totalTime / (float)snapshot.energyRecoveryRate);
 
-        int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)timeAwake / (float)snapshot.energyRecoveryRate);
-        calculatedEnergy += Mathf.FloorToInt((float)timeAwake / (float)snapshot.energyRecoveryRate * 2);
-
-        calculatedEnergy = Mathf.Clamp(calculatedEnergy, 0, 20);
-
+        calculatedEnergy = Mathf.Clamp(calculatedEnergy, 0, 10);
         return calculatedEnergy;
     }
 
@@ -400,7 +404,7 @@ public class ActivePet
         // Create backup in case server doesn't respond
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.energy = energy - amount;
-        snapshot.energyStamp = Timestamp.GetTimeStamp();
+        snapshot.energyStamp = Timestamp.GetTimeStamp();Debug.Log(snapshot.energy);
 
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
