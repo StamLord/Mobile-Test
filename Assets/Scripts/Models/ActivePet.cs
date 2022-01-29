@@ -261,7 +261,8 @@ public class ActivePet
         // Create backup in case server doesn't respond
         PetSnapshot backup = GetSnapshotCopy(); 
         snapshot.wakeStamp = Timestamp.GetTimeStamp();
-        
+        snapshot.energy = CalculateEnergy(); // We "save" the energy replenished until this point
+
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
     }
