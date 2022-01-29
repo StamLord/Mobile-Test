@@ -347,9 +347,12 @@ public class GameManager : MonoBehaviour
         if(activePets[petIndex].isDead)
             return;
 
+        if(activePets[petIndex].IsSleeping())
+            activePets[petIndex].Wake();
+
         if(activePets[petIndex].energy < 1)
         {
-            UIManager.instance.ShowTrainingTip("Pet has no energy!");
+            UIManager.instance.ShowTrainingTip("Pet has no energy!\nIt needs to sleep!");
             return;
         }
 
