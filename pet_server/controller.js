@@ -116,7 +116,7 @@ module.exports.createPet = (req, res) => {
         happiness, happinessRate, happinessStamp,
         discipline, disciplineRate, disciplineStamp,
         energy, energyRecoveryRate, energyStamp,
-        sleepStamp, sleepHours,
+        sleepStamp, sleepHours, wakeStamp,
         s_atk, s_spd, s_def,
         g_atk, g_spd, g_def,
         t_atk, t_spd, t_def} = req.body;
@@ -137,7 +137,7 @@ module.exports.createPet = (req, res) => {
                     happiness, happinessRate, happinessStamp,
                     discipline, disciplineRate, disciplineStamp,
                     energy, energyRecoveryRate, energyStamp,
-                    sleepStamp, sleepHours,
+                    sleepStamp, sleepHours, wakeStamp,
                     s_atk, s_spd, s_def,
                     g_atk, g_spd, g_def,
                     t_atk, t_spd, t_def
@@ -166,7 +166,7 @@ module.exports.updatePet = (req, res) => {
         happiness, happinessRate, happinessStamp,
         discipline, disciplineRate, disciplineStamp,
         energy, energyRecoveryRate, energyStamp,
-        sleepStamp, sleepHours,
+        sleepStamp, sleepHours, wakeStamp,
         s_atk, s_spd, s_def,
         g_atk, g_spd, g_def,
         t_atk, t_spd, t_def} = req.body;
@@ -186,7 +186,7 @@ module.exports.updatePet = (req, res) => {
                 happiness, happinessRate, happinessStamp,
                 discipline, disciplineRate, disciplineStamp,
                 energy, energyRecoveryRate, energyStamp,
-                sleepStamp, sleepHours,
+                sleepStamp, sleepHours, wakeStamp,
                 s_atk, s_spd, s_def,
                 g_atk, g_spd, g_def,
                 t_atk, t_spd, t_def

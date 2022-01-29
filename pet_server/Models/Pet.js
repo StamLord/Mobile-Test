@@ -52,6 +52,7 @@ const PetSchema = new mongoose.Schema({
 
     sleepStamp: Number,
     sleepHours: Number,
+    wakeStamp: Number,
 
     s_atk: Number,
     s_spd: Number,

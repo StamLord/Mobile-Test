@@ -22,4 +22,5 @@ public class PetSnapshot: PetBase
 
     public double sleepStamp;
     public int sleepHours;
+    public double wakeStamp;
 }

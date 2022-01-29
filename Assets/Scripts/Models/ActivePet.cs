@@ -160,25 +160,53 @@ public class ActivePet
         return calculatedDiscipline;
     }
 
+    /// <summary>
+    /// Get energy based on time slept
+    /// </summary>
+    /// <returns>Amount of Energy</returns>
     private int CalculateEnergy()
     {
-        // Update energy based on time since snapshot
+        if(snapshot.sleepStamp < snapshot.energyStamp) // If did not sleep after last energy reduction, no change in
+            return snapshot.energy;
+
+        double totalSleepTime = SleepTime();
+        
+        int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)totalSleepTime / (float)snapshot.energyRecoveryRate);
+
+        calculatedEnergy = Mathf.Clamp(calculatedEnergy, 0, 10);
+        Debug.Log("Total SleepTime: " + totalSleepTime);
+        Debug.Log("Energy: " + calculatedEnergy);
+        return calculatedEnergy;
+    }
+
+    /// <summary>
+    /// Get energy based on time since snapshot taking into account sleeping time. Currently does not work properly
+    /// </summary>
+    /// <returns>Amount of Energy</returns>
+    private int CalculateEnergyComplex()
+    {
         double timeSinceTrained = Timestamp.GetSecondsSince(snapshot.energyStamp);
         
         // Find out how much of this time was spent sleeping
-        double lastSleep = Timestamp.GetSecondsSince(snapshot.sleepStamp);
         double timeSlept = 0.0;
 
-        if(snapshot.sleepStamp > snapshot.energyStamp) // Compares stampts to see if slept after training
-            timeSlept = (IsSleeping())? Timestamp.GetSecondsSince(snapshot.sleepStamp) : snapshot.sleepHours;
+        if(snapshot.sleepStamp > snapshot.energyStamp) // Compares stamps to see if slept after training
+            timeSlept = (IsSleeping())? Timestamp.GetSecondsSince(snapshot.sleepStamp) : snapshot.sleepHours * 60 * 60; // <-- Need to add wakeupTime to snapshot to calculate sleep to wake time
+
+        Debug.Log("Sleep hours: " + snapshot.sleepHours);
+        Debug.Log("Time slept: " + timeSlept);
         
         if(timeSlept < 0) timeSlept = 0;
         double timeAwake = timeSinceTrained - timeSlept;
         
+        Debug.Log("Awake time: " + timeAwake);
+
         double totalTime = timeAwake + timeSlept * 2; // When sleeping energy regenerates twice as fast
+        Debug.Log("Total time: " + totalTime);
         int calculatedEnergy = snapshot.energy + Mathf.FloorToInt((float)totalTime / (float)snapshot.energyRecoveryRate);
 
         calculatedEnergy = Mathf.Clamp(calculatedEnergy, 0, 10);
+        Debug.Log("Energy: " + calculatedEnergy);
         return calculatedEnergy;
     }
 
@@ -232,7 +260,7 @@ public class ActivePet
 
         // Create backup in case server doesn't respond
         PetSnapshot backup = GetSnapshotCopy(); 
-        snapshot.sleepHours = 0;
+        snapshot.wakeStamp = Timestamp.GetTimeStamp();
         
         // Send snapshot to server
         GameManager.instance.StartCoroutine(GameManager.instance.SaveSnapshot(this, snapshot, backup));
@@ -240,13 +268,17 @@ public class ActivePet
 
     public bool IsSleeping()
     {
-        int sleepHours = Mathf.FloorToInt((float)SleepTime()/ 60 / 60);
-        return (sleepHours < snapshot.sleepHours);
+        return (snapshot.wakeStamp < snapshot.sleepStamp);
     }
 
     public double SleepTime()
     {
-        return Timestamp.GetSecondsSince(snapshot.sleepStamp);
+        if(IsSleeping())
+            return Timestamp.GetSecondsSince(snapshot.sleepStamp);
+        
+        double timeSinceSleepStart = Timestamp.GetSecondsSince(snapshot.sleepStamp);
+        double timeSinceWake = Timestamp.GetSecondsSince(snapshot.wakeStamp);
+        return timeSinceSleepStart - timeSinceWake;
     }
 
     private bool IsDead()
